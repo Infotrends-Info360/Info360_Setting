@@ -103,7 +103,7 @@ public class Query_Person_STATE_Servlet {
 	        for (int i = 0; i < cfg_personlist.size(); i++) {
 	        	JSONObject PersonJsonObject = new JSONObject();
 	        	PersonJsonObject.put("dn", cfg_personlist.get(i).getDn());
-	        	//PersonJsonObject.put("dbid", cfg_personlist.get(i).getDbid());
+	        	PersonJsonObject.put("dbid", cfg_personlist.get(i).getDbid());
 	        	//PersonJsonObject.put("createdatetime", cfg_personlist.get(i).getCreatedatetime());
 	        	PersonJsonObject.put("account",    cfg_personlist.get(i).getAccount());
 	        	//PersonJsonObject.put("password", cfg_personlist.get(i).getPassword());

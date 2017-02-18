@@ -64,7 +64,7 @@
   
   
   <select id="Query_PersonInfo_STATE" parameterType="com.infotrends.bean.CFG_person"  resultMap="cfg_personResult">
-    select DBID,ACCOUNT,FIRSTNAME,LASTNAME,USER_NAME,EMAILADDRESS,EMPLOYEE_ID,STATE,DN,CREATEDATETIME,PASSWORD,DN,MAX_COUNT
+    select ACCOUNT,FIRSTNAME,LASTNAME,USER_NAME,EMAILADDRESS,EMPLOYEE_ID,STATE,DN,CREATEDATETIME,PASSWORD,DN,MAX_COUNT,DBID
     from  tblcfg_person  
     <if test="state == 1">
      	where state =1
