@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+       Copyright 2009-2016 the original author or authors.
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+-->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cfg_group">
+
+  <resultMap type="com.infotrends.bean.CFG_group" id="cfg_groupResult">
+    <id     column="DBID" jdbcType="INTEGER" property="dbid"/>
+    <result column="NAME" jdbcType="VARCHAR" property="name"/>
+    <result column="STATE" jdbcType="INTEGER" property="state"/>
+  </resultMap>
+  
+  <select id="Query_Group_state" parameterType="com.infotrends.bean.CFG_group"  resultMap="cfg_groupResult">
+    select DBID,NAME,STATE from tblCfg_Group 
+    <if test="state == 0">
+     	where state =0
+    </if> 
+     <if test="state != 0">
+     	where state =1
+    </if> 
+  </select>
+  
+  <select id="Query_GroupInfo" parameterType="com.infotrends.bean.CFG_group"  resultMap="cfg_groupResult">
+    select DBID,NAME,STATE from tblCfg_Group 
+    <if test="dbid != 0">
+     	where dbid =#{dbid}
+    </if>  
+  </select>
+  
+  <select id="Query_GroupInfo_name" parameterType="com.infotrends.bean.CFG_group"  resultMap="cfg_groupResult">
+    select DBID,NAME,STATE from tblCfg_Group 
+    <if test="name != null and !&quot;&quot;.equals(name.trim())">
+     	where name =#{name}
+    </if>
+  </select>
+
+ <insert id="Insert_GroupInfo" parameterType="com.infotrends.bean.CFG_group">
+  	insert into tblCfg_Group (name,state) 
+  	values (#{name},#{state})
+                        
+  </insert>
+  
+  <update id="Update_GroupInfo" parameterType="com.infotrends.bean.CFG_group">
+    
+    update  tblcfg_group set name=#{name},state=#{state}
+    where dbid=#{dbid}
+  
+  </update>
+  
+  <update id="Logic_Delete" parameterType="com.infotrends.bean.CFG_group">
+  	update tblcfg_group set STATE=#{state}
+  	where name=#{name}                 
+  </update>
+  
+  <delete id="Delete_GroupInfo" parameterType="com.infotrends.bean.CFG_group">
+    delete tblcfg_group where dbid=#{dbid}
+  
+  </delete>
+
+</mapper>

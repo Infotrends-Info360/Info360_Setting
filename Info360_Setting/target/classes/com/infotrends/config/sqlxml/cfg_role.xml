@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="cfg_role">
+    	<resultMap type="com.infotrends.bean.CFG_role" id="cfg_roleResult">
+    		 <id     column="DBID"  jdbcType="BIGINT" property="dbid"/>
+   			 <result column="NAME" jdbcType="VARCHAR" property="name"/>
+   			 <result column="DESCRIPION" jdbcType="VARCHAR" property="descripion"/>
+    	</resultMap> 
+    	
+<select id="Select_role_dbid" parameterType="com.infotrends.bean.CFG_role"  resultMap="cfg_roleResult">
+    select DBID,NAME,DESCRIPION from tblCfg_Role where dbid=#{dbid}
+</select>
+
+<insert id="Insert_Role_Info" parameterType="com.infotrends.bean.CFG_role">
+  	insert into tblCfg_Role (name,descripion) 
+  	values (#{name},#{descripion})                     
+</insert>
+
+<update id="Update_Role_Info" parameterType="com.infotrends.bean.CFG_role">
+    update  tblCfg_Role set name=#{name},descripion=#{descripion}
+    where dbid=#{dbid}
+</update>
+
+<delete id="Delete_Role_Info" parameterType="com.infotrends.bean.CFG_role">
+    delete tblCfg_Role where dbid=#{dbid}
+</delete>
+   
+    </mapper>

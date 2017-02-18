@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="cfg_role_member">
+    	<resultMap type="com.infotrends.bean.CFG_role_member" id="cfg_role_memberResult"> 
+    	  	 <id     column="ROLE_DBID"  jdbcType="BIGINT" property="role_dbid"/>
+   			 <result column="Group_DBID" jdbcType="BIGINT" property="group_dbid"/>
+    	</resultMap>
+    	
+<select id="Select_Rolemember_Groupdbid" parameterType="com.infotrends.bean.CFG_role_member"  resultMap="cfg_role_memberResult">
+    select ROLE_DBID,Group_DBID from tblCfg_Role_Member
+   <if test="group_dbid != 0">
+     	where group_dbid =#{group_dbid}
+    </if>  
+</select>
+
+
+<select id="Select_Rolemember_Roledbid" parameterType="com.infotrends.bean.CFG_role_member"  resultMap="cfg_role_memberResult">
+    select ROLE_DBID,Group_DBID from tblCfg_Role_Member where role_dbid =#{role_dbid}
+</select>
+
+
+
+<insert id="Insert_Role_MemberInfo" parameterType="com.infotrends.bean.CFG_role_member">
+  	insert into tblCfg_Role_Member (role_dbid,group_dbid) 
+  	values (#{role_dbid},#{group_dbid})                     
+</insert>
+
+<update id="Update_Role_MemberInfo" parameterType="com.infotrends.bean.CFG_role_member">
+    update  tblCfg_Role_Member set role_dbid=#{role_dbid},group_dbid=#{group_dbid}
+    where role_dbid=#{role_dbid}
+</update>
+
+<delete id="Delete_Role_MemberInfo" parameterType="com.infotrends.bean.CFG_role_member">
+    delete tblCfg_Role_Member where role_dbid=#{role_dbid}
+</delete>
+
+    </mapper>

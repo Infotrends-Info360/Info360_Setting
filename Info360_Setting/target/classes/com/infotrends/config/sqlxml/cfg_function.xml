@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="cfg_function">
+    	<resultMap type="com.infotrends.bean.CFG_function" id="cfg_functionResult">
+    	
+    		<id     column="DBID" 			jdbcType="BIGINT" property="dbid"/>
+    		<result column="CODE" 			jdbcType="VARCHAR" property="code"/>
+    		<result column="NAME" 			jdbcType="VARCHAR" property="name"/>
+    		<result column="PROGRAMPATH"    jdbcType="VARCHAR" property="programpath"/>
+    		<result column="STATE"    		jdbcType="INTEGER" property="state"/>
+    		<result column="CATALOGID" 		jdbcType="INTEGER" property="catalogid"/>
+    		<result column="ARRAYNUMBER" 	jdbcType="INTEGER" property="arraynumber"/>
+    		<result column="PERMIMG" 		jdbcType="VARCHAR" property="permimg"/>
+    		
+    		<collection property="cfg_BE_FunctionList" 	ofType="com.infotrends.bean.CFG_permission">
+    			<id     column="DBID" 				  jdbcType="INTEGER" property="dbid"/>
+    			<result column="ROLE_DBID" 		      jdbcType="INTEGER" property="role_dbid"/>
+    			<result column="FUNCTION_DBID" 		  jdbcType="VARCHAR" property="function_dbid"/>
+   		    	<result column="CREATEDATETIME"       jdbcType="VARCHAR" property="createdatetime"/>
+    			<result column="CREATEUSERID"      	  jdbcType="INTEGER" property="createuserid"/>
+    		</collection>   
+    		
+    	</resultMap>
+<select id="select_function_dbid" parameterType="com.infotrends.bean.CFG_function"  resultMap="cfg_functionResult">
+    select DBID,CODE,NAME,PROGRAMPATH,STATE,CATALOGID,ARRAYNUMBER,PERMIMG from tblCfg_Function where dbid =#{dbid}
+</select>
+
+<select id="Select_BE_FunctionPermission" parameterType="com.infotrends.bean.CFG_function"  resultMap="cfg_functionResult">
+     select DBID,CODE,NAME,PROGRAMPATH,STATE,CATALOGID,ARRAYNUMBER,PERMIMG from tblCfg_Function where 
+    <foreach item="item" index="index" collection="cfg_BE_FunctionList"
+     open="" separator="or" close="">
+        DBID =#{item}
+  	</foreach>
+</select>
+
+
+<insert id="Insert_Function" parameterType="com.infotrends.bean.CFG_function">
+  	insert into tblCfg_Function (code,name,programpath,state,catalogid,arraynumber,permimg) 
+  	values (#{code},#{name},#{programpath},#{state},#{catalogid},#{arraynumber},#{permimg})                    
+</insert>
+
+ <update id="Update_FunctionInfo" parameterType="com.infotrends.bean.CFG_function">
+    update  tblCfg_Function  set code=#{code},name=#{name},
+    programpath=#{programpath},state=#{state},catalogid=#{catalogid},
+    arraynumber=#{arraynumber},permimg=#{permimg}
+    where dbid=#{dbid}
+  </update>
+  
+  <delete id="Delete_FunctionInfo" parameterType="com.infotrends.bean.CFG_function">
+    delete tblCfg_Function where dbid=#{dbid}
+  </delete>
+    </mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="cfg_permission">
+    	<resultMap type="com.infotrends.bean.CFG_permission" id="cfg_permissionResult">
+    	
+    	 	<id     column="DBID" 				  jdbcType="INTEGER" property="dbid"/>
+    		<result column="ROLE_DBID" 		      jdbcType="INTEGER" property="role_dbid"/>
+    		<result column="FUNCTION_DBID" 		  jdbcType="VARCHAR" property="function_dbid"/>
+   		    <result column="CREATEDATETIME"       jdbcType="VARCHAR" property="createdatetime"/>
+    		<result column="CREATEUSERID"      	  jdbcType="INTEGER" property="createuserid"/>
+    		
+    		<collection property="cfg_BE_RoleFunctionList" 	ofType="com.infotrends.bean.CFG_role_member">
+    		<id     column="ROLE_DBID"  jdbcType="INTEGER" property="role_dbid"/>
+   			 <result column="Group_DBID" jdbcType="INTEGER" property="group_dbid"/>
+    		</collection>   
+    		 
+    	</resultMap>
+    	
+<select id="Select_permission_roledbid" parameterType="com.infotrends.bean.CFG_permission"  resultMap="cfg_permissionResult">
+    select DISTINCT DBID,ROLE_DBID,FUNCTION_DBID,CREATEDATETIME,CREATEUSERID from tblCfg_Permission where role_dbid =#{role_dbid}
+</select>
+
+<select id="Select_permission_roleFunction" parameterType="com.infotrends.bean.CFG_permission"  resultMap="cfg_permissionResult">
+     select DISTINCT FUNCTION_DBID from tblCfg_Permission where 
+    <foreach item="item" index="index" collection="cfg_BE_RoleFunctionList"
+     open="" separator="or" close="">
+        function_dbid =#{item} 
+  	</foreach>
+</select>
+
+
+<insert id="Insert_Permission_Info" parameterType="com.infotrends.bean.CFG_permission">
+  	insert into tblCfg_Permission (role_dbid,function_dbid,createuserid) 
+  	values (#{role_dbid},#{function_dbid},#{createuserid})                     
+</insert>
+
+<update id="Update_Permission_Info" parameterType="com.infotrends.bean.CFG_permission">
+    update  tblCfg_Permission  set role_dbid=#{role_dbid},function_dbid=#{function_dbid}
+    
+    where dbid=#{dbid}
+</update>
+  
+<delete id="Delete_Permission_Info" parameterType="com.infotrends.bean.CFG_permission">
+    delete tblCfg_Permission where dbid=#{dbid}
+</delete>
+    </mapper>
