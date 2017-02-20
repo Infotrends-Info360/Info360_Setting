@@ -96,7 +96,8 @@ public class loginServlet {
  	        	PersonJsonObject.put("state", cfg_personlist.get(0).getState());  
  	        	PersonJsonObject.put("pass_error_count", cfg_personlist.get(0).getPass_error_count());
  	        	PersonJsonObject.put("ch_pass_on_login", cfg_personlist.get(0).getCh_pass_on_login());
- 	        
+ 	        	PersonJsonObject.put("max_count", cfg_personlist.get(0).getMax_count());
+
  	        PersonJsonArray.put(PersonJsonObject);
  	       		
  	       
