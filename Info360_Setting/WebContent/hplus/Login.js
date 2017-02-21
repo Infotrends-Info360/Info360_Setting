@@ -6,7 +6,7 @@
 	   var password = $('#password').val();
 
 	     $.ajax({
-	         url:"http://ws.crm.com.tw:8080/Info360_Setting/RESTful/Login",
+	         url:"/Info360_Setting/RESTful/Login",
 	         data:{
 	        	 account:account,
 	        	 password:password

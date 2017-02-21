@@ -27,7 +27,9 @@ public class person_Logic_delete_Servlet {
 	public Response postFromPath(
 
 			@FormParam("account") 	String account,
-			@FormParam("state") 	int state
+			@FormParam("state") 	int state,
+			@FormParam("pass_error_count") 	int pass_error_count
+			
 			
 			) throws IOException {
 		
@@ -40,8 +42,19 @@ public class person_Logic_delete_Servlet {
 		int updatecount=0;
 		try{
 			MaintainService maintainService = new MaintainService();
-			updatecount = maintainService.Logic_Delete(cfg_person);
-			jsonObject.put("updatecount", updatecount);
+			if(state==0){
+				cfg_person.setPass_error_count(0);
+				updatecount = maintainService.Logic_Delete(cfg_person);
+				jsonObject.put("updatecount", updatecount);
+			}else{
+				cfg_person.setPass_error_count(3);
+				updatecount = maintainService.Logic_Delete(cfg_person);
+				jsonObject.put("updatecount", updatecount);
+			}
+			
+			
+			
+			
 			
 		} catch (Exception e) {
 			if(IsError.GET_EXCEPTION != null)
