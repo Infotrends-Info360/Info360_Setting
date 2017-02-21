@@ -51,7 +51,9 @@ public class Update_PersonInfoServlet {
 			@FormParam("dn")   			int dn,
 			@FormParam("ch_pass_on_login")String ch_pass_on_login,
 			@FormParam("group_dbid") long group_dbid,
-			@FormParam("max_count") int max_count
+			@FormParam("max_count") int max_count,
+			@FormParam("pass_error_count") int pass_error_count
+
 			
 			
 			
@@ -83,16 +85,33 @@ public class Update_PersonInfoServlet {
 		int updatecount=0;
 		try{
 			MaintainService maintainService = new MaintainService();
-			updatecount = maintainService.update_PersonInfo(cfg_person);
-			jsonObject.put("updatecount", updatecount);
-			if(group_dbid!=0){
-				List<CFG_person> cfg_personlist = maintainService.query_Person_Account(cfg_person);
-				CFG_group_person cfg_group_person = new CFG_group_person();
-				cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
-				cfg_group_person.setGroup_dbid(group_dbid);
-				int grouppersoncount = maintainService.update_Group_PersonInfo(cfg_group_person);
-				jsonObject.put("group_person_insertcount", grouppersoncount);
+			
+			if(state==0){
+				cfg_person.setPass_error_count(0);
+				updatecount = maintainService.update_PersonInfo(cfg_person);
+				jsonObject.put("updatecount", updatecount);
+				if(group_dbid!=0){
+					List<CFG_person> cfg_personlist = maintainService.query_Person_Account(cfg_person);
+					CFG_group_person cfg_group_person = new CFG_group_person();
+					cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
+					cfg_group_person.setGroup_dbid(group_dbid);
+					int grouppersoncount = maintainService.update_Group_PersonInfo(cfg_group_person);
+					jsonObject.put("group_person_insertcount", grouppersoncount);
+				}
+			}else{
+				cfg_person.setPass_error_count(3);
+				updatecount = maintainService.update_PersonInfo(cfg_person);
+				jsonObject.put("updatecount", updatecount);
+				if(group_dbid!=0){
+					List<CFG_person> cfg_personlist = maintainService.query_Person_Account(cfg_person);
+					CFG_group_person cfg_group_person = new CFG_group_person();
+					cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
+					cfg_group_person.setGroup_dbid(group_dbid);
+					int grouppersoncount = maintainService.update_Group_PersonInfo(cfg_group_person);
+					jsonObject.put("group_person_insertcount", grouppersoncount);
 			}
+			}
+			
 			
 		} catch (Exception e) {
 			if(IsError.GET_EXCEPTION != null)

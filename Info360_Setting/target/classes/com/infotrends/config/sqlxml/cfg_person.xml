@@ -82,12 +82,12 @@
   </insert>
   
    <update id="Logic_Delete" parameterType="com.infotrends.bean.CFG_person">
-  	update tblcfg_person set STATE=#{state}
+  	update tblcfg_person set STATE=#{state},PASS_ERROR_COUNT=#{pass_error_count}
   	where account=#{account}                 
   </update>
   
     <update id="login_ErrorCount" parameterType="com.infotrends.bean.CFG_person">
-  	update tblcfg_person set PASS_ERROR_COUNT=#{pass_error_count}
+  	update tblcfg_person set PASS_ERROR_COUNT=#{pass_error_count},STATE=#{state}
   	where account=#{account}                 
    </update>
   
@@ -96,7 +96,7 @@
   <update id="Update_PersonInfo" parameterType="com.infotrends.bean.CFG_person">
     update  tblcfg_person  set ACCOUNT=#{account},FIRSTNAME=#{first_name},STATE=#{state},PASSWORD=#{password},
     LASTNAME=#{emailaddress},USER_NAME=#{user_name},EMAILADDRESS=#{password},EMPLOYEE_ID=#{employee_id},DN=#{dn},
-    CH_PASS_ON_LOGIN=#{ch_pass_on_login},MAX_COUNT=#{max_count}
+    CH_PASS_ON_LOGIN=#{ch_pass_on_login},MAX_COUNT=#{max_count},PASS_ERROR_COUNT=#{pass_error_count}
     where account=#{account}
   </update>
   
