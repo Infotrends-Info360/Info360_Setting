@@ -64,9 +64,10 @@ public class loginServlet {
 	   
 	    	MaintainService maintainService = new MaintainService();
 	    	List<CFG_person> cfg_personlist = maintainService.Login_PersonInfo(cfg_person);
-
-	    if(cfg_person.getAccount() != null && !"".equals(cfg_person.getAccount().trim())){
-	   
+	    if(cfg_personlist.get(0).getPass_error_count()>=3){
+	    	jsonObject.put("error", "登入錯誤過多,請洽客服");
+	    }else if(cfg_person.getAccount() != null && !"".equals(cfg_person.getAccount().trim())){
+	    	   
 	    	 //cfg_person        
 	        JSONArray PersonJsonArray = new JSONArray();
 	        JSONArray PersonGroupArray = new JSONArray();
@@ -101,7 +102,7 @@ public class loginServlet {
  	        PersonJsonArray.put(PersonJsonObject);
  	       		
  	       
- 	   if(cfg_personlist.get(0).getPass_error_count()<3 && cfg_person.getPassword().trim().equals(cfg_personlist.get(0).getPassword().trim())){
+ 	   if(cfg_person.getPassword().trim().equals(cfg_personlist.get(0).getPassword().trim())){
 
  		  jsonObject.put("person", PersonJsonArray);
  		  
@@ -247,31 +248,28 @@ public class loginServlet {
  	 }
  	
  	//Login 成功 且 Pass_error_count 小於3
+ 	int updatePasscount=0;
+ 	cfg_person.setPass_error_count(0);
+	  updatePasscount = maintainService.login_ErrorCount(cfg_person);
+
  	
- 	System.out.println("login成功 且 error count < 3");
- 	 
  	  }else{
- 		//密碼錯誤 且 Pass_error_count ++
+ 		//密碼錯誤 
  		 int updatePasscount=0;
- 		  System.out.println("帳號: " +cfg_person.getAccount());
- 		
+// 		  System.out.println("帳號: " +cfg_person.getAccount());
+// 		
  		  int count = cfg_personlist.get(0).getPass_error_count();
  		 int a = count+1;
  		
  		  cfg_person.setPass_error_count(a);
- 		  System.out.println("count:"+a);
+// 		  System.out.println("count:"+a);
  		  updatePasscount = maintainService.login_ErrorCount(cfg_person);
 	    	
 			jsonObject.put("ErrorCount", updatePasscount);
 
  		  	jsonObject.put("error", "密碼輸入錯誤");
  	  	    }
- 	       
- 	   
- 	   
- 	   
- 	   
- 	   
+ 	    
 	    }else{
 	    	//帳號未輸入
 	    	jsonObject.put("error", "帳號未輸入");
