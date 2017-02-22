@@ -95,7 +95,7 @@
   
   <update id="Update_PersonInfo" parameterType="com.infotrends.bean.CFG_person">
     update  tblcfg_person  set ACCOUNT=#{account},FIRSTNAME=#{first_name},STATE=#{state},PASSWORD=#{password},
-    LASTNAME=#{emailaddress},USER_NAME=#{user_name},EMAILADDRESS=#{password},EMPLOYEE_ID=#{employee_id},DN=#{dn},
+    LASTNAME=#{lastname},USER_NAME=#{user_name},EMAILADDRESS=#{emailaddress},EMPLOYEE_ID=#{employee_id},DN=#{dn},
     CH_PASS_ON_LOGIN=#{ch_pass_on_login},MAX_COUNT=#{max_count},PASS_ERROR_COUNT=#{pass_error_count}
     where account=#{account}
   </update>
