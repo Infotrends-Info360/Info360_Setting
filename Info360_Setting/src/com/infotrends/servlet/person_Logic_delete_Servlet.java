@@ -46,6 +46,10 @@ public class person_Logic_delete_Servlet {
 				cfg_person.setPass_error_count(0);
 				updatecount = maintainService.Logic_Delete(cfg_person);
 				jsonObject.put("updatecount", updatecount);
+			}else if(state==2){
+				cfg_person.setPass_error_count(3);
+				updatecount = maintainService.Logic_Delete(cfg_person);
+				jsonObject.put("updatecount", updatecount);
 			}else{
 				cfg_person.setPass_error_count(3);
 				updatecount = maintainService.Logic_Delete(cfg_person);
