@@ -26,8 +26,8 @@ public class person_Logic_delete_Servlet {
 	@Produces("application/json")
 	public Response postFromPath(
 
-			@FormParam("account") 	String account,
-			@FormParam("state") 	int state,
+			@FormParam("dbid") 	int dbid,
+			@FormParam("state") int state,
 			@FormParam("pass_error_count") 	int pass_error_count
 			
 			
@@ -36,7 +36,7 @@ public class person_Logic_delete_Servlet {
 		JSONObject jsonObject = new JSONObject();
 		CFG_person cfg_person = new CFG_person();
 
-		cfg_person.setAccount(account);
+		cfg_person.setDbid(dbid);
 		cfg_person.setState(state);
 	
 		int updatecount=0;

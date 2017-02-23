@@ -83,7 +83,7 @@
   
    <update id="Logic_Delete" parameterType="com.infotrends.bean.CFG_person">
   	update tblcfg_person set STATE=#{state},PASS_ERROR_COUNT=#{pass_error_count}
-  	where account=#{account}                 
+  	where dbid=#{dbid}                 
   </update>
   
     <update id="login_ErrorCount" parameterType="com.infotrends.bean.CFG_person">
