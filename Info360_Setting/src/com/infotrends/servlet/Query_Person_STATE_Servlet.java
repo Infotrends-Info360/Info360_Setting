@@ -39,7 +39,7 @@ public class Query_Person_STATE_Servlet {
 		try{
 			MaintainService maintainService = new MaintainService();
 	        List<CFG_person> cfg_personlist = maintainService.Query_PersonInfo_STATE(cfg_person);
-	        if(state == 0){
+	        if(state == 0 && state ==2){
 	        	//撈取cfg_group_person關聯
 	        	CFG_group_person cfg_group_person = new CFG_group_person();
 	        	cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
@@ -102,6 +102,7 @@ public class Query_Person_STATE_Servlet {
 	        JSONArray PersonJsonArray = new JSONArray();
 	        for (int i = 0; i < cfg_personlist.size(); i++) {
 	        	JSONObject PersonJsonObject = new JSONObject();
+	        	
 	        	PersonJsonObject.put("dn", cfg_personlist.get(i).getDn());
 	        	PersonJsonObject.put("dbid", cfg_personlist.get(i).getDbid());
 	        	//PersonJsonObject.put("createdatetime", cfg_personlist.get(i).getCreatedatetime());
@@ -112,8 +113,20 @@ public class Query_Person_STATE_Servlet {
 	        	PersonJsonObject.put("user_name",  cfg_personlist.get(i).getUser_name());
 	        	PersonJsonObject.put("employee_id", cfg_personlist.get(i).getEmployee_id());
 	        	PersonJsonObject.put("emailaddress", cfg_personlist.get(i).getEmailaddress());
-	        	PersonJsonObject.put("state", cfg_personlist.get(i).getState());
 	        	PersonJsonObject.put("max_count", cfg_personlist.get(i).getMax_count());
+	        	
+	        	if(cfg_personlist.get(i).getState()==0){
+	        		PersonJsonObject.put("state", "");
+	        		
+        		}else if(cfg_personlist.get(i).getState()==1){
+	        		PersonJsonObject.put("state", "");
+
+        		}else if(cfg_personlist.get(i).getState()==2){
+	        		PersonJsonObject.put("state", "鎖定");
+
+        		}
+	        	
+	        	
 	        	
 	        	PersonJsonArray.put(PersonJsonObject);
 	        }		
