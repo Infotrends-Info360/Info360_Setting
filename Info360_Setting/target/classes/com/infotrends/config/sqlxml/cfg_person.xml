@@ -70,7 +70,7 @@
      	where state =1
     </if>
      <if test="state == 0">
-     	where state =0
+     	where state =0 or state =2
     </if>
   </select>
 
