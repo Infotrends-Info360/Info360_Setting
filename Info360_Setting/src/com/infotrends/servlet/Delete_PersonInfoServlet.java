@@ -1,6 +1,8 @@
 package com.infotrends.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -32,7 +34,9 @@ public class Delete_PersonInfoServlet {
 	@Produces("application/json")
     public Response postFromPath(
     		
-    		@FormParam("dbid") int dbid
+    		@FormParam("dbid") int dbid,
+			@FormParam("personDBID_list") String personDBID_list
+
    
 			) throws IOException {
 		
@@ -40,6 +44,16 @@ public class Delete_PersonInfoServlet {
 		JSONObject jsonObject = new JSONObject();
 		CFG_person cfg_person= new CFG_person();
 		jsonObject.put("Status", Variable.POST_STATUS);
+		
+		List<Integer> personDBID_list2 = new ArrayList<Integer>();
+
+		if(personDBID_list.length()>0){
+			String [] dd = personDBID_list.split(",");
+			for(int i=0 ;i<dd.length;i++){
+				personDBID_list2.add(Integer.valueOf(dd[i]));
+			}
+			cfg_person.setPersonDBID_list(personDBID_list2);
+		}
 		
 		cfg_person.setDbid(dbid);
 
