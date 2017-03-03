@@ -1,5 +1,8 @@
 package com.infotrends.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 與消息表對應的實體類
  * @author Lin
@@ -37,8 +40,19 @@ public class CFG_person {
 	
 	private int max_count;
 	
+	private List<Integer> personDBID_list = new ArrayList<Integer>();
+
 	
 	
+	
+	public List<Integer> getPersonDBID_list() {
+		return personDBID_list;
+	}
+
+	public void setPersonDBID_list(List<Integer> personDBID_list) {
+		this.personDBID_list = personDBID_list;
+	}
+
 	public int getMax_count() {
 		return max_count;
 	}
