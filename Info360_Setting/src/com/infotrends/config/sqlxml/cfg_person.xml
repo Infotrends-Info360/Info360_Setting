@@ -83,7 +83,14 @@
   
    <update id="Logic_Delete" parameterType="com.infotrends.bean.CFG_person">
   	update tblcfg_person set STATE=#{state},PASS_ERROR_COUNT=#{pass_error_count}
-  	where dbid=#{dbid}                 
+  	where dbid=#{dbid}
+  	<if test="personDBID_list.size() > 0">
+ 	<foreach item="value" index="key" collection="personDBID_list"
+		open="or" separator="or" close="">
+ 	 dbid=#{value}
+	</foreach>
+	</if>
+  	         
   </update>
   
     <update id="login_ErrorCount" parameterType="com.infotrends.bean.CFG_person">
