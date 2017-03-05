@@ -90,9 +90,21 @@
   <delete id="Delete_Group_PersonInfo" parameterType="com.infotrends.bean.CFG_group_person">
   	<if test="person_dbid!=0">
   		delete tblcfg_group_person where PERSON_DBID=#{person_dbid}
+  		<if test="GP_DBID_list.size() > 0">
+ 		<foreach item="value" index="key" collection="GP_DBID_list"
+		open="or" separator="or" close="">
+ 	 	person_dbid=#{value}
+		</foreach>
+		</if>
   	</if>
   	<if test="group_dbid!=0">
   		delete tblcfg_group_person where GROUP_DBID=#{group_dbid}
+  		<if test="GP_DBID_list.size() > 0">
+ 		<foreach item="value" index="key" collection="GP_DBID_list"
+		open="or" separator="or" close="">
+ 	 	group_dbid=#{value}
+		</foreach>
+		</if>
   	</if>
   </delete>
   
