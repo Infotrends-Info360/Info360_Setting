@@ -1,6 +1,8 @@
 package com.infotrends.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -29,20 +31,50 @@ public class Delete_GroupInfoServlet {
 	
 	@POST
 	@Produces("application/json")
-    public Response postFromPath(@FormParam("dbid") int dbid
+    public Response postFromPath(
+    		@FormParam("dbid") int dbid,
+    		@FormParam("groupDBID_list") String groupDBID_list,
+    		@FormParam("GP_DBID_list") String GP_DBID_list
+    		
 			) throws IOException {
 		
 
 		JSONObject jsonObject = new JSONObject();
 		CFG_group cfg_group= new CFG_group();
 		jsonObject.put("Status", Variable.POST_STATUS);
+		
+		List<Integer> groupDBID_list2 = new ArrayList<Integer>();
+
+		List<Integer> GP_DBID_list2 = new ArrayList<Integer>();
+
+		
+		if(groupDBID_list.length()>0){
+			String [] dd = groupDBID_list.split(",");
+			for(int i=0 ;i<dd.length;i++){
+				groupDBID_list2.add(Integer.valueOf(dd[i]));
+			}
+			cfg_group.setGroupDBID_list(groupDBID_list2);
+		}
+		
+	
+		
 		cfg_group.setDbid(dbid);
 		
 		try{
 			MaintainService maintainService = new MaintainService();
 			int deletegroupcount = maintainService.delete_GroupInfo(cfg_group);
 			jsonObject.put("delete_groupcount", deletegroupcount);
+			
+			
 			CFG_group_person cfg_group_person = new CFG_group_person();
+			
+			if(GP_DBID_list.length()>0){
+				String [] dd = GP_DBID_list.split(",");
+				for(int i=0 ;i<dd.length;i++){
+					GP_DBID_list2.add(Integer.valueOf(dd[i]));
+				}
+				cfg_group_person.setGP_DBID_list(GP_DBID_list2);
+			}
 			cfg_group_person.setGroup_dbid(dbid);
 			int deletegrouppersoncount =maintainService.delete_Group_PersonInfo(cfg_group_person);
 			jsonObject.put("delete_group_personcount", deletegrouppersoncount);

@@ -9,6 +9,18 @@ public class CFG_group_person {
 	
 	private long person_dbid;
 	
+	private List<Integer> GP_DBID_list = new ArrayList<Integer>();
+
+	
+	
+	public List<Integer> getGP_DBID_list() {
+		return GP_DBID_list;
+	}
+
+	public void setGP_DBID_list(List<Integer> gP_DBID_list) {
+		GP_DBID_list = gP_DBID_list;
+	}
+
 	private List<String> cfg_BE_GroupPersonList = new ArrayList<String>();
 
 	public List<String> getCfg_BB_GroupPersonList() {
