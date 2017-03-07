@@ -33,10 +33,12 @@ public class Query_Person_STATE_Servlet {
 
 		JSONObject jsonObject = new JSONObject();
 		CFG_person cfg_person = new CFG_person();
+		
+		  JSONArray PersonJsonArray = new JSONArray();
+		
 		cfg_person.setState(state);
 		jsonObject.put("status", Variable.POST_STATUS);
-		
-		try{
+	
 			MaintainService maintainService = new MaintainService();
 	        List<CFG_person> cfg_personlist = maintainService.Query_PersonInfo_STATE(cfg_person);
 	        if(state == 0 && state ==2){
@@ -71,6 +73,9 @@ public class Query_Person_STATE_Servlet {
 	        
 	        if(state == 1){
 	        	//撈取cfg_group_person關聯
+	        	if(cfg_personlist.size()!=0){
+	        		
+	        	
 	        	CFG_group_person cfg_group_person = new CFG_group_person();
 	        	cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
 	        	List<CFG_group_person> cfg_person_grouplist = maintainService.query_Group_Person(cfg_group_person);
@@ -94,12 +99,14 @@ public class Query_Person_STATE_Servlet {
 				    GroupJsonObject.put("state", cfg_grouplist.get(0).getState());
 				    
 				    GroupJsonArray.put(GroupJsonObject);
-		        }		
+		        }
 		        jsonObject.put("person_group", PersonGroupArray);
 		        jsonObject.put("group", GroupJsonArray);
+	        	}
+		        
 	        }
 			
-	        JSONArray PersonJsonArray = new JSONArray();
+	      
 	        for (int i = 0; i < cfg_personlist.size(); i++) {
 	        	JSONObject PersonJsonObject = new JSONObject();
 	        	
@@ -132,12 +139,7 @@ public class Query_Person_STATE_Servlet {
 	        }		
 	        jsonObject.put("person", PersonJsonArray);
 	        	
-		} catch (Exception e) {
-			if(IsError.GET_EXCEPTION != null)
-				jsonObject.put("error", IsError.GET_EXCEPTION);
-			else
-				jsonObject.put("error", e.getMessage());
-		}
+	
 		
 		return Response.status(200).entity(jsonObject.toString())
 				.header("Access-Control-Allow-Origin", "*")
