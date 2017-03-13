@@ -67,8 +67,7 @@
   	
   	insert into tblcfg_group_person (GROUP_DBID,PERSON_DBID)  
   	values (#{group_dbid},#{person_dbid})
-  	
-                        
+  		 
   </insert>
   
   

@@ -3,6 +3,7 @@ package com.infotrends.servlet;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,7 +53,9 @@ public class Update_PersonInfoServlet {
 			@FormParam("ch_pass_on_login")String ch_pass_on_login,
 			@FormParam("group_dbid") long group_dbid,
 			@FormParam("max_count") int max_count,
+			@FormParam("GP_DBID_list") String GP_DBID_list,
 			@FormParam("pass_error_count") int pass_error_count
+			
 			
 			//@FormParam("group_dbid") long group_dbid
 			) throws IOException {
@@ -125,12 +128,25 @@ public class Update_PersonInfoServlet {
 			cfg_group_person.setPerson_dbid(persondbid);
 				int Delete_groupperson = maintainService.delete_Group_PersonInfo(cfg_group_person);
 				jsonObject.put("Delete_groupperson", Delete_groupperson);
-			
+
+
 				
-			cfg_group_person.setPerson_dbid(persondbid);
-			cfg_group_person.setGroup_dbid(group_dbid);
-				int Insert_groupperson = maintainService.insert_Person_GroupInfo(cfg_group_person);
-				jsonObject.put("Insert_groupperson", Insert_groupperson);
+				
+				
+				
+					List<Integer> GP_DBID_list2 = new ArrayList<Integer>();
+					
+						String [] dd = GP_DBID_list.split(",");
+						if(dd.length>0){
+						for(int i=0 ;i<dd.length;i++){
+							GP_DBID_list2.add(Integer.valueOf(dd[i]));
+							cfg_group_person.setGroup_dbid(Long.valueOf(dd[i]));
+							cfg_group_person.setPerson_dbid(persondbid);
+							int Insert_groupperson = maintainService.insert_Person_GroupInfo(cfg_group_person);
+							jsonObject.put("Insert_groupperson"+i, Insert_groupperson);
+						}
+						
+					}
 			
 			
 			
