@@ -1,7 +1,9 @@
 package com.infotrends.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -105,8 +107,15 @@ public class Query_Person_STATE_Servlet {
 	        	}
 		        
 	        }
-			
-	      
+	        
+	        
+    	 
+    	  
+	        
+	        
+	        
+	        
+	      //
 	        for (int i = 0; i < cfg_personlist.size(); i++) {
 	        	JSONObject PersonJsonObject = new JSONObject();
 	        	
@@ -129,20 +138,28 @@ public class Query_Person_STATE_Servlet {
 	        	cfg_group_person.setPerson_dbid(cfg_personlist.get(i).getDbid());
 	        	List<CFG_group_person> cfg_person_grouplist = maintainService.query_Group_Person(cfg_group_person);
 	        	 
-	        	String groupname ="";
-	        	String groupdbid ="";
-	        			
+
+	        	
+	        	String  namegroup = "";
+	        	String dbidgroup = "";
+	        	JSONObject personGroup = new JSONObject();
+	        	JSONObject Group2JsonObject = new JSONObject();
+	  			CFG_group cfg_group2 = new CFG_group();
+	  			List<CFG_group> cfg_grouplist2 = maintainService.Query_Group_state(cfg_group2);
+	  			for(int y = 0 ; y<cfg_grouplist2.size(); y++){
+	  				Group2JsonObject.put(String.valueOf(cfg_grouplist2.get(y).getDbid()), cfg_grouplist2.get(y).getName());
+	  			}
+	  			
+	  			
 	        	  for (int ii = 0; ii < cfg_person_grouplist.size(); ii++) {
 			        	JSONObject PersonGroupJsonObject = new JSONObject();
 			        	PersonGroupJsonObject.put("person_dbid", cfg_person_grouplist.get(ii).getPerson_dbid());
 			        	PersonGroupJsonObject.put("group_dbid", cfg_person_grouplist.get(ii).getGroup_dbid());
 			        	
-					    groupdbid+=cfg_person_grouplist.get(ii).getGroup_dbid()+",";
+			        	dbidgroup+= cfg_person_grouplist.get(ii).getGroup_dbid()+",";
 
-//			        	System.out.println(groupdbid);
 			        	//撈取cfg_group欄位
-					    CFG_group cfg_group = new CFG_group();
-					    
+			        	CFG_group cfg_group = new CFG_group();
 					    cfg_group.setDbid(cfg_person_grouplist.get(ii).getGroup_dbid());
 					    List<CFG_group> cfg_grouplist = maintainService.query_Group(cfg_group);
 					    JSONObject GroupJsonObject = new JSONObject();
@@ -150,15 +167,29 @@ public class Query_Person_STATE_Servlet {
 					    GroupJsonObject.put("name", cfg_grouplist.get(0).getName()); 
 					    GroupJsonObject.put("state", cfg_grouplist.get(0).getState());
 					    
-					    groupname+=cfg_grouplist.get(0).getName()+",";
-//					    System.out.println(groupname);
-
+					    namegroup+= cfg_grouplist.get(0).getName()+",";
+					    
 			        }		
-
-	        	
-	        	
-		        	PersonJsonObject.put("groupname", groupname);
-		        	PersonJsonObject.put("groupdbid", groupdbid);
+	        	  String notgroupdbid = "";
+	        	  String notgroupname = "";
+	        	  Set<String> a = Group2JsonObject.keySet();
+	        	  
+				    for (String key :  a) {
+			    		  if(dbidgroup.indexOf(key)<0){
+			    			  notgroupdbid+=key+",";
+			    			  notgroupname+=Group2JsonObject.getString(key)+",";
+			    			  //personGroup.put("notgroupdbid", );
+//			    			  personGroup.put("notgroupname", Group2JsonObject.getString(key));
+			    		  }else{}
+			    		  
+			    	    }
+//	        	  PersonJsonObject.put("notgroup", personGroup);
+	        	  
+				    PersonJsonObject.put("notgroupname", notgroupname);
+		        	PersonJsonObject.put("notgroupdbid", notgroupdbid);
+		        	
+		        	PersonJsonObject.put("groupname", namegroup);
+		        	PersonJsonObject.put("groupdbid", dbidgroup);
 
 	        	
 	        	
@@ -185,6 +216,11 @@ public class Query_Person_STATE_Servlet {
 				.header("Access-Control-Allow-Origin", "*")
 			    .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
 			    .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
+	}
+
+	private CFG_group_person get(int ii) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
