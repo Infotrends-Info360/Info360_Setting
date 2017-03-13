@@ -146,9 +146,9 @@ public class Query_Person_STATE_Servlet {
 					    cfg_group.setDbid(cfg_person_grouplist.get(ii).getGroup_dbid());
 					    List<CFG_group> cfg_grouplist = maintainService.query_Group(cfg_group);
 					    JSONObject GroupJsonObject = new JSONObject();
-					    GroupJsonObject.put("dbid", cfg_grouplist.get(ii).getDbid());
-					    GroupJsonObject.put("name", cfg_grouplist.get(ii).getName()); 
-					    GroupJsonObject.put("state", cfg_grouplist.get(ii).getState());
+					    GroupJsonObject.put("dbid", cfg_grouplist.get(0).getDbid());
+					    GroupJsonObject.put("name", cfg_grouplist.get(0).getName()); 
+					    GroupJsonObject.put("state", cfg_grouplist.get(0).getState());
 					    
 					    groupname+=cfg_grouplist.get(0).getName()+",";
 //					    System.out.println(groupname);
