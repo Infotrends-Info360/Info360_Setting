@@ -129,7 +129,7 @@ public class Query_Person_STATE_Servlet {
 		        CFG_group_person cfg_group_person = new CFG_group_person();
 	        	cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
 	        	List<CFG_group_person> cfg_person_grouplist = maintainService.query_Group_Person(cfg_group_person);
-	        	
+	        	 
 	        	JSONArray PersonGroupArray = new JSONArray();
 	        	JSONArray GroupJsonArray = new JSONArray();
 	        	String groupname ="";
