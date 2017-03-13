@@ -123,7 +123,7 @@ public class Query_Person_STATE_Servlet {
 	        	PersonJsonObject.put("dbid", cfg_personlist.get(i).getDbid());
 	        	//PersonJsonObject.put("createdatetime", cfg_personlist.get(i).getCreatedatetime());
 	        	PersonJsonObject.put("account",    cfg_personlist.get(i).getAccount());
-	        	//PersonJsonObject.put("password", cfg_personlist.get(i).getPassword());
+	        	PersonJsonObject.put("password", cfg_personlist.get(i).getPassword());
 	        	PersonJsonObject.put("first_name", cfg_personlist.get(i).getFirst_name());
 	        	PersonJsonObject.put("last_name",  cfg_personlist.get(i).getLast_name());
 	        	PersonJsonObject.put("user_name",  cfg_personlist.get(i).getUser_name());
