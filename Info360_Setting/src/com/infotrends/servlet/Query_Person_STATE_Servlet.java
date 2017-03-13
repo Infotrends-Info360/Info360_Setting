@@ -123,43 +123,42 @@ public class Query_Person_STATE_Servlet {
 	        	PersonJsonObject.put("max_count", cfg_personlist.get(i).getMax_count());
 	     
 	        	
-	        	cfg_person.setDbid(cfg_personlist.get(i).getDbid());
 	        	
-		        List<CFG_person> cfg_personlist2 = maintainService.query_Person_DBID(cfg_person);
 		        CFG_group_person cfg_group_person = new CFG_group_person();
-	        	cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
+		        
+	        	cfg_group_person.setPerson_dbid(cfg_personlist.get(i).getDbid());
 	        	List<CFG_group_person> cfg_person_grouplist = maintainService.query_Group_Person(cfg_group_person);
 	        	 
-	        	JSONArray PersonGroupArray = new JSONArray();
-	        	JSONArray GroupJsonArray = new JSONArray();
 	        	String groupname ="";
 	        	String groupdbid ="";
 	        			
 	        	  for (int ii = 0; ii < cfg_person_grouplist.size(); ii++) {
 			        	JSONObject PersonGroupJsonObject = new JSONObject();
 			        	PersonGroupJsonObject.put("person_dbid", cfg_person_grouplist.get(ii).getPerson_dbid());
-			        	PersonGroupJsonObject.put("group_dbid", cfg_person_grouplist.get(ii).getGroup_dbid()); 
-					    groupdbid+=cfg_person_grouplist.get(ii).getPerson_dbid()+",";
-
-			        	PersonGroupArray.put(PersonGroupJsonObject);
+			        	PersonGroupJsonObject.put("group_dbid", cfg_person_grouplist.get(ii).getGroup_dbid());
 			        	
+					    groupdbid+=cfg_person_grouplist.get(ii).getGroup_dbid()+",";
+
+//			        	System.out.println(groupdbid);
 			        	//撈取cfg_group欄位
 					    CFG_group cfg_group = new CFG_group();
+					    
 					    cfg_group.setDbid(cfg_person_grouplist.get(ii).getGroup_dbid());
 					    List<CFG_group> cfg_grouplist = maintainService.query_Group(cfg_group);
 					    JSONObject GroupJsonObject = new JSONObject();
-					    GroupJsonObject.put("dbid", cfg_grouplist.get(0).getDbid());
-					    GroupJsonObject.put("name", cfg_grouplist.get(0).getName()); 
-					    GroupJsonObject.put("state", cfg_grouplist.get(0).getState());
+					    GroupJsonObject.put("dbid", cfg_grouplist.get(ii).getDbid());
+					    GroupJsonObject.put("name", cfg_grouplist.get(ii).getName()); 
+					    GroupJsonObject.put("state", cfg_grouplist.get(ii).getState());
 					    
 					    groupname+=cfg_grouplist.get(0).getName()+",";
+//					    System.out.println(groupname);
 
 			        }		
 
 	        	
 	        	
-		        	PersonJsonObject.put("groupname", groupname.substring(0, groupname.length()-1));
-		        	PersonJsonObject.put("groupdbid", groupdbid.substring(0, groupdbid.length()-1));
+		        	PersonJsonObject.put("groupname", groupname);
+		        	PersonJsonObject.put("groupdbid", groupdbid);
 
 	        	
 	        	
