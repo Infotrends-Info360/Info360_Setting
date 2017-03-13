@@ -52,17 +52,70 @@ public class Insert_GroupInfoServlet {
 		cfg_group.setState(state);
 		try{
 			MaintainService maintainService = new MaintainService();
-			int groupcount = maintainService.insert_GroupInfo(cfg_group);
-			jsonObject.put("group_insertcount", groupcount);
-			if(person_dbid!=0){
-				List<CFG_group> cfg_grouplist = maintainService.query_Group_name(cfg_group);
-				CFG_group_person cfg_group_person = new CFG_group_person();
-				cfg_group_person.setGroup_dbid(cfg_grouplist.get(0).getDbid());
-				cfg_group_person.setPerson_dbid(person_dbid);
-				int grouppersoncount = maintainService.insert_Person_GroupInfo(cfg_group_person);
-				jsonObject.put("group_person_insertcount", grouppersoncount);
-				
-			}
+			
+			String groupname ="" ;
+					
+			 List<CFG_group> cfg_grouplist2 = maintainService.Query_Group_state(cfg_group);
+
+			    for (int i = 0; i < cfg_grouplist2.size(); i++) {
+			      	JSONObject Group1JsonObject = new JSONObject();
+				    Group1JsonObject.accumulate("name", cfg_grouplist2.get(i).getName()); 
+				    
+				    groupname+=cfg_grouplist2.get(i).getName()+",";
+			    }	  
+				    
+				    System.out.println("groupname: "+ groupname.substring(0, groupname.length()-1));
+				 
+				    if (groupname.indexOf(name)<0){
+//				    	System.out.println("字串找不到 "+name+"");   
+				    	int groupcount = maintainService.insert_GroupInfo(cfg_group);
+				    		jsonObject.put("group_insertcount", groupcount);
+						
+				    		if(person_dbid!=0){
+				    			List<CFG_group> cfg_grouplist = maintainService.query_Group_name(cfg_group);
+				    			CFG_group_person cfg_group_person = new CFG_group_person();
+				    			cfg_group_person.setGroup_dbid(cfg_grouplist.get(0).getDbid());
+				    			cfg_group_person.setPerson_dbid(person_dbid);
+				    			int grouppersoncount = maintainService.insert_Person_GroupInfo(cfg_group_person);
+				    			jsonObject.put("group_person_insertcount", grouppersoncount);
+				    		}
+				    	
+				    	}
+				     else{
+//				    	 System.out.println("字串裡有 "+name+"。");    
+				    	 	
+				    	 if(person_dbid!=0){
+								List<CFG_group> cfg_grouplist = maintainService.query_Group_name(cfg_group);
+								CFG_group_person cfg_group_person = new CFG_group_person();
+								cfg_group_person.setGroup_dbid(cfg_grouplist.get(0).getDbid());
+								cfg_group_person.setPerson_dbid(person_dbid);
+								int grouppersoncount = maintainService.insert_Person_GroupInfo(cfg_group_person);
+								jsonObject.put("group_person_insertcount", grouppersoncount);
+							}
+	
+				    	 }
+				    
+				    
+//				    int groupcount = maintainService.insert_GroupInfo(cfg_group);
+//					jsonObject.put("group_insertcount", groupcount);
+//					
+//					if(person_dbid!=0){
+//						List<CFG_group> cfg_grouplist = maintainService.query_Group_name(cfg_group);
+//						CFG_group_person cfg_group_person = new CFG_group_person();
+//						cfg_group_person.setGroup_dbid(cfg_grouplist.get(0).getDbid());
+//						cfg_group_person.setPerson_dbid(person_dbid);
+//						int grouppersoncount = maintainService.insert_Person_GroupInfo(cfg_group_person);
+//						jsonObject.put("group_person_insertcount", grouppersoncount);
+//					}
+				    
+		       
+		
+
+			
+			
+			
+			
+		
 			
 			
 		} catch (Exception e) {
