@@ -53,9 +53,6 @@ public class Update_PersonInfoServlet {
 			@FormParam("group_dbid") long group_dbid,
 			@FormParam("max_count") int max_count,
 			@FormParam("pass_error_count") int pass_error_count
-
-			
-			
 			
 			//@FormParam("group_dbid") long group_dbid
 			) throws IOException {
@@ -81,18 +78,27 @@ public class Update_PersonInfoServlet {
 		String strDate = sdFormat.format(date);
 		cfg_person.setCh_pass_on_login(strDate);
 	
-	
+		int persondbid = 0;
+		
 		int updatecount=0;
+		
 		try{
 			MaintainService maintainService = new MaintainService();
+			
+			
+			List<CFG_person> cfg_personlist = maintainService.query_Person_Account(cfg_person);
+//			System.out.println(cfg_personlist.get(0).getDbid());
+			
+			persondbid=cfg_personlist.get(0).getDbid();
+			
 			
 			if(state==0){
 				cfg_person.setPass_error_count(0);
 				updatecount = maintainService.update_PersonInfo(cfg_person);
 				jsonObject.put("updatecount", updatecount);
 				if(group_dbid!=0){
-					List<CFG_person> cfg_personlist = maintainService.query_Person_Account(cfg_person);
 					CFG_group_person cfg_group_person = new CFG_group_person();
+					
 					cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
 					cfg_group_person.setGroup_dbid(group_dbid);
 					int grouppersoncount = maintainService.update_Group_PersonInfo(cfg_group_person);
@@ -103,7 +109,7 @@ public class Update_PersonInfoServlet {
 				updatecount = maintainService.update_PersonInfo(cfg_person);
 				jsonObject.put("updatecount", updatecount);
 				if(group_dbid!=0){
-					List<CFG_person> cfg_personlist = maintainService.query_Person_Account(cfg_person);
+					
 					CFG_group_person cfg_group_person = new CFG_group_person();
 					cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
 					cfg_group_person.setGroup_dbid(group_dbid);
@@ -111,6 +117,26 @@ public class Update_PersonInfoServlet {
 					jsonObject.put("group_person_insertcount", grouppersoncount);
 			}
 			}
+			
+			
+			
+			CFG_group_person cfg_group_person = new CFG_group_person();
+
+			cfg_group_person.setPerson_dbid(persondbid);
+				int Delete_groupperson = maintainService.delete_Group_PersonInfo(cfg_group_person);
+				jsonObject.put("Delete_groupperson", Delete_groupperson);
+			
+				
+			cfg_group_person.setPerson_dbid(persondbid);
+			cfg_group_person.setGroup_dbid(group_dbid);
+				int Insert_groupperson = maintainService.insert_Person_GroupInfo(cfg_group_person);
+				jsonObject.put("Insert_groupperson", Insert_groupperson);
+			
+			
+			
+			
+			
+			
 			
 			
 		} catch (Exception e) {
