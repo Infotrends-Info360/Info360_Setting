@@ -115,12 +115,53 @@ public class Query_Person_STATE_Servlet {
 	        	//PersonJsonObject.put("createdatetime", cfg_personlist.get(i).getCreatedatetime());
 	        	PersonJsonObject.put("account",    cfg_personlist.get(i).getAccount());
 	        	//PersonJsonObject.put("password", cfg_personlist.get(i).getPassword());
-	        	//PersonJsonObject.put("first_name", cfg_personlist.get(i).getFirst_name());
-	        	//PersonJsonObject.put("last_name",  cfg_personlist.get(i).getLast_name());
+	        	PersonJsonObject.put("first_name", cfg_personlist.get(i).getFirst_name());
+	        	PersonJsonObject.put("last_name",  cfg_personlist.get(i).getLast_name());
 	        	PersonJsonObject.put("user_name",  cfg_personlist.get(i).getUser_name());
 	        	PersonJsonObject.put("employee_id", cfg_personlist.get(i).getEmployee_id());
 	        	PersonJsonObject.put("emailaddress", cfg_personlist.get(i).getEmailaddress());
 	        	PersonJsonObject.put("max_count", cfg_personlist.get(i).getMax_count());
+	     
+	        	
+	        	cfg_person.setDbid(cfg_personlist.get(i).getDbid());
+	        	
+		        List<CFG_person> cfg_personlist2 = maintainService.query_Person_DBID(cfg_person);
+		        CFG_group_person cfg_group_person = new CFG_group_person();
+	        	cfg_group_person.setPerson_dbid(cfg_personlist.get(0).getDbid());
+	        	List<CFG_group_person> cfg_person_grouplist = maintainService.query_Group_Person(cfg_group_person);
+	        	
+	        	JSONArray PersonGroupArray = new JSONArray();
+	        	JSONArray GroupJsonArray = new JSONArray();
+	        	String groupname ="";
+	        	String groupdbid ="";
+	        			
+	        	  for (int ii = 0; ii < cfg_person_grouplist.size(); ii++) {
+			        	JSONObject PersonGroupJsonObject = new JSONObject();
+			        	PersonGroupJsonObject.put("person_dbid", cfg_person_grouplist.get(ii).getPerson_dbid());
+			        	PersonGroupJsonObject.put("group_dbid", cfg_person_grouplist.get(ii).getGroup_dbid()); 
+					    groupdbid+=cfg_person_grouplist.get(ii).getPerson_dbid()+",";
+
+			        	PersonGroupArray.put(PersonGroupJsonObject);
+			        	
+			        	//撈取cfg_group欄位
+					    CFG_group cfg_group = new CFG_group();
+					    cfg_group.setDbid(cfg_person_grouplist.get(ii).getGroup_dbid());
+					    List<CFG_group> cfg_grouplist = maintainService.query_Group(cfg_group);
+					    JSONObject GroupJsonObject = new JSONObject();
+					    GroupJsonObject.put("dbid", cfg_grouplist.get(0).getDbid());
+					    GroupJsonObject.put("name", cfg_grouplist.get(0).getName()); 
+					    GroupJsonObject.put("state", cfg_grouplist.get(0).getState());
+					    
+					    groupname+=cfg_grouplist.get(0).getName()+",";
+
+			        }		
+
+	        	
+	        	
+		        	PersonJsonObject.put("groupname", groupname.substring(0, groupname.length()-1));
+		        	PersonJsonObject.put("groupdbid", groupdbid.substring(0, groupdbid.length()-1));
+
+	        	
 	        	
 	        	if(cfg_personlist.get(i).getState()==0){
 	        		PersonJsonObject.put("state", "");

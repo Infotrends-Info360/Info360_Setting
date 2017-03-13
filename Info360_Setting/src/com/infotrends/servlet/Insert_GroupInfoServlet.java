@@ -64,7 +64,7 @@ public class Insert_GroupInfoServlet {
 				    groupname+=cfg_grouplist2.get(i).getName()+",";
 			    }	  
 				    
-				    System.out.println("groupname: "+ groupname.substring(0, groupname.length()-1));
+//				    System.out.println("groupname: "+ groupname.substring(0, groupname.length()-1));
 				 
 				    if (groupname.indexOf(name)<0){
 //				    	System.out.println("字串找不到 "+name+"");   
