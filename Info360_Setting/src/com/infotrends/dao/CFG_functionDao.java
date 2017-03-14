@@ -17,6 +17,33 @@ import com.infotrends.util.IsError;
  * @author Lin
  */
 public class CFG_functionDao {
+	
+	
+	/**
+	 * @param CFG_function
+	 */
+	public List<CFG_function> select_function_state(CFG_function cfg_function){
+		DBAccess dbAccess = new DBAccess();
+		List<CFG_function> cfg_functionList = new ArrayList<CFG_function>();
+		SqlSession sqlSession = null;
+
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			//通過sqlSession執行SQL語句
+			cfg_functionList = sqlSession.selectList("cfg_function.select_function_state", cfg_function);
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			IsError.GET_EXCEPTION = e.getMessage();
+		} finally {
+			if(sqlSession != null){
+			   sqlSession.close();
+			}
+		}
+		return cfg_functionList;
+	}
+	
 
 	
 	/**

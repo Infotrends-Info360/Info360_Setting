@@ -275,7 +275,6 @@ public class loginServlet {
  		  }
 // 		  System.out.println("count:"+a);
 			
- 		 	
 			jsonObject.put("ErrorCount", updatePasscount);
  		 
  		  	jsonObject.put("error", "密碼輸入錯誤");
@@ -287,14 +286,16 @@ public class loginServlet {
 	    	 }
 	    
 		} catch (Exception e) {
-			if(IsError.GET_EXCEPTION != null)
+			if(IsError.GET_EXCEPTION != null){
 			
 				jsonObject.put("error", IsError.GET_EXCEPTION);
 
-			else
+			}else{
+				e.printStackTrace();
 				jsonObject.put("error", e.getMessage());
-				jsonObject.put("error", "帳號 密碼 尚未輸入或輸入錯誤");
-		}
+//				jsonObject.put("error", "帳號 密碼 尚未輸入或輸入錯誤");
+			}
+			}
 		
 		return Response.status(200).entity(jsonObject.toString())
 				.header("Access-Control-Allow-Origin", "*")

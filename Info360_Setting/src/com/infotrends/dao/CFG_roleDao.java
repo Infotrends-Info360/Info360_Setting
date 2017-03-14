@@ -17,9 +17,34 @@ import com.infotrends.util.IsError;
  */
 public class CFG_roleDao {
 	
+	
 	/**
-	 * Person_login
-	 * @param CFG_person
+	 * @param Select_role
+	 */
+	public List<CFG_role> Select_role(CFG_role cfg_role){
+		DBAccess dbAccess = new DBAccess();
+		List<CFG_role> cfg_roleList = new ArrayList<CFG_role>();
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			//通過sqlSession執行SQL語句
+			cfg_roleList = sqlSession.selectList("cfg_role.Select_role", cfg_role);
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			IsError.GET_EXCEPTION = e.getMessage();
+		} finally {
+			if(sqlSession != null){
+			   sqlSession.close();
+			}
+		}
+		return cfg_roleList;
+	}
+	
+	
+	/**
+	 * @param Select_role_dbid
 	 */
 	public List<CFG_role> Select_role_dbid(CFG_role cfg_role){
 		DBAccess dbAccess = new DBAccess();

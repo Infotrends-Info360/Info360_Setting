@@ -28,6 +28,11 @@
     select DBID,CODE,NAME,PROGRAMPATH,STATE,CATALOGID,ARRAYNUMBER,PERMIMG from tblCfg_Function where dbid =#{dbid}
 </select>
 
+<select id="select_function_state" parameterType="com.infotrends.bean.CFG_function"  resultMap="cfg_functionResult">
+    select DBID,CODE,NAME,PROGRAMPATH,STATE,CATALOGID,ARRAYNUMBER,PERMIMG from tblCfg_Function where STATE =#{state}
+</select>
+
+
 <select id="Select_BE_FunctionPermission" parameterType="com.infotrends.bean.CFG_function"  resultMap="cfg_functionResult">
      select DBID,CODE,NAME,PROGRAMPATH,STATE,CATALOGID,ARRAYNUMBER,PERMIMG from tblCfg_Function where 
     <foreach item="item" index="index" collection="cfg_BE_FunctionList"
