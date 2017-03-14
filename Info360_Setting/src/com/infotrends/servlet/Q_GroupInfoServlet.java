@@ -36,19 +36,13 @@ public class Q_GroupInfoServlet {
 	@POST
 	@Produces("application/json")
 	public Response postFromPath(
-			@FormParam("name") String name,
-			@FormParam("state") int state,
-			@FormParam("person_dbid") String person_dbid,
-			@FormParam("function_dbid") String function_dbid 
-			
+			@FormParam("state") int state
+
 		
 			) throws IOException {
 		
-		name=name.trim();
 	
-		
 		JSONObject jsonObject = new JSONObject();
-		CFG_group cfg_group = new CFG_group();
 
 		CFG_function cfg_function =new CFG_function();
 
