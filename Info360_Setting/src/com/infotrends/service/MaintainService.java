@@ -127,6 +127,23 @@ public class MaintainService {
 	
 	
 	/**
+	 * @param Select_role
+	 */
+
+	public List<CFG_role> Select_role(CFG_role cfg_role) {
+			List<CFG_role> cfg_rolelist = new ArrayList<CFG_role>();
+			try {
+				CFG_roleDao cfg_roleDao = new CFG_roleDao();
+				cfg_rolelist = cfg_roleDao.Select_role(cfg_role);
+			} catch (Exception e) {
+				IsError.GET_EXCEPTION = e.getMessage();
+			}
+			return cfg_rolelist;
+	}	
+	
+	
+	
+	/**
 	 * Select_role_dbid
 	 * Select_role_dbid
 	 * @param Select_role_dbid
@@ -331,6 +348,26 @@ public class MaintainService {
 		 }
 		 return null;
 	}	
+	
+	
+	/**
+	 * select_function_sort
+	 * select_function_sort
+	 * @param select_function_sort
+	 */
+
+	public List<CFG_function> select_function_state(CFG_function cfg_function) {
+		
+			List<CFG_function> cfg_functionlist = new ArrayList<CFG_function>();
+			try {
+				CFG_functionDao cfg_functionDao = new CFG_functionDao();
+				cfg_functionlist = cfg_functionDao.select_function_state(cfg_function);
+			} catch (Exception e) {
+				IsError.GET_EXCEPTION = e.getMessage();
+			}
+			return cfg_functionlist;
+	}
+	
 	
 	/**
 	 * select_function_DBID

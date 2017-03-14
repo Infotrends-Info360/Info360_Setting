@@ -14,6 +14,10 @@
     select DBID,NAME,DESCRIPION from tblCfg_Role where dbid=#{dbid}
 </select>
 
+<select id="Select_role" parameterType="com.infotrends.bean.CFG_role"  resultMap="cfg_roleResult">
+    select DBID,NAME,DESCRIPION from tblCfg_Role where NAME=#{name}
+</select>
+
 <insert id="Insert_Role_Info" parameterType="com.infotrends.bean.CFG_role">
   	insert into tblCfg_Role (name,descripion) 
   	values (#{name},#{descripion})                     
