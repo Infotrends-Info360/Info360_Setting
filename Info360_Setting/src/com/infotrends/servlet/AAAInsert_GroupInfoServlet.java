@@ -51,18 +51,18 @@ public class AAAInsert_GroupInfoServlet {
 		CFG_group cfg_group = new CFG_group();
 		CFG_role cfg_role = new CFG_role();
 		CFG_role_member cfg_role_member = new CFG_role_member();
-		CFG_function cfg_function =new CFG_function();
+//		CFG_function cfg_function =new CFG_function();
 		CFG_permission cfg_permission =new CFG_permission();
 		CFG_group_person cfg_group_person = new CFG_group_person();
-		CFG_person cfg_person = new CFG_person();
+//		CFG_person cfg_person = new CFG_person();
 
 		
 		List<Integer> function_dbidLIST = new ArrayList<Integer>();
 		List<Integer> person_dbidLIST = new ArrayList<Integer>();
 
 
-		JSONArray FunctionJsonArray = new JSONArray();
-		JSONArray PersonionJsonArray = new JSONArray();
+//		JSONArray FunctionJsonArray = new JSONArray();
+//		JSONArray PersonionJsonArray = new JSONArray();
 		
 		cfg_group.setName(name);
 		cfg_group.setState(state);
@@ -132,6 +132,8 @@ public class AAAInsert_GroupInfoServlet {
 							if(function_dbid.length()>0){
 								String [] dd = function_dbid.split(",");
 								for(int i=0 ;i<dd.length;i++){
+									if(dd[i]!=null&&dd[i]!=""){
+
 									function_dbidLIST.add(Integer.valueOf(dd[i]));
 									
 								     cfg_permission.setFunction_dbid(dd[i]);
@@ -141,6 +143,7 @@ public class AAAInsert_GroupInfoServlet {
 						   
 						        int permission_count  = maintainService.Insert_Permission_Info(cfg_permission);
 				    			jsonObject.put("permission_count", permission_count);
+									}
 								}
 							}
 						
@@ -163,11 +166,13 @@ public class AAAInsert_GroupInfoServlet {
 				    			System.out.println("進入人員");
 				    			String [] dd = person_dbid.split(",");
 								for(int i=0 ;i<dd.length;i++){
+									if(dd[i]!=null&&dd[i]!=""){
 									person_dbidLIST.add(Integer.valueOf(dd[i]));
 								 		cfg_group_person.setGroup_dbid(cfg_grouplist3.get(0).getDbid());
 								 		cfg_group_person.setPerson_dbid(Long.valueOf(dd[i]));
 					    			int grouppersoncount = maintainService.insert_Person_GroupInfo(cfg_group_person);
 					    			jsonObject.put("group_person_insertcount", grouppersoncount);
+									}
 								}
 				    		}
 	
