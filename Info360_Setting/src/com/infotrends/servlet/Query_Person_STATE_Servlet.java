@@ -173,6 +173,7 @@ public class Query_Person_STATE_Servlet {
 	        	  String notgroupdbid = "";
 	        	  String notgroupname = "";
 	        	  Set<String> a = Group2JsonObject.keySet();
+	        	  
 				    for (String key :  a) {
 			    		  if(dbidgroup.indexOf(key)<0){
 			    			  notgroupdbid+=key+",";

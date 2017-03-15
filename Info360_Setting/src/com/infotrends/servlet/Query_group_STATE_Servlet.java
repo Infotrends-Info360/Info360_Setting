@@ -17,7 +17,7 @@ import com.infotrends.bean.CFG_group_person;
 import com.infotrends.bean.CFG_person;
 import com.infotrends.service.MaintainService;
 import com.infotrends.util.*;
-@Path("/QQuery_Group_STATE")
+@Path("/Query_Group_STATE")
 public class Query_group_STATE_Servlet {
 	
 	@POST
