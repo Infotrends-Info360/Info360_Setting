@@ -174,6 +174,13 @@ public class Insert_GroupInfoServlet {
 					    			jsonObject.put("group_person_insertcount", grouppersoncount);
 									}
 								}
+				    		}else{
+				    			
+				    			cfg_group_person.setGroup_dbid(cfg_grouplist3.get(0).getDbid());
+						 		cfg_group_person.setPerson_dbid(0);
+			    			int grouppersoncount = maintainService.insert_Person_GroupInfo(cfg_group_person);
+			    			jsonObject.put("group_person_insertcount", grouppersoncount);
+				    			
 				    		}
 	
 				    }	    

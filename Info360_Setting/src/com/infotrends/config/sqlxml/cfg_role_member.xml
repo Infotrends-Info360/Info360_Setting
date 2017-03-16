@@ -34,7 +34,14 @@
 </update>
 
 <delete id="Delete_Role_MemberInfo" parameterType="com.infotrends.bean.CFG_role_member">
-    delete tblCfg_Role_Member where role_dbid=#{role_dbid}
+    delete tblCfg_Role_Member 
+    <if test="group_dbid != 0">
+     	where group_dbid=#{group_dbid}
+    </if> 
+    <if test="role_dbid != 0">
+     	where role_dbid =#{role_dbid}
+    </if> 
+
 </delete>
 
     </mapper>
