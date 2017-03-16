@@ -40,7 +40,9 @@ public class Update_GroupInfoServlet {
 			@FormParam("name") String name,
 			@FormParam("state") int state,
 			@FormParam("person_dbid") String person_dbid,
-			@FormParam("function_dbid") String function_dbid 
+			@FormParam("function_dbid") String function_dbid,
+    		@FormParam("groupDBID_list") String groupDBID_list
+
 			//@FormParam("person_dbid") long person_dbid
 			) throws IOException {
 	
@@ -58,6 +60,9 @@ public class Update_GroupInfoServlet {
 		cfg_group.setDbid(dbid);
 		cfg_group.setName(name);
 		cfg_group.setState(state);
+//		cfg_group.setGroupDBID_list(groupDBID_list);
+		
+		
 		int updatecount=0;
 		
 		
@@ -66,6 +71,61 @@ public class Update_GroupInfoServlet {
 		
 		try{
 			MaintainService maintainService = new MaintainService();
+			
+			if(groupDBID_list.length()>0){
+				String [] dd = groupDBID_list.split(",");
+				
+				for(int i=0 ;i<dd.length;i++){
+					if(dd[i]!=null && dd[i]!=""){
+						
+										
+					//刪除group_person
+					cfg_group_person.setGroup_dbid(Integer.valueOf(dd[i]));
+					int delete_group_person_count = maintainService.delete_Group_PersonInfo(cfg_group_person);
+					jsonObject.put("delete_grouppersn_count", delete_group_person_count);
+					
+					
+					//groupdbid轉成roledbid
+					cfg_role_member.setGroup_dbid(Integer.valueOf(dd[i]));
+					List<CFG_role_member> cfg_role_member2list = maintainService.Select_Rolemember_Groupdbid(cfg_role_member);
+//				    	cfg_role_member2list.get(0).getRole_dbid();
+				    
+				    System.out.println( "轉roledbid: "+cfg_role_member2list.get(0).getRole_dbid());
+				    
+//				    System.out.println( "role_member setRole_dbid: "+cfg_role_member2list.get(0).getRole_dbid());
+
+				    //刪除role_member
+				    cfg_role_member.setGroup_dbid(Integer.valueOf(dd[i]));
+				    int delete_role_member_count = maintainService.Delete_Role_MemberInfo(cfg_role_member);
+					jsonObject.put("delete_role_member_count", delete_role_member_count);
+//				    
+				    System.out.println( "cfg_role setDbid: "+cfg_role_member2list.get(0).getRole_dbid());
+
+					//刪除role
+					cfg_role.setDbid(cfg_role_member2list.get(0).getRole_dbid());
+					 int delete_role_count = maintainService.Delete_Role_Info(cfg_role);
+					jsonObject.put("delete_role_count", delete_role_count);
+//					
+					
+				    System.out.println( "cfg_permission setRole_dbid: "+cfg_role_member2list.get(0).getRole_dbid());
+
+					//刪除permission
+					cfg_permission.setRole_dbid(cfg_role_member2list.get(0).getRole_dbid());
+					int delete_permission_count = maintainService.Delete_Permission_Info(cfg_permission);
+					jsonObject.put("delete_permission_count", delete_permission_count);
+					
+					//刪除部門
+					cfg_group.setDbid(Integer.valueOf(dd[i]));
+					int deletegroupcount = maintainService.delete_GroupInfo(cfg_group);
+					jsonObject.put("delete_groupcount", deletegroupcount);
+					}
+				}
+			}
+			
+			
+			
+			
+			
 			
 			String groupname ="" ;
 			
@@ -78,27 +138,27 @@ public class Update_GroupInfoServlet {
 				    groupname+=cfg_grouplist2.get(i).getName()+",";
 			    }	
 			    
-				 List<CFG_role_member> cfg_role_member2 = maintainService.Select_Rolemember_Groupdbid(cfg_role_member);
-				    for (int i = 0; i < cfg_role_member2.size(); i++) {
+				 List<CFG_role_member> cfg_role_member2list = maintainService.Select_Rolemember_Groupdbid(cfg_role_member);
+				    for (int i = 0; i < cfg_role_member2list.size(); i++) {
 
 				    	JSONObject Group2JsonObject = new JSONObject();
-
 				    }
 			
 			
 			    int groupcount = maintainService.delete_GroupInfo(cfg_group);
     			jsonObject.put("group_insertcount", groupcount);
     			
-    			cfg_role_member.setGroup_dbid(dbid);
+    			cfg_role_member.setGroup_dbid(cfg_role_member2list.get(0).getRole_dbid());
+
     			int rolemember_count = maintainService.Delete_Role_MemberInfo(cfg_role_member);
 				jsonObject.put("role_count", rolemember_count);
     			
-				cfg_role.setDbid(dbid);
+				cfg_role.setDbid(cfg_role_member2list.get(0).getRole_dbid());
     			int role_count = maintainService.Delete_Role_Info(cfg_role);
 				jsonObject.put("role_count", role_count);
 				
 				
-				cfg_permission.setRole_dbid(cfg_role_member2.get(0).getRole_dbid());
+				cfg_permission.setRole_dbid(cfg_role_member2list.get(0).getRole_dbid());
 				int permission_count = maintainService.Delete_Permission_Info(cfg_permission);
 				jsonObject.put("permission_count", permission_count);
 			
