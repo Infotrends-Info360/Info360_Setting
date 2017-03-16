@@ -122,6 +122,10 @@ public class Update_GroupInfoServlet {
 			}
 			
 			
+			
+			
+			cfg_group.setName(name);
+			cfg_group.setState(state);
 //	    	System.out.println("字串找不到 "+name+"");   
 ////		新增部門名稱
 	    			int groupcount = maintainService.insert_GroupInfo(cfg_group);
