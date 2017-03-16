@@ -163,7 +163,7 @@ public class Insert_GroupInfoServlet {
 							
 		//新增相關人員	
 				    		if(person_dbid.length()>0){
-				    			System.out.println("進入人員");
+//				    			System.out.println("進入人員");
 				    			String [] dd = person_dbid.split(",");
 								for(int i=0 ;i<dd.length;i++){
 									if(dd[i]!=null&&dd[i]!=""){
@@ -176,10 +176,6 @@ public class Insert_GroupInfoServlet {
 								}
 				    		}else{
 				    			
-				    			cfg_group_person.setGroup_dbid(cfg_grouplist3.get(0).getDbid());
-						 		cfg_group_person.setPerson_dbid(0);
-			    			int grouppersoncount = maintainService.insert_Person_GroupInfo(cfg_group_person);
-			    			jsonObject.put("group_person_insertcount", grouppersoncount);
 				    			
 				    		}
 	
