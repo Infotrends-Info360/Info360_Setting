@@ -131,6 +131,7 @@ public class Update_GroupInfoServlet {
 	    			int groupcount = maintainService.insert_GroupInfo(cfg_group);
 	    			jsonObject.put("group_insertcount", groupcount);
 //	    		
+	    			    
 ////		新增Role
 	    			cfg_role.setDescripion(name+"權限");
 	    			cfg_role.setName(name+"權限");
