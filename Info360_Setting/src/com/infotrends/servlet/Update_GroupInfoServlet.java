@@ -123,14 +123,13 @@ public class Update_GroupInfoServlet {
 			
 			
 			
-			
+			if(name!=""&&name!=null){
+				
 			cfg_group.setName(name);
 			cfg_group.setState(state);
-//	    	System.out.println("字串找不到 "+name+"");   
 ////		新增部門名稱
 	    			int groupcount = maintainService.insert_GroupInfo(cfg_group);
 	    			jsonObject.put("group_insertcount", groupcount);
-//	    		
 	    			    
 ////		新增Role
 	    			cfg_role.setDescripion(name+"權限");
@@ -138,32 +137,20 @@ public class Update_GroupInfoServlet {
 	    				int rolecount = maintainService.Insert_Role_Info(cfg_role);
 	    				jsonObject.put("role_count", rolecount);
 //	    		
-//	   //查詢 新增的group資訊
+//	   查詢 新增的group資訊
 	    				cfg_group.setName(name);		
 	    				List<CFG_group> cfg_grouplist3 = maintainService.query_Group_name(cfg_group);
 //
-//	//查詢 新增的role資訊
+//	查詢 新增的role資訊
 	    				cfg_role.setName(name+"權限");
 	    				List<CFG_role> cfg_rolelist = maintainService.Select_role(cfg_role);
 
-////	新增Rolemember
+//	新增Rolemember
 	    				cfg_role_member.setRole_dbid(cfg_rolelist.get(0).getDbid());
 	    				cfg_role_member.setGroup_dbid(cfg_grouplist3.get(0).getDbid());
 	    				int role_member_count = maintainService.Insert_Role_MemberInfo(cfg_role_member);
 	    				jsonObject.put("role_member_count", role_member_count);
-//	    		
-//	  //查尋sort=0的 方法
-//	    		cfg_function.setState(state);
-//    			List<CFG_function> cfg_functionlist = maintainService.select_function_state(cfg_function);
-//	        	for(int a=0;a<cfg_functionlist.size();a++){
-//		        	JSONObject functionJsonObject = new JSONObject();
-//	        		functionJsonObject.put("dbid", cfg_functionlist.get(a).getDbid());
-//		        	functionJsonObject.put("name", cfg_functionlist.get(a).getName());
-//		        	
-//		        	FunctionJsonArray.put(functionJsonObject);
-//	        	}
-//
-//		        jsonObject.put("Function", FunctionJsonArray);
+
 		        
 		 //新增Permission
 		        
@@ -190,18 +177,6 @@ public class Update_GroupInfoServlet {
 				}
 			
 				
-//				cfg_person.setState(state);
-//    			List<CFG_person> cfg_personlist = maintainService.Query_PersonInfo_STATE(cfg_person);
-//    			for(int a=0;a<cfg_personlist.size();a++){
-//		        	JSONObject personlistJsonObject = new JSONObject();
-//		        	personlistJsonObject.put("dbid", cfg_personlist.get(a).getDbid());
-//		        	personlistJsonObject.put("name", cfg_personlist.get(a).getUser_name());
-//		        	PersonionJsonArray.put(personlistJsonObject);
-//	        	}
-//
-//		        jsonObject.put("Person", PersonionJsonArray);
-
-				
 				
 //新增相關人員	
 	    		if(person_dbid.length()>0){
@@ -218,13 +193,10 @@ public class Update_GroupInfoServlet {
 					}
 	    		}else{
 	    			
-	    			cfg_group_person.setGroup_dbid(cfg_grouplist3.get(0).getDbid());
-			 		cfg_group_person.setPerson_dbid(0);
-    			int grouppersoncount = maintainService.insert_Person_GroupInfo(cfg_group_person);
-    			jsonObject.put("group_person_insertcount", grouppersoncount);
+	    		
 	    			
 	    		}
-			
+			}
 			
 		} catch (Exception e) {
 			if(IsError.GET_EXCEPTION != null)
