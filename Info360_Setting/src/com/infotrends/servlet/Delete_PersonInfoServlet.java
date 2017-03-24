@@ -34,7 +34,7 @@ public class Delete_PersonInfoServlet {
 	@Produces("application/json")
     public Response postFromPath(
     		
-    		@FormParam("dbid") int dbid,
+    	
 			@FormParam("personDBID_list") String personDBID_list
 
    
@@ -46,28 +46,31 @@ public class Delete_PersonInfoServlet {
 		jsonObject.put("Status", Variable.POST_STATUS);
 		
 		List<Integer> personDBID_list2 = new ArrayList<Integer>();
+		//List<Long> personDBID_list2_Long = new ArrayList<Long>();
 
+		MaintainService maintainService = new MaintainService();
+		
 		if(personDBID_list.length()>0){
 			String [] dd = personDBID_list.split(",");
 			for(int i=0 ;i<dd.length;i++){
 				personDBID_list2.add(Integer.valueOf(dd[i]));
+				//personDBID_list2_Long.add(Long.valueOf(dd[i]));
+				
+				CFG_group_person cfg_group_person = new CFG_group_person();
+				cfg_group_person.setPerson_dbid(Long.valueOf(dd[i]));
+				int deletegrouppersoncount =maintainService.delete_Group_PersonInfo(cfg_group_person);
+				jsonObject.put("delete_group_personcount", deletegrouppersoncount);
 			}
 			cfg_person.setPersonDBID_list(personDBID_list2);
 		}
-		
-		cfg_person.setDbid(dbid);
-
-		
-		
+	//long a = Long.valueOf(personDBID_list2);
+	
 		try{
-			MaintainService maintainService = new MaintainService();
+			
 			int deletepersoncount = maintainService.delete_PersonInfo(cfg_person);
 			jsonObject.put("delete_personcount", deletepersoncount);
 		
-			CFG_group_person cfg_group_person = new CFG_group_person();
-			cfg_group_person.setPerson_dbid(dbid);
-			int deletegrouppersoncount =maintainService.delete_Group_PersonInfo(cfg_group_person);
-			jsonObject.put("delete_group_personcount", deletegrouppersoncount);
+			
 			
 			
 			
