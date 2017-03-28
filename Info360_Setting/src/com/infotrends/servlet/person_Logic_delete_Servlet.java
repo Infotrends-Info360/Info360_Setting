@@ -63,6 +63,8 @@ public class person_Logic_delete_Servlet {
 	
 		int updatecount=0;
 		try{
+			
+			
 			List<Integer> dbidS = new ArrayList<>();
 			
 			MaintainService maintainService = new MaintainService();
@@ -72,6 +74,9 @@ public class person_Logic_delete_Servlet {
 				jsonObject.put("updatecount", updatecount);
 			}else if(state==2){
 				cfg_person.setPass_error_count(3);
+				updatecount = maintainService.Logic_Delete(cfg_person);
+				jsonObject.put("updatecount", updatecount);
+			}else if(state==3){
 				updatecount = maintainService.Logic_Delete(cfg_person);
 				jsonObject.put("updatecount", updatecount);
 			}else{
