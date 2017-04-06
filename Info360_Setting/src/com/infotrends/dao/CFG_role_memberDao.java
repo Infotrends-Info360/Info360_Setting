@@ -10,7 +10,7 @@ import com.infotrends.bean.CFG_function;
 import com.infotrends.bean.CFG_group_person;
 import com.infotrends.bean.CFG_person;
 import com.infotrends.bean.CFG_role_member;
-import com.infotrends.db.DBAccess;
+import com.infotrends.db.DBAccess_old;
 import com.infotrends.util.IsError;
 
 /**
@@ -24,7 +24,7 @@ public class CFG_role_memberDao {
 	 * @param Select_Rolemember_Roledbid
 	 */
 	public List<CFG_role_member> Select_Rolemember_Roledbid(CFG_role_member cfg_role_member){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_role_member> cfg_role_memberList = new ArrayList<CFG_role_member>();
 		SqlSession sqlSession = null;
 		try {
@@ -50,7 +50,7 @@ public class CFG_role_memberDao {
 	 * @param Select_Rolemember_Groupdbid
 	 */
 	public List<CFG_role_member> Select_Rolemember_Groupdbid(CFG_role_member cfg_role_member){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_role_member> cfg_role_memberList = new ArrayList<CFG_role_member>();
 		SqlSession sqlSession = null;
 		try {
@@ -80,7 +80,7 @@ public class CFG_role_memberDao {
 	public int Insert_Role_MemberInfo(
 			CFG_role_member   cfg_role_member)
 			{
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_role_memberInt = 0;
 		SqlSession sqlSession = null;
 
@@ -108,7 +108,7 @@ public class CFG_role_memberDao {
 	 */
 	public int Update_Role_MemberInfo(
 			CFG_role_member   cfg_role_member){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_role_memberInt = 0;
 		SqlSession sqlSession = null;
 
@@ -134,7 +134,7 @@ public class CFG_role_memberDao {
 	 * @param CFG_function
 	 */
 	public int Delete_Role_MemberInfo(CFG_role_member   cfg_role_member){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_role_memberInt = 0;
 		SqlSession sqlSession = null;
 

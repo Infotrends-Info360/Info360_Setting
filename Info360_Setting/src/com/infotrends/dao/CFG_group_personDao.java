@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.infotrends.bean.CFG_group_person;
 import com.infotrends.bean.CFG_permission;
-import com.infotrends.db.DBAccess;
+import com.infotrends.db.DBAccess_old;
 import com.infotrends.util.IsError;
 
 public class CFG_group_personDao {
@@ -19,7 +19,7 @@ public class CFG_group_personDao {
 	 * @param "Select_BE_GroupPerson"
 	 */
 	public List<CFG_group_person> Select_BE_GroupPerson(CFG_group_person cfg_group_person){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_group_person> cfg_group_personList = new ArrayList<CFG_group_person>();
 		SqlSession sqlSession = null;
 		try {
@@ -50,7 +50,7 @@ public class CFG_group_personDao {
 	public int insert_Group_PersonInfo(
 			CFG_group_person   cfg_group_person)
 			{
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_Int = 0;
 		SqlSession sqlSession = null;
 
@@ -79,7 +79,7 @@ public class CFG_group_personDao {
 	
 	
 	public List<CFG_group_person> query_Group_PersonInfo(CFG_group_person   cfg_group_person){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_group_person> cfg_personList = new ArrayList<CFG_group_person>();
 		SqlSession sqlSession = null;
 		
@@ -110,7 +110,7 @@ public class CFG_group_personDao {
 	
 	public int update_Group_PersonInfo(
 			CFG_group_person   cfg_group_person	){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_group_personInt = 0;
 		SqlSession sqlSession = null;
 
@@ -138,7 +138,7 @@ public class CFG_group_personDao {
 	
 	public int update_Person_GroupInfo(
 			CFG_group_person   cfg_group_person	){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_group_personInt = 0;
 		SqlSession sqlSession = null;
 
@@ -166,7 +166,7 @@ public class CFG_group_personDao {
 	 */
 	
 	public int delete(CFG_group_person   cfg_group_person){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_personInt = 0;
 		SqlSession sqlSession = null;
 
