@@ -3,6 +3,7 @@ package com.infotrends.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -49,11 +50,13 @@ public class QQuery_group_STATE_Servlet {
 		try{
 			 MaintainService maintainService = new MaintainService();
 			
-        	 List<String> ALLperson = new ArrayList<String>();
-        	 List<String> ALLfunction = new ArrayList<String>();
-//        	 String  ALLperson = "";
-//	         String  ALLfunction = "";
+//        	 List<String> ALLperson = new ArrayList<String>();
+//        	 List<String> ALLfunction = new ArrayList<String>();
+        	 String  ALLperson = "";
+	         String  ALLfunction = "";
 
+	        	JSONObject AllpersonJsonObject = new JSONObject();
+	        	JSONObject AllfunctionJsonObject = new JSONObject();
 
 			 
 			  //全部人員
@@ -63,7 +66,10 @@ public class QQuery_group_STATE_Servlet {
 		        	PersonJsonObject.accumulate("dbid", cfg_personlist.get(i).getDbid());
 		        	PersonJsonObject.accumulate("user_name", cfg_personlist.get(i).getUser_name());
 		        	
-		        	ALLperson.add(cfg_personlist.get(i).getUser_name().trim());
+		        	AllpersonJsonObject.put(String.valueOf(cfg_personlist.get(i).getDbid()), cfg_personlist.get(i).getUser_name());
+
+		        	
+//		        	ALLperson.add(cfg_personlist.get(i).getUser_name().trim());
 		        	
 //		        	ALLperson+= cfg_personlist.get(i).getUser_name()+",";
 
@@ -77,8 +83,11 @@ public class QQuery_group_STATE_Servlet {
 		        	JSONObject FunctionJsonObject = new JSONObject();
 		        	FunctionJsonObject.accumulate("dbid", cfg_functionlist.get(ii).getDbid());
 		        	FunctionJsonObject.accumulate("Function_name", cfg_functionlist.get(ii).getName());
+		        	
+		        	AllfunctionJsonObject.put(String.valueOf(cfg_functionlist.get(ii).getDbid()), cfg_functionlist.get(ii).getName());
 
-		        	ALLfunction.add(cfg_functionlist.get(ii).getName().trim());
+
+//		        	ALLfunction.add(cfg_functionlist.get(ii).getName().trim());
 
 //		        	ALLfunction+= cfg_functionlist.get(ii).getName()+",";
 		        	
@@ -93,16 +102,23 @@ public class QQuery_group_STATE_Servlet {
 		//全部部門(State==0)
 			 List<CFG_group> cfg_grouplist = maintainService.Query_Group_state(cfg_group);
 	        for (int i = 0; i < cfg_grouplist.size(); i++) {
+
+	        	
 	        	 List<String> groupperson = new ArrayList<String>();
 				 List<String> persondbid = new ArrayList<String>();
 				 List<String> grouppermission = new ArrayList<String>();
-				 List<String> groupperson2 = new ArrayList<String>();
-				 List<String> groupfunction2 = new ArrayList<String>();
+				 
+				 
+//				 List<String> groupperson2 = new ArrayList<String>();
+//				 List<String> groupfunction2 = new ArrayList<String>();
 				 
 				 List<String> notperson = new ArrayList<String>();
 
+				 String groupperson2 = "";
+				 String groupfunction2 = "";
+				 String groupfunction_dbid = "";
 
-	        	
+				 String persondbid2 = "";
 	        	
 	        	JSONObject GroupJsonObject = new JSONObject();
 	        	GroupJsonObject.accumulate("dbid", cfg_grouplist.get(i).getDbid());
@@ -118,8 +134,9 @@ public class QQuery_group_STATE_Servlet {
 //		        	JSONObject cfg_group_personJsonObject = new JSONObject();
 //		        	cfg_group_personJsonObject.accumulate("group_dbid", cfg_group_personlist.get(a).getGroup_dbid());
 //		        	cfg_group_personJsonObject.accumulate("person_dbid", cfg_group_personlist.get(a).getPerson_dbid());
-//					    GroupJsonObject.accumulate("have_person_dbid", cfg_group_personlist.get(a).getPerson_dbid());
-					    
+					 
+
+					 
 					    persondbid.add(String.valueOf(cfg_group_personlist.get(a).getPerson_dbid()));
 				 }    
 				 	//person_dbid轉成user_name	 
@@ -127,63 +144,38 @@ public class QQuery_group_STATE_Servlet {
 				 					if(persondbid.get(b)!=null && persondbid.get(b)!="" && persondbid.get(b).length()>0){
 				 						cfg_person.setDbid(Integer.valueOf(persondbid.get(b)));
 				 						List<CFG_person> cfg_personlist2 = maintainService.query_Person_DBID(cfg_person);
-				 						GroupJsonObject.accumulate("have_person_username", cfg_personlist2.get(0).getUser_name());
-				 						groupperson2.add(cfg_personlist2.get(0).getUser_name().trim());
+				 						
+				 						groupperson2+=cfg_personlist2.get(0).getUser_name().trim()+",";
+									    persondbid2+=cfg_personlist2.get(0).getDbid()+",";
+									    
+
+									    
 				 						
 				 					}
 				 		}
 				 		
-				 		System.out.println("部門人員  :"+groupperson2);
-				 		System.out.println("全部人員  :"+ALLperson);
-				 		System.out.println("開始比人");
-				 		
-				 		
-				 		for(int n =0;n<ALLperson.size();n++){
-				 			int a=1;
-			 				int b=0;
-			 				int c=1;
-			 			
-			 			if(groupperson2.size()>0){
-			 				
-				 			for(int m =0;m<groupperson2.size();m++){
-				 				
-				 				if(ALLperson.get(n).equals(groupperson2.get(m))){
-				 					c=a*c;
-					 			}else{
-					 				c=a*b;
-					 			}
-				 			}
-				 			
-				 			if(c==0){
-				 				System.out.println("待加入部門人員 :  "+ALLperson.get(n));
-				 				notperson.add(ALLperson.get(n));
+				 		  String notgroupdbid = "";
+			        	  String notgroupname = "";
+			        	  Set<String> a = AllpersonJsonObject.keySet();
+						    for (String key :  a) {
+					    		  if(persondbid2.indexOf(key)<0){
+					    			  notgroupdbid+=key+",";
+					    			  notgroupname+=AllpersonJsonObject.getString(key)+",";
+					    			  //personGroup.put("notgroupdbid", );
+//					    			  personGroup.put("notgroupname", Group2JsonObject.getString(key));
+					    		  }else{}
+					    		  
+					    	    }
+						   
+					GroupJsonObject.accumulate("have_person_dbid",persondbid2);
 
-				 			}else{
-				 				System.out.println("部門人員 :  "+ALLperson.get(n));
-				 			}
-				 			
-			 			}else if(groupperson2.size()<=0){	
-			 				if(c==1){
-				 				System.out.println("待加入部門人員 :  "+ALLperson.get(n));
-				 				notperson.add(ALLperson.get(n));
-
-				 			}else{
-				 				System.out.println("部門人員 :  "+ALLperson.get(n));
-				 			}
-			 			}
-				 			
-				 			
-				 		}
+				 	GroupJsonObject.accumulate("have_person_username",groupperson2);
 				 	
-	 						GroupJsonObject.accumulate("not_in_person", notperson);
+				 	GroupJsonObject.put("not_have_person_dbid", notgroupdbid);
+				 	GroupJsonObject.put("not_have_person_username", notgroupname);
 				 	
-				 		System.out.println("結束比人");
-				 		System.out.println("                             ");
-
-				 	        
-				 	        
-				 		
-
+			 		
+//				 	
 				 		
 			//找部門關聯的role_member		    
 				cfg_role_member.setGroup_dbid(cfg_grouplist.get(i).getDbid());
@@ -203,48 +195,34 @@ public class QQuery_group_STATE_Servlet {
 							for(int d=0 ; d<grouppermission.size();d++){
 								cfg_function.setDbid(Integer.valueOf(grouppermission.get(d)));
 								List<CFG_function> cfg_functionlist2 = maintainService.select_function_dbid(cfg_function);
-		 						GroupJsonObject.accumulate("have_function", cfg_functionlist2.get(0).getName());
-		 						groupfunction2.add(cfg_functionlist2.get(0).getName().trim());
+								
+								groupfunction2+=cfg_functionlist2.get(0).getName().trim()+",";
+								groupfunction_dbid+=cfg_functionlist2.get(0).getDbid()+",";
+//		 						groupfunction2.add(cfg_functionlist2.get(0).getName().trim());
 							}
 							
-//							System.out.println("ALLfunction:  "+ALLfunction);
-//							System.out.println("Have function:  "+groupfunction2);
-//							for(int j =0;j<ALLfunction.size();j++){
-//					 			int a=1;
-//				 				int b=0;
-//				 				int c=1;
-//				 			
-//				 			if(groupfunction2.size()>0){
-//				 				
-//					 			for(int k =0;k<groupfunction2.size();k++){
-//					 				
-//					 				if(ALLfunction.get(j).equals(groupfunction2.get(k))){
-//					 					c=a*c;
-//						 			}else{
-//						 				c=a*b;
-//						 			}
-//					 			}
-//					 			
-//					 			if(c==0){
-//					 				System.out.println("待加入部門方法 :  "+ALLfunction.get(j));
-//					 			}else{
-//					 				System.out.println("部門方法 :  "+ALLfunction.get(j));
-//					 			}
-//					 			
-//				 			}else if(groupfunction2.size()<=0){	
-//				 				if(c==1){
-//					 				System.out.println("待加入部門方法 :  "+ALLfunction.get(j));
-//					 			}else{
-//					 				System.out.println("部門方法 :  "+ALLfunction.get(j));
-//					 			}
-//				 			}
-//					 			
-//					 			
-//					 		}
-//							
-//							
-//							System.out.println("  ");
-//							System.out.println("-------------------------------------------------------");
+							
+							  String notgroupdbid2 = "";
+				        	  String notgroupname2 = "";
+				        	  Set<String> b = AllfunctionJsonObject.keySet();
+							    for (String key :  b) {
+						    		  if(groupfunction_dbid.indexOf(key)<0){
+						    			  notgroupdbid2+=key+",";
+						    			  notgroupname2+=AllfunctionJsonObject.getString(key)+",";
+						    			  //personGroup.put("notgroupdbid", );
+//						    			  personGroup.put("notgroupname", Group2JsonObject.getString(key));
+						    		  }else{}
+						    		  
+						    	    }
+							    
+							    
+							
+	 						GroupJsonObject.accumulate("have_function",groupfunction2);
+	 						GroupJsonObject.accumulate("have_function_dbid",groupfunction_dbid);
+	 						
+	 						GroupJsonObject.put("not_function", notgroupname2);
+	 						GroupJsonObject.put("not_function_dbid", notgroupdbid2);
+	 				
 
 							
 							
