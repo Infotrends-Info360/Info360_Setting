@@ -22,6 +22,7 @@ import com.infotrends.bean.Interaction;
 import com.infotrends.bean.Rpt_Activitylog;
 import com.infotrends.bean.Rpt_AgentStatus;
 import com.infotrends.bean.ServiceEntry;
+import com.infotrends.bean.SystemCfg;
 import com.infotrends.dao.ActivitydataDao;
 import com.infotrends.dao.ActivitygroupsDao;
 import com.infotrends.dao.ActivitymenuDao;
@@ -37,6 +38,7 @@ import com.infotrends.dao.InteractionDao;
 import com.infotrends.dao.Rpt_ActivitylogDao;
 import com.infotrends.dao.Rpt_AgentStatusDao;
 import com.infotrends.dao.ServiceEntryDao;
+import com.infotrends.dao.SystemCfgDao;
 import com.infotrends.bean.CFG_function;
 import com.infotrends.bean.CFG_group;
 import com.infotrends.bean.CFG_group_person;
@@ -1757,7 +1759,8 @@ public class MaintainService {
 		}
 		return activitymenulist;
 	}
-
+	
+	
 	/**
 	 * 
 	 * LogicDelete_agentstatus
@@ -2223,5 +2226,23 @@ public class MaintainService {
 			return count;
 		}	
 	
-	
+		/**
+		 * 
+		 * selectAll_SystemCfg
+		 * 
+		 * @param selectAll_SystemCfg
+		 */
+		public List<SystemCfg> selectAll_SystemCfg() {
+
+			List<SystemCfg> systemCfglist = new ArrayList<SystemCfg>();
+			try {
+				SystemCfgDao dao = new SystemCfgDao();
+				systemCfglist = dao.selectAll_SystemCfg();
+			} catch (Exception e) {
+				IsError.GET_EXCEPTION = e.getMessage();
+				e.printStackTrace();
+				Util.getFileLogger().error(e.getMessage());
+			}
+			return systemCfglist;
+		}	
 }
