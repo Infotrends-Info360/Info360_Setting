@@ -69,7 +69,10 @@ public class Query_Servlet {
 			interaction.setStartdate(startdate);
 			interaction.setEnddate(enddate);
 
+
+
 //inputcontactdata 有輸入
+			
 			if(inputcontactdata!=null && !inputcontactdata.isEmpty()){
 				System.out.println("inputcontactdata if");
 				//select全部contactdataID
@@ -128,188 +131,165 @@ public class Query_Servlet {
 			interaction.setContactid(contactid);
 		}
 		int oo = 0;
-		JSONArray PersonJsonArray = new JSONArray();
 		JSONArray testArray = new JSONArray();
 
 		if(contactidlist.size()>0){
-			System.out.println("IF");
+			System.out.println("======= IF =======");
+			System.out.println("======= IF ======="+contactidlist);
 			
-			List<Interaction> interactionlist = maintainservice.Selcet_interaction(interaction);
-//	    	List<String> IXN = new ArrayList<String>();
-	    	oo=0;
-  	    	for(int a = 0; a < interactionlist.size(); a++){
-//  	    		IXN.add(interactionlist.get(a).getIxnid());
-//  				System.out.println("data ");
-  	    		String name = "";
-  	    		
-//Interaction關聯rpt_activitylog
-  	    		rpt_activitylog.setInteractionid(interactionlist.get(a).getIxnid());
-  	    		List<Rpt_Activitylog> rpt_activityloglist = maintainservice.Selcet_activitylog(rpt_activitylog);
-  	    			for(int g = 0; g < rpt_activityloglist.size(); g++){
-	    				if(rpt_activityloglist.get(g).getActivitydataid()!=null &&
-	    						!rpt_activityloglist.get(g).getActivitydataid().equals("") &&
-	    						!rpt_activityloglist.get(g).getActivitydataid().equals("null")){
-	    					
-//將rpt_activitylog至activitydata轉成對應名稱		
-	    					activitydata.setDbid(Integer.valueOf(rpt_activityloglist.get(g).getActivitydataid()));
-	    					List<Activitydata> activitydatalist = maintainservice.IXN_activitydata(activitydata);
-	    						
-	    							if(activitydatalist.size()>0){
-	    								name+=activitydatalist.get(0).getCodename()+",";
-	    							}else{
-	    								name+=rpt_activityloglist.get(g).getActivitydataid()+"[無此代碼],";
-	    							}
-	    				}
-	    			}	
-  	    
-  	    			if(interactionlist.get(a).getAgentid()!=null &&
-  	  		  			!interactionlist.get(a).getAgentid().equals("") &&
-  	  		  			!interactionlist.get(a).getAgentid().equals("null")&&
-  	  		  			interactionlist.get(a).getIxnid()!=null&&
-  	  		  			!interactionlist.get(a).getIxnid().equals("")&&
-  	  		  			!interactionlist.get(a).getIxnid().equals("null")){
-//Interaction關聯CFG_person
+			for(int i = 0; i<contactidlist.size();i++){
+				
+				interaction.setContactid(contactidlist.get(i));
 
-  	  	  	    				cfg_person.setDbid(Integer.valueOf(interactionlist.get(a).getAgentid()));
-  	  	  	    				List<CFG_person> cfg_personlist = maintainservice.query_Person_DBID(cfg_person);
-  	  					//for(int d = 0; d < cfg_personlist.size(); d++){
-//  	  							JSONObject cfg_personObject = new JSONObject();
-//  	  							cfg_personObject.put("username", cfg_personlist.get(0).getUser_name());
-//  	  							PersonJsonArray.put(cfg_personObject);
-//資料整合put JSONObject
-  	  							JSONObject testobj = new JSONObject();
-  	  							if(cfg_personlist.get(0).getUser_name()!=""&&cfg_personlist.get(0).getUser_name()!=null){
-  	  								testobj.put("Agentname", cfg_personlist.get(0).getUser_name());
-  	  							}else{
-  	  								testobj.put("Agentname", "");
-  	  							}
+				List<Interaction> interactionlist = maintainservice.Selcet_interaction(interaction);
 
-  	  							if(interactionlist.get(a).getThecomment()!=null&&interactionlist.get(a).getThecomment()!=""){
-  	  								testobj.put("Thecomment", interactionlist.get(a).getThecomment());
-  	  							}else{
-  	  								testobj.put("Thecomment", "");
-  	  							}
-  	  							
-  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-  	  								testobj.put("Startdate", interactionlist.get(a).getStartdate().substring(0, 19));
-  	  							}else{
-  	  								testobj.put("Startdate", "");
-  	  							}
-  	  							
-  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-  	  								testobj.put("Enddate", interactionlist.get(a).getEnddate().substring(0, 19));
-  	  							}else{
-  	  								testobj.put("Enddate", "");
-  	  							}
-  	  							if(name.length()>0){
-  	  								testobj.put("Codename",name.substring(0, name.length()-1));
-  	  							}else{
-  	  								testobj.put("Codename",name);
-  	  							}
-  	  							testobj.put("ixnid", interactionlist.get(a).getIxnid());
-  	  							if(interactionlist.get(a).getEntitytypeid().equals("2")){
-  	  								testobj.put("src", "chat");
-  	  							}else{
-  	  								testobj.put("src", "");
-  	  							}
-//  	  			    			testobj.put("BasicINF", contactidmap);
-  	  							testArray.put(testobj);
-  	  	  	    	}
-  	    		  oo++;
-  	    	}
-	
+		  	    	for(int a = 0; a < interactionlist.size(); a++){
+		  	    		if(interactionlist.get(a).getAgentid()!=null &&	!interactionlist.get(a).getAgentid().equals("") && !interactionlist.get(a).getAgentid().equals("null")&&
+			  						interactionlist.get(a).getIxnid()!=null&& !interactionlist.get(a).getIxnid().equals("")&& !interactionlist.get(a).getIxnid().equals("null")){	
 
+		  	    		
+		  	    				String name = "";
+		  	    		
+		  	    				rpt_activitylog.setInteractionid(interactionlist.get(a).getIxnid());
+		  	    				List<Rpt_Activitylog> rpt_activityloglist = maintainservice.Selcet_activitylog(rpt_activitylog);
+		  	    	
+		  	    					for(int g = 0; g < rpt_activityloglist.size(); g++){
+			  	 
+		  	    						activitydata.setDbid(Integer.valueOf(rpt_activityloglist.get(g).getActivitydataid()));
+		  	    						List<Activitydata> activitydatalist = maintainservice.IXN_activitydata(activitydata);
+		  	    							if(activitydatalist.size()>0){
+		  	    									name+=activitydatalist.get(0).getCodename()+",";
+		  	    							}else{
+		  	    									name+=rpt_activityloglist.get(g).getActivitydataid()+"[無此代碼],";
+		  	    							}
+			  	    		
+		  	    					}	
+
+							  cfg_person.setDbid(Integer.valueOf(interactionlist.get(a).getAgentid()));
+					    	  List<CFG_person> cfg_personlist = maintainservice.query_Person_DBID(cfg_person);
+
+									JSONObject testobj = new JSONObject();
+									if(cfg_personlist.get(0).getUser_name()!=""&&cfg_personlist.get(0).getUser_name()!=null){
+										testobj.put("Agentname", cfg_personlist.get(0).getUser_name());
+									}else{
+										testobj.put("Agentname", "");
+									}
+
+									if(interactionlist.get(a).getThecomment()!=null&&interactionlist.get(a).getThecomment()!=""){
+										testobj.put("Thecomment", interactionlist.get(a).getThecomment());
+									}else{
+										testobj.put("Thecomment", "");
+									}
+									
+									if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
+										testobj.put("Startdate", interactionlist.get(a).getStartdate().substring(0, 19));
+									}else{
+										testobj.put("Startdate", "");
+									}
+									
+									if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
+										testobj.put("Enddate", interactionlist.get(a).getEnddate().substring(0, 19));
+									}else{
+										testobj.put("Enddate", "");
+									}
+									if(name.length()>0){
+										testobj.put("Codename",name.substring(0, name.length()-1));
+									}else{
+										testobj.put("Codename",name);
+									}
+									testobj.put("ixnid", interactionlist.get(a).getIxnid());
+									if(interactionlist.get(a).getEntitytypeid().equals("2")){
+										testobj.put("src", "chat");
+									}else{
+										testobj.put("src", "");
+									}
+									testArray.put(testobj);				    		
+		  	    		}
+			  	    	oo++;
+		  	    	}
+			}
+			
+		}else if(inputcontactdata!=null && !inputcontactdata.isEmpty() && contactidlist.size()==0){
+			System.out.println("======= inputcontactdata有輸入 但是沒有匹配成功 =======");
 		}else{
 			System.out.println("======= else =======");
-
+			
+//			System.out.println("S DAY: "+startdate);
+//			System.out.println("E DAY: "+enddate);
+			
 	    	List<Interaction> interactionlist = maintainservice.Selcet_interaction(interaction);
-//	    	List<String> IXN = new ArrayList<String>();
-	    	oo=0;
-  	    	for(int a = 0; a < interactionlist.size(); a++){
-//  	    		IXN.add(interactionlist.get(a).getIxnid());
-//  				System.out.println("data ");
-  	    		String name = "";
+	    	
+	    	HashMap<String,String> activitydataidname = new HashMap<String,String>();
+	    	activitydata.setDbid(0);
+				List<Activitydata> activitydatalist = maintainservice.IXN_activitydata(activitydata);
+			for(int i = 0;i<activitydatalist.size();i++){
+				activitydataidname.put(String.valueOf(activitydatalist.get(i).getDbid()), activitydatalist.get(i).getCodename());
+			}
+
+
+  	    	for(int a = 0 ; a < interactionlist.size() ; a++){
   	    		
-//Interaction關聯rpt_activitylog
-  	    		rpt_activitylog.setInteractionid(interactionlist.get(a).getIxnid());
-  	    		List<Rpt_Activitylog> rpt_activityloglist = maintainservice.Selcet_activitylog(rpt_activitylog);
-  	    			for(int g = 0; g < rpt_activityloglist.size(); g++){
-	    				if(rpt_activityloglist.get(g).getActivitydataid()!=null &&
-	    						!rpt_activityloglist.get(g).getActivitydataid().equals("") &&
-	    						!rpt_activityloglist.get(g).getActivitydataid().equals("null")){
-	    					
-//將rpt_activitylog至activitydata轉成對應名稱		
-	    					activitydata.setDbid(Integer.valueOf(rpt_activityloglist.get(g).getActivitydataid()));
-	    					List<Activitydata> activitydatalist = maintainservice.IXN_activitydata(activitydata);
-	    						
-	    							if(activitydatalist.size()>0){
-	    								name+=activitydatalist.get(0).getCodename()+",";
-	    							}else{
-	    								name+=rpt_activityloglist.get(g).getActivitydataid()+"[無此代碼],";
-	    							}
-	    				}
-	    			}	
-  	    
-  	    			if(interactionlist.get(a).getAgentid()!=null &&
-  	  		  			!interactionlist.get(a).getAgentid().equals("") &&
+  	    			if(interactionlist.get(a).getAgentid()!=null && !interactionlist.get(a).getAgentid().equals("") &&
   	  		  			!interactionlist.get(a).getAgentid().equals("null")&&
-  	  		  			interactionlist.get(a).getIxnid()!=null&&
-  	  		  			!interactionlist.get(a).getIxnid().equals("")&&
-  	  		  			!interactionlist.get(a).getIxnid().equals("null")){
-//Interaction關聯CFG_person
+  	  		  				interactionlist.get(a).getIxnid()!=null&& !interactionlist.get(a).getIxnid().equals("")&&
+  	  		  					!interactionlist.get(a).getIxnid().equals("null")){
+  	    				oo++;
+  	  	    			rpt_activitylog.setInteractionid(interactionlist.get(a).getIxnid());
+  	  	    			List<Rpt_Activitylog> rpt_activityloglist = maintainservice.Selcet_activitylog(rpt_activitylog);
+  						String name = "";
+  	  	    					for(int g = 0; g < rpt_activityloglist.size(); g++){
+  	  	    						
+  	  	    							if(rpt_activityloglist.size()>0){
+  	  	    								name+=activitydataidname.get(rpt_activityloglist.get(g).getActivitydataid())+",";
+  	  	    							}else{
+  	  	    								name+=rpt_activityloglist.get(g).getActivitydataid()+"[無此代碼],";
+  	  	    							}
+  	  	    					}
+  	  	    					
+  	  	    					cfg_person.setDbid(Integer.valueOf(interactionlist.get(a).getAgentid()));
+  	  	    					List<CFG_person> cfg_personlist = maintainservice.query_Person_DBID(cfg_person);
+//組成
+  	  	    					JSONObject testobj = new JSONObject();
+  	  	  							if(cfg_personlist.get(0).getUser_name()!=""&&cfg_personlist.get(0).getUser_name()!=null){
+  	  	  								testobj.put("Agentname", cfg_personlist.get(0).getUser_name());
+  	  	  							}else{
+  	  	  								testobj.put("Agentname", "");
+  	  	  							}
 
-  	  	  	    				cfg_person.setDbid(Integer.valueOf(interactionlist.get(a).getAgentid()));
-  	  	  	    				List<CFG_person> cfg_personlist = maintainservice.query_Person_DBID(cfg_person);
-  	  					//for(int d = 0; d < cfg_personlist.size(); d++){
-//  	  							JSONObject cfg_personObject = new JSONObject();
-//  	  							cfg_personObject.put("username", cfg_personlist.get(0).getUser_name());
-//  	  							PersonJsonArray.put(cfg_personObject);
-//資料整合put JSONObject
-  	  							JSONObject testobj = new JSONObject();
-  	  							if(cfg_personlist.get(0).getUser_name()!=""&&cfg_personlist.get(0).getUser_name()!=null){
-  	  								testobj.put("Agentname", cfg_personlist.get(0).getUser_name());
-  	  							}else{
-  	  								testobj.put("Agentname", "");
-  	  							}
-
-  	  							if(interactionlist.get(a).getThecomment()!=null&&interactionlist.get(a).getThecomment()!=""){
-  	  								testobj.put("Thecomment", interactionlist.get(a).getThecomment());
-  	  							}else{
-  	  								testobj.put("Thecomment", "");
-  	  							}
-  	  							
-  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-  	  								testobj.put("Startdate", interactionlist.get(a).getStartdate().substring(0, 19));
-  	  							}else{
-  	  								testobj.put("Startdate", "");
-  	  							}
-  	  							
-  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-  	  								testobj.put("Enddate", interactionlist.get(a).getEnddate().substring(0, 19));
-  	  							}else{
-  	  								testobj.put("Enddate", "");
-  	  							}
-  	  							if(name.length()>0){
-  	  								testobj.put("Codename",name.substring(0, name.length()-1));
-  	  							}else{
-  	  								testobj.put("Codename",name);
-  	  							}
-  	  							testobj.put("ixnid", interactionlist.get(a).getIxnid());
-  	  							if(interactionlist.get(a).getEntitytypeid().equals("2")){
-  	  								testobj.put("src", "chat");
-  	  							}else{
-  	  								testobj.put("src", "");
-  	  							}
-//  	  			    			testobj.put("BasicINF", contactidmap);
-  	  							testArray.put(testobj);
-  	  					//}
-  	  	  	    	}
-  	    			oo++;
-  	    		}
-	  	    System.out.println("oo count: "+oo);
-
+  	  	  							if(interactionlist.get(a).getThecomment()!=null&&interactionlist.get(a).getThecomment()!=""){
+  	  	  								testobj.put("Thecomment", interactionlist.get(a).getThecomment());
+  	  	  							}else{
+  	  	  								testobj.put("Thecomment", "");
+  	  	  							}
+  	  	  							
+  	  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
+  	  	  								testobj.put("Startdate", interactionlist.get(a).getStartdate().substring(0, 19));
+  	  	  							}else{
+  	  	  								testobj.put("Startdate", "");
+  	  	  							}
+  	  	  							
+  	  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
+  	  	  								testobj.put("Enddate", interactionlist.get(a).getEnddate().substring(0, 19));
+  	  	  							}else{
+  	  	  								testobj.put("Enddate", "");
+  	  	  							}
+  	  	  							if(name.length()>0){
+  	  	  								testobj.put("Codename",name.substring(0, name.length()-1));
+  	  	  							}else{
+  	  	  								testobj.put("Codename",name);
+  	  	  							}
+  	  	  							testobj.put("ixnid", interactionlist.get(a).getIxnid());
+  	  	  							if(interactionlist.get(a).getEntitytypeid().equals("2")){
+  	  	  								testobj.put("src", "chat");
+  	  	  							}else{
+  	  	  								testobj.put("src", "");
+  	  	  							}
+  	  	  							testArray.put(testobj);
+  	    			}
   	    	}
-		
+
+		}
+		System.out.println("oo count:  "+oo);
 			jsonObject.put("data", testArray);
   	  
 		return Response.status(200).entity(jsonObject.toString())

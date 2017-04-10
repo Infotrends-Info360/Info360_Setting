@@ -27,7 +27,13 @@
 </select>
 
 <select id="IXN_activitydata" parameterType="com.infotrends.bean.Activitydata"  resultMap="activitydataResult">
- Select DBID,ACTIVITYGROUPSID,CODENAME,COLOR,SORT,TITLEFLAG,TITLEGROUP,DELETEFLAG,DELETEDATETIME,CREATEDATETIME from tblCfg_ActivityData where DBID=#{dbid}
+ Select DBID,ACTIVITYGROUPSID,CODENAME,COLOR,SORT,TITLEFLAG,TITLEGROUP,DELETEFLAG,DELETEDATETIME,CREATEDATETIME from tblCfg_ActivityData
+  <if test="dbid!=0">
+  where dbid=#{dbid}
+  </if>
+  <if test="dbid==0">
+ 
+  </if>
 </select>
 
 <select id="Select_activitydata" parameterType="com.infotrends.bean.Activitydata"  resultMap="activitydataResult">
