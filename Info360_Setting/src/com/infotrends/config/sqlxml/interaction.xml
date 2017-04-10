@@ -65,11 +65,11 @@ select  DBID,CONTACTID,IXNID,AGENTID,STARTDATE,ENDDATE,STATUS,TYPEID,ENTITYTYPEI
 
 FROM tblInteraction where 1=1
 
-<if test="startdate!=&quot;&quot;&amp;&amp;agentid!=null">
+<if test="startdate!=&quot;&quot;&amp;&amp;startdate!=null">
 	and
  		<![CDATA[ Convert(DateTime,startdate) >=Convert(DateTime,#{startdate})]]>
 </if>
-<if test="enddate!=&quot;&quot;&amp;&amp;agentid!=null">
+<if test="enddate!=&quot;&quot;&amp;&amp;enddate!=null">
     and  
    		<![CDATA[ Convert(DateTime,enddate) <= Convert(DateTime,DATEADD(day,1,#{enddate}))  ]]>
 </if>
