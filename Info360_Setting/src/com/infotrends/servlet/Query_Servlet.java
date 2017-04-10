@@ -69,6 +69,8 @@ public class Query_Servlet {
 			interaction.setStartdate(startdate);
 			interaction.setEnddate(enddate);
 
+
+
 //inputcontactdata 有輸入
 			
 			if(inputcontactdata!=null && !inputcontactdata.isEmpty()){
@@ -211,7 +213,10 @@ public class Query_Servlet {
 			System.out.println("======= inputcontactdata有輸入 但是沒有匹配成功 =======");
 		}else{
 			System.out.println("======= else =======");
-
+			
+//			System.out.println("S DAY: "+startdate);
+//			System.out.println("E DAY: "+enddate);
+			
 	    	List<Interaction> interactionlist = maintainservice.Selcet_interaction(interaction);
 	    	
 	    	HashMap<String,String> activitydataidname = new HashMap<String,String>();
