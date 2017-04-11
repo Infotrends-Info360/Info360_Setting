@@ -23,7 +23,6 @@
 <mapper namespace="interaction">
 
 <resultMap type="com.infotrends.bean.Interaction" id="interactionResult">
-  
     <id     column="DBID" 					jdbcType="INTEGER" property="dbid"/>
     <result column="USERID" 				jdbcType="VARCHAR" property="userid"/>
     <result column="CONTACTID" 				jdbcType="VARCHAR" property="contactid"/>
@@ -40,21 +39,9 @@
     <result column="STRUCTUREDTEXT" 		jdbcType="VARCHAR" property="structuredtext"/>
     <result column="STRUCTUREDMIMETYPE"     jdbcType="VARCHAR" property="structuredmimetype"/>
 	<result column="THECOMMENT"     		jdbcType="VARCHAR" property="thecomment"/>
-	
 	<result column="PAGE" 					jdbcType="INTEGER" property="page"/>
-    
 </resultMap>	
 
-<!--   <resultMap type="com.infotrends.bean.ContactData" id="contactdataResult"> -->
-<!--     <id     column="DBID" jdbcType="INTEGER" property="dbid"/> -->
-<!--     <result column="CONTACTID" jdbcType="VARCHAR" property="contactid"/> -->
-<!--     <result column="CREATEDATE" jdbcType="VARCHAR" property="createdate"/> -->
-<!--     <result column="MODIFIEDDATE"     jdbcType="VARCHAR" property="modifieddate"/> -->
-<!--   </resultMap> -->
-  
-<!--  	<select id="Query_Interaction" parameterType="com.infotrends.bean.ContactData"  resultType="string"> -->
-<!--   		SELECT CONTACTID FROM TBLCONTACTDATA WHERE ${searchkey} = #{searchvalue} and ${pkey} = #{pvalue} -->
-<!--   	</select> -->
 
 <select id="Selcet_interaction" parameterType="com.infotrends.bean.Interaction"  resultMap="interactionResult">
 select  DBID,CONTACTID,IXNID,AGENTID,STARTDATE,ENDDATE,STATUS,TYPEID,ENTITYTYPEID,SUBTYPEID,SUBJECT,TEXT,STRUCTUREDTEXT,STRUCTUREDMIMETYPE,THECOMMENT
@@ -77,36 +64,6 @@ FROM tblInteraction where 1=1
 </if>
 </select>
 
-<!-- <select id="Selcet_interaction" parameterType="com.infotrends.bean.Interaction"  resultMap="interactionResult"> -->
-<!-- SELECT -->
-<!--  a1.*, -->
-<!--  b1.CodeName -->
-<!-- FROM (SELECT -->
-<!--  a.*, -->
-<!--  b.USER_NAME AS Name -->
-<!-- FROM tblInteraction a, -->
-<!--   tblCfg_Person b WITH (NOLOCK) -->
-<!-- WHERE -->
-<!-- <if test="startdate!=&quot;&quot;&amp;&amp;startdate!=null"> -->
-<!-- 	and -->
-<!--  		<![CDATA[ Convert(DateTime,a.startdate) >=Convert(DateTime,#{startdate})]]> -->
-<!-- </if> -->
-<!-- <if test="enddate!=&quot;&quot;&amp;&amp;enddate!=null"> -->
-<!--     and   -->
-<!--    		<![CDATA[ Convert(DateTime,a.enddate) <= Convert(DateTime,DATEADD(day,1,#{enddate}))  ]]> -->
-<!-- </if> -->
-<!-- <if test="agentid!=&quot;&quot; &amp;&amp;agentid!=null "> -->
-<!--  	and  -->
-<!--  		a.agentid =#{agentid} = b.DBID -->
-<!-- </if> -->
-<!-- <if test="contactid!=&quot;&quot; &amp;&amp;contactid!=null "> -->
-<!--  	and  -->
-<!--  		CONTACTID =#{contactid} -->
-<!-- </if> -->
-<!-- 	LEFT JOIN  -->
-<!-- (select c.InteractionID,d.codename from tblRpt_Activitylog c,tblCfg_ActivityData d where c.ActivityDataID=d.dbid and c.InteractionID <>'null') b1 -->
-<!--  ON a1.IxnID = b1.InteractionID -->
-<!-- </select> -->
 
 
 
@@ -115,8 +72,6 @@ FROM tblInteraction where 1=1
 select  DBID,CONTACTID,IXNID,AGENTID,STARTDATE,ENDDATE,STATUS,TYPEID,ENTITYTYPEID,SUBTYPEID,SUBJECT,TEXT,STRUCTUREDTEXT,STRUCTUREDMIMETYPE,THECOMMENT
 
 FROM tblInteraction where IXNID =#{ixnid}
-
-
 
 </select>
 

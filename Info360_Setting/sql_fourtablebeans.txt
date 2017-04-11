@@ -1,0 +1,99 @@
+SELECT
+ a1.*,
+ b1.CodeName
+FROM (SELECT
+ a.*,
+ b.USER_NAME AS Name
+FROM tblInteraction a,
+  tblCfg_Person b WITH (NOLOCK)
+WHERE a.StartDate >= '2017/04/01'
+AND a.StartDate < '2017/04/11'
+AND a.AgentID = b.DBID) a1
+LEFT JOIN 
+(select c.InteractionID,d.codename from tblRpt_Activitylog c,tblCfg_ActivityData d where c.ActivityDataID=d.dbid and c.InteractionID <>'null') b1
+ ON a1.IxnID = b1.InteractionID
+ 
+ 
+ ///正確版本
+SELECT
+ a1.Name,a1.IxnID,a1.StartDate,a1.EndDate,a1.EntityTypeID,a1.TheComment,
+ b1.CodeName
+FROM (SELECT
+ a.*,
+ b.USER_NAME AS Name
+FROM tblInteraction a,
+  tblCfg_Person b WITH (NOLOCK)
+WHERE 
+a.StartDate >= '2017/04/01'
+AND a.StartDate < '2017/04/11'
+
+AND a.AgentID = b.DBID) a1
+
+LEFT JOIN 
+(select c.InteractionID,d.codename from tblRpt_Activitylog c,tblCfg_ActivityData d where c.ActivityDataID=d.dbid and c.InteractionID <>'null') b1
+ ON a1.IxnID = b1.InteractionID
+ 
+ // 合併用-ID
+ SELECT distinct [InteractionID],(SELECT cast([ActivityDataID] AS NVARCHAR ) + ',' from [tblRpt_Activitylog] 
+where [InteractionID] = ord.[InteractionID]
+FOR XML PATH('')) as activityDataIDs
+from [tblRpt_Activitylog] ord
+ 
+  
+ // 合併用-轉中文
+ SELECT distinct [InteractionID],(SELECT cast(d.CodeName AS NVARCHAR ) + ',' from [tblRpt_Activitylog] 
+where [InteractionID] = c.[InteractionID] AND c.ActivityDataID =d.dbid AND c.InteractionID <>'null'
+FOR XML PATH('')) as CodeNameList
+from [tblRpt_Activitylog] c, tblCfg_ActivityData d
+ 
+ 
+ 
+ 
+ //
+ SELECT c.[InteractionID], d.CodeName
+FROM [tblRpt_Activitylog] c, tblCfg_ActivityData d
+WHERE c.ActivityDataID =d.dbid
+
+
+// 有可能是光
+ SELECT distinct [InteractionID],
+	(SELECT cast(dd3.[CodeName] AS NVARCHAR ) + ',' from (SELECT c.[InteractionID], d.CodeName
+															FROM [tblRpt_Activitylog] c, tblCfg_ActivityData d
+															WHERE c.ActivityDataID =d.dbid AND c.[InteractionID] = '04fcd5cd-fe6a-4fd3-82f8-a5ec993f4c76') dd3
+		where [InteractionID] = ord.[InteractionID]
+		FOR XML PATH('')
+	) as activityDataIDs
+from (SELECT c.[InteractionID], d.CodeName
+FROM [tblRpt_Activitylog] c, tblCfg_ActivityData d
+WHERE c.ActivityDataID =d.dbid AND c.[InteractionID] = '04fcd5cd-fe6a-4fd3-82f8-a5ec993f4c76') ord
+
+// 目前成功的
+SELECT distinct [InteractionID],
+	(SELECT cast(c1_2.[CodeName] AS NVARCHAR ) + ',' 
+	 FROM (SELECT c.[InteractionID], d.CodeName
+		   FROM [tblRpt_Activitylog] c, tblCfg_ActivityData d
+		   WHERE c.ActivityDataID =d.dbid) c1_2
+	 WHERE c1_2.[InteractionID] = c1_1.[InteractionID]
+	 FOR XML PATH('')
+	) as CodeName
+from (SELECT c.[InteractionID], d.CodeName
+	  FROM [tblRpt_Activitylog] c, tblCfg_ActivityData d
+	  WHERE c.ActivityDataID =d.dbid) c1_1
+	  
+	  
+// 去鬥版
+SELECT [InteractionID], left(e.CodeName,len(e.CodeName)-1) 
+FROM
+	(SELECT distinct [InteractionID], 
+		(SELECT cast(c1_2.[CodeName] AS NVARCHAR ) + ',' 
+		 FROM (SELECT c.[InteractionID], d.CodeName
+			   FROM [tblRpt_Activitylog] c, tblCfg_ActivityData d
+			   WHERE c.ActivityDataID =d.dbid) c1_2
+		 WHERE c1_2.[InteractionID] = c1_1.[InteractionID]
+		 FOR XML PATH('')
+		) as CodeName
+	from (SELECT c.[InteractionID], d.CodeName
+		  FROM [tblRpt_Activitylog] c, tblCfg_ActivityData d
+		  WHERE c.ActivityDataID =d.dbid) c1_1) e
+	  
+

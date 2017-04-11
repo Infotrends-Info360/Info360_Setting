@@ -50,6 +50,8 @@
     <mapper resource="com/infotrends/config/sqlxml/serviceentry.xml"/>
     <mapper resource="com/infotrends/config/sqlxml/contactdata.xml"/>
     <mapper resource="com/infotrends/config/sqlxml/interaction.xml"/>
+    <mapper resource="com/infotrends/config/sqlxml/FourTableBeans.xml"/>
+
     <mapper resource="com/infotrends/config/sqlxml/cfg_servicename_setting.xml"/>
     <mapper resource="com/infotrends/config/sqlxml/commonlink.xml"/>
     <mapper	resource="com/infotrends/config/sqlxml/agentreason.xml"/>

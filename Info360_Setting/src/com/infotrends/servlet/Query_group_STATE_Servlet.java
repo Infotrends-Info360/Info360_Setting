@@ -15,6 +15,8 @@ import org.json.JSONObject;
 import com.infotrends.bean.CFG_group;
 import com.infotrends.bean.CFG_group_person;
 import com.infotrends.bean.CFG_person;
+import com.infotrends.bean.FourTableBeans;
+import com.infotrends.dao.FourTableBeansDao;
 import com.infotrends.service.MaintainService;
 import com.infotrends.util.*;
 @Path("/QQuery_Group_STATE")
@@ -25,6 +27,13 @@ public class Query_group_STATE_Servlet {
 	public Response postFromPath(@FormParam("state")
 								int state) throws IOException {
 
+		
+		// test
+//		FourTableBeansDao FourTableBeansDao = new FourTableBeansDao();
+//		List<FourTableBeans> FourTableBeansList = FourTableBeansDao.Selcet_fourTableBeans(new FourTableBeans());
+//		System.out.println("FourTableBeansList.size(): " + FourTableBeansList.size());
+		
+		
 		JSONObject jsonObject = new JSONObject();
 		CFG_group cfg_group = new CFG_group();
 		cfg_group.setState(state);

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2009-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FourTableBeans">
+
+<resultMap type="com.infotrends.bean.FourTableBeans" id="FourTableBeansResult">
+    	<result column="IXNID" 					jdbcType="VARCHAR" property="ixnid"/>
+    	<result column="ENTITYTYPEID" 			jdbcType="VARCHAR" property="src"/>
+    	<result column="THECOMMENT" 			jdbcType="VARCHAR" property="thecomment"/>
+		<result column="Name" 					jdbcType="VARCHAR" property="Agentname"/>
+		<result column="CodeName" 				jdbcType="VARCHAR" property="Codename"/>
+		 
+		<result column="STARTDATE" 				jdbcType="VARCHAR" property="Startdate"/>
+    	<result column="ENDDATE" 				jdbcType="VARCHAR" property="Enddate"/>
+		<result column="AGENTID" 				jdbcType="VARCHAR" property="agentid"/>
+		<result column="CONTACTID" 				jdbcType="VARCHAR" property="contactid"/>
+		
+		 
+</resultMap>
+ 
+ 
+<select id="Selcet_FourTableBeans" parameterType="com.infotrends.bean.FourTableBeans"  resultMap="FourTableBeansResult">
+SELECT
+ a1.Name,a1.IxnID,a1.StartDate,a1.EndDate,a1.EntityTypeID,a1.TheComment,
+ ISNULL(b1.CodeName, '') AS CodeName
+FROM (SELECT
+ a.*,
+ b.USER_NAME AS Name
+FROM tblInteraction a,
+  tblCfg_Person b WITH (NOLOCK)
+WHERE 
+<if test="startdate!=&quot;&quot;&amp;&amp;startdate!=null">
+<![CDATA[ a.StartDate >=  #{Startdate}  ]]> 
+</if>
+<if test="enddate!=&quot;&quot;&amp;&amp;enddate!=null">
+<![CDATA[AND Convert(DateTime,a.ENDDATE) <= Convert(DateTime,DATEADD(day,1,#{Enddate}))  ]]>
+ 
+</if>
+<if test="agentid!=&quot;&quot; &amp;&amp;agentid!=null">
+   <![CDATA[ AND a.AGENTID = #{agentid}   ]]>  
+</if>
+<if test="contactid!=&quot;&quot; &amp;&amp;contactid!=null">
+   <![CDATA[ AND a.CONTACTID = #{contactid}   ]]>  
+</if>
+
+ <![CDATA[ AND a.AgentID = b.DBID ]]> 
+) a1
+ <![CDATA[
+ LEFT JOIN 
+(
+SELECT [InteractionID], left(e.CodeName,len(e.CodeName)-1) AS CODENAME 
+FROM
+	(SELECT distinct [InteractionID], 
+		(SELECT cast(c1_2.[CodeName] AS NVARCHAR ) + ',' 
+		 FROM (SELECT c.[InteractionID], d.CodeName
+			   FROM [tblRpt_Activitylog] c, tblCfg_ActivityData d
+			   WHERE c.ActivityDataID =d.dbid) c1_2
+		 WHERE c1_2.[InteractionID] = c1_1.[InteractionID]
+		 FOR XML PATH('')
+		) as CodeName
+	from (SELECT c.[InteractionID], d.CodeName
+		  FROM [tblRpt_Activitylog] c, tblCfg_ActivityData d
+		  WHERE c.ActivityDataID =d.dbid) c1_1) e
+) b1 
+ ON a1.IxnID = b1.InteractionID
+ ]]> 
+
+
+</select> 
+ 
+  
+</mapper>
