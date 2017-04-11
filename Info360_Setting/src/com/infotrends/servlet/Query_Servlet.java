@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,10 +27,14 @@ import org.json.JSONObject;
 
 import util.Util;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.infotrends.bean.Activitydata;
 import com.infotrends.bean.CFG_person;
 import com.infotrends.bean.ContactData;
 import com.infotrends.bean.Interaction;
+import com.infotrends.bean.InteractionList_data;
 import com.infotrends.bean.Rpt_Activitylog;
 import com.infotrends.service.MaintainService;
 
@@ -54,8 +59,10 @@ public class Query_Servlet {
 
 			) throws IOException {
 		
-		JSONObject jsonObject = new JSONObject();
-		
+		JsonObject jsonObject = new JsonObject();
+		List<Interaction> interactionlist = null;
+//		JSONObject jsonObject = new JSONObject();
+		String jsonInteractionList_data = "";
 		Interaction interaction = new Interaction();
 		Rpt_Activitylog rpt_activitylog = new Rpt_Activitylog();
 		Activitydata activitydata = new Activitydata();
@@ -141,7 +148,7 @@ public class Query_Servlet {
 				
 				interaction.setContactid(contactidlist.get(i));
 
-				List<Interaction> interactionlist = maintainservice.Selcet_interaction(interaction);
+				interactionlist = maintainservice.Selcet_interaction(interaction);
 
 		  	    	for(int a = 0; a < interactionlist.size(); a++){
 		  	    		if(interactionlist.get(a).getAgentid()!=null &&	!interactionlist.get(a).getAgentid().equals("") && !interactionlist.get(a).getAgentid().equals("null")&&
@@ -216,14 +223,27 @@ public class Query_Servlet {
 			
 //			System.out.println("S DAY: "+startdate);
 //			System.out.println("E DAY: "+enddate);
+	    	interactionlist = maintainservice.Selcet_interaction(interaction);
+	    	InteractionList_data InteractionList_data = new InteractionList_data();
+	    	InteractionList_data.setData(interactionlist);
 			
-	    	List<Interaction> interactionlist = maintainservice.Selcet_interaction(interaction);
+//			Type type = new TypeToken<List<Interaction>>() {}.getType();
+			Gson gson = new Gson();
+			jsonInteractionList_data = gson.toJson(InteractionList_data, InteractionList_data.getClass());
+			System.out.println("jsonInteractionList_data: " + jsonInteractionList_data);
+			
 	    	
 	    	HashMap<String,String> activitydataidname = new HashMap<String,String>();
 	    	activitydata.setDbid(0);
 				List<Activitydata> activitydatalist = maintainservice.IXN_activitydata(activitydata);
 			for(int i = 0;i<activitydatalist.size();i++){
 				activitydataidname.put(String.valueOf(activitydatalist.get(i).getDbid()), activitydatalist.get(i).getCodename());
+			}
+	    	HashMap<String,String> personname = new HashMap<String,String>();
+			cfg_person.setDbid(0);
+				List<CFG_person> cfg_personlist = maintainservice.query_Person_DBID(cfg_person);
+			for(int i = 0;i<cfg_personlist.size();i++){
+				personname.put(String.valueOf(cfg_personlist.get(i).getDbid()), cfg_personlist.get(i).getUser_name());
 			}
 
 
@@ -245,54 +265,55 @@ public class Query_Servlet {
   	  	    								name+=rpt_activityloglist.get(g).getActivitydataid()+"[無此代碼],";
   	  	    							}
   	  	    					}
-  	  	    					
-  	  	    					cfg_person.setDbid(Integer.valueOf(interactionlist.get(a).getAgentid()));
-  	  	    					List<CFG_person> cfg_personlist = maintainservice.query_Person_DBID(cfg_person);
-//組成
-  	  	    					JSONObject testobj = new JSONObject();
-  	  	  							if(cfg_personlist.get(0).getUser_name()!=""&&cfg_personlist.get(0).getUser_name()!=null){
-  	  	  								testobj.put("Agentname", cfg_personlist.get(0).getUser_name());
-  	  	  							}else{
-  	  	  								testobj.put("Agentname", "");
-  	  	  							}
+//  	  	    					
 
-  	  	  							if(interactionlist.get(a).getThecomment()!=null&&interactionlist.get(a).getThecomment()!=""){
-  	  	  								testobj.put("Thecomment", interactionlist.get(a).getThecomment());
-  	  	  							}else{
-  	  	  								testobj.put("Thecomment", "");
-  	  	  							}
-  	  	  							
-  	  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-  	  	  								testobj.put("Startdate", interactionlist.get(a).getStartdate().substring(0, 19));
-  	  	  							}else{
-  	  	  								testobj.put("Startdate", "");
-  	  	  							}
-  	  	  							
-  	  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-  	  	  								testobj.put("Enddate", interactionlist.get(a).getEnddate().substring(0, 19));
-  	  	  							}else{
-  	  	  								testobj.put("Enddate", "");
-  	  	  							}
-  	  	  							if(name.length()>0){
-  	  	  								testobj.put("Codename",name.substring(0, name.length()-1));
-  	  	  							}else{
-  	  	  								testobj.put("Codename",name);
-  	  	  							}
-  	  	  							testobj.put("ixnid", interactionlist.get(a).getIxnid());
-  	  	  							if(interactionlist.get(a).getEntitytypeid().equals("2")){
-  	  	  								testobj.put("src", "chat");
-  	  	  							}else{
-  	  	  								testobj.put("src", "");
-  	  	  							}
-  	  	  							testArray.put(testobj);
+//組成
+//  	  	    					JSONObject testobj = new JSONObject();
+//  	  	  							if(interactionlist.get(a).getAgentid()!=""&&interactionlist.get(a).getAgentid()!=null){
+//  	  	  								testobj.put("Agentname", cfg_personlist.get(0).getUser_name());
+//  	  	  							}else{
+//  	  	  								testobj.put("Agentname", "");
+//  	  	  							}
+//
+//  	  	  							if(interactionlist.get(a).getThecomment()!=null&&interactionlist.get(a).getThecomment()!=""){
+//  	  	  								testobj.put("Thecomment", interactionlist.get(a).getThecomment());
+//  	  	  							}else{
+//  	  	  								testobj.put("Thecomment", "");
+//  	  	  							}
+//  	  	  							
+//  	  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
+//  	  	  								testobj.put("Startdate", interactionlist.get(a).getStartdate().substring(0, 19));
+//  	  	  							}else{
+//  	  	  								testobj.put("Startdate", "");
+//  	  	  							}
+//  	  	  							
+//  	  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
+//  	  	  								testobj.put("Enddate", interactionlist.get(a).getEnddate().substring(0, 19));
+//  	  	  							}else{
+//  	  	  								testobj.put("Enddate", "");
+//  	  	  							}
+//  	  	  							if(name.length()>0){
+//  	  	  								testobj.put("Codename",name.substring(0, name.length()-1));
+//  	  	  							}else{
+//  	  	  								testobj.put("Codename",name);
+//  	  	  							}
+//  	  	  							testobj.put("ixnid", interactionlist.get(a).getIxnid());
+//  	  	  							if(interactionlist.get(a).getEntitytypeid().equals("2")){
+//  	  	  								testobj.put("src", "chat");
+//  	  	  							}else{
+//  	  	  								testobj.put("src", "");
+//  	  	  							}
+//  	  	  							testArray.put(testobj);
   	    			}
   	    	}
 
 		}
 		System.out.println("oo count:  "+oo);
-			jsonObject.put("data", testArray);
-  	  
-		return Response.status(200).entity(jsonObject.toString())
+//		Gson gson = new Gson();
+//		jsonObject.add("data", gson.toJsonTree(jsonFromInteractionList));
+			
+//			jsonObject.put("data", jsonFromInteractionList);  	  
+		return Response.status(200).entity(jsonInteractionList_data)
 				.header("Access-Control-Allow-Origin", "*")
 			    .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
 			    .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
