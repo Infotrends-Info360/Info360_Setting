@@ -20,6 +20,8 @@ import com.infotrends.bean.CFG_group_person;
 import com.infotrends.bean.CFG_permission;
 import com.infotrends.bean.CFG_person;
 import com.infotrends.bean.CFG_role_member;
+import com.infotrends.bean.FourTableBeans;
+import com.infotrends.dao.FourTableBeansDao;
 import com.infotrends.service.MaintainService;
 import com.infotrends.util.*;
 @Path("/Query_Group_STATE")
@@ -27,9 +29,11 @@ public class QQuery_group_STATE_Servlet {
 	
 	@POST
 	@Produces("application/json")
-	public Response postFromPath(@FormParam("state")
-								int state) throws IOException {
-
+	public Response postFromPath(
+			@FormParam("state") int state
+								
+			) throws IOException {
+	
 		JSONObject jsonObject = new JSONObject();
 		CFG_group cfg_group = new CFG_group();
 		CFG_person cfg_person =new CFG_person();

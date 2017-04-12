@@ -18,6 +18,7 @@ import com.infotrends.bean.Cfg_ServiceName_Mapping;
 import com.infotrends.bean.Cfg_ServiceName_Setting;
 import com.infotrends.bean.CommonLink;
 import com.infotrends.bean.ContactData;
+import com.infotrends.bean.FourTableBeans;
 import com.infotrends.bean.Interaction;
 import com.infotrends.bean.Rpt_Activitylog;
 import com.infotrends.bean.Rpt_AgentStatus;
@@ -34,6 +35,7 @@ import com.infotrends.dao.Cfg_ServiceName_MappingDao;
 import com.infotrends.dao.Cfg_ServiceName_SettingDao;
 import com.infotrends.dao.CommonlinkDao;
 import com.infotrends.dao.ContactDataDao;
+import com.infotrends.dao.FourTableBeansDao;
 import com.infotrends.dao.InteractionDao;
 import com.infotrends.dao.Rpt_ActivitylogDao;
 import com.infotrends.dao.Rpt_AgentStatusDao;
@@ -61,6 +63,22 @@ import com.infotrends.util.IsError;
  * @author Lin
  */
 public class MaintainService {
+	
+	
+	public List<FourTableBeans> Selcet_FourTableBeans(FourTableBeans fourtablebeans) {
+
+		List<FourTableBeans> fourtablebeanslist = new ArrayList<FourTableBeans>();
+		try {
+			FourTableBeansDao fourtablebeansdao = new FourTableBeansDao();
+			fourtablebeanslist = fourtablebeansdao.Selcet_fourTableBeans(fourtablebeans);
+		} catch (Exception e) {
+			IsError.GET_EXCEPTION = e.getMessage();
+			e.printStackTrace();
+			Util.getFileLogger().error(e.getMessage());
+		}
+		return fourtablebeanslist;
+
+	}
 	 
 	/**
 	 * Logic_Delete

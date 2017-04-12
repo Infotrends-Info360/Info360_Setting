@@ -33,9 +33,12 @@ import com.google.gson.reflect.TypeToken;
 import com.infotrends.bean.Activitydata;
 import com.infotrends.bean.CFG_person;
 import com.infotrends.bean.ContactData;
+import com.infotrends.bean.FourTableBeans;
+import com.infotrends.bean.FourTableBeansList_data;
 import com.infotrends.bean.Interaction;
 import com.infotrends.bean.InteractionList_data;
 import com.infotrends.bean.Rpt_Activitylog;
+import com.infotrends.dao.FourTableBeansDao;
 import com.infotrends.service.MaintainService;
 
 
@@ -62,7 +65,7 @@ public class Query_Servlet {
 		JsonObject jsonObject = new JsonObject();
 		List<Interaction> interactionlist = null;
 //		JSONObject jsonObject = new JSONObject();
-		String jsonInteractionList_data = "";
+		String jsonfourtablebeanslist_data = "";
 		Interaction interaction = new Interaction();
 		Rpt_Activitylog rpt_activitylog = new Rpt_Activitylog();
 		Activitydata activitydata = new Activitydata();
@@ -72,12 +75,12 @@ public class Query_Servlet {
 		List<String> contactidlist = new ArrayList<String>();
 		MaintainService maintainservice = new MaintainService();
 		
+		FourTableBeans fourtablebeans = new FourTableBeans();
 		
-			interaction.setStartdate(startdate);
-			interaction.setEnddate(enddate);
+    	FourTableBeansList_data fourtablebeanslist_data = new FourTableBeansList_data();
 
-
-
+		fourtablebeans.setStartdate(startdate);
+		fourtablebeans.setEnddate(enddate);
 //inputcontactdata 有輸入
 			
 			if(inputcontactdata!=null && !inputcontactdata.isEmpty()){
@@ -107,13 +110,15 @@ public class Query_Servlet {
 							int count=0;
 							//System.out.println("=================");
 							for(int i = 0; i<inputjsonObjkeys.length;i++){
-							
 									if(inputjsonObj.has(inputjsonObjkeys[i])&&datajsonObj.has(datajsonObjkeys[i])){
-									
 										if(!inputjsonObj.get(inputjsonObjkeys[i]).toString().trim().equals("")&&
 											inputjsonObj.get(inputjsonObjkeys[i]).toString().trim()!=null){
-										
+											
 											int	x = datajsonObj.get(inputjsonObjkeys[i]).toString().trim().indexOf(inputjsonObj.get(inputjsonObjkeys[i]).toString().trim());
+											System.out.println("input: "+inputjsonObj.get(inputjsonObjkeys[i]).toString().trim());
+											System.out.println("data: "+datajsonObj.get(inputjsonObjkeys[i]).toString().trim());
+
+											System.out.println("OUT: "+x);
 												if(x>=0){
 													count++;
 												}
@@ -121,8 +126,7 @@ public class Query_Servlet {
 									}
 							} 
 							if(count>0){
-//    							System.out.println("x count  :  "+count);
-//    							System.out.println("Contactkey:  "+Contactkey);
+
 								contactidlist.add(Contactkey);
 							}
 					}
@@ -130,190 +134,79 @@ public class Query_Servlet {
 //判斷agentid條件有沒有下
 		if(agentid!=null&& !agentid.isEmpty()){
 			System.out.println("agentid if");
-			interaction.setAgentid(agentid);
+			fourtablebeans.setAgentid(agentid);
 		}
 //判斷contactid條件有沒有下
 		if(contactid!=null&& !contactid.isEmpty()){
 			System.out.println("contactid if");
-			interaction.setContactid(contactid);
+			fourtablebeans.setContactid(contactid);
 		}
 		int oo = 0;
-		JSONArray testArray = new JSONArray();
-
 		if(contactidlist.size()>0){
+			List<FourTableBeans> FourTableBeansALLList= new ArrayList<FourTableBeans>();
+
+			List<FourTableBeans> FourTableBeansList= new ArrayList<FourTableBeans>();
+
 			System.out.println("======= IF =======");
 			System.out.println("======= IF ======="+contactidlist);
-			
+
 			for(int i = 0; i<contactidlist.size();i++){
+				fourtablebeans.setContactid(contactidlist.get(i));
+		
+				FourTableBeansList = maintainservice.Selcet_FourTableBeans(fourtablebeans);
 				
-				interaction.setContactid(contactidlist.get(i));
+				/** 更新src值 **/
+				for (FourTableBeans fourTableBeans: FourTableBeansList){
+					if("2".equals(fourTableBeans.getSrc())){
+						fourTableBeans.setSrc("chat");
+					}
+				}
+				FourTableBeansALLList.addAll(FourTableBeansList);	
+					
+				System.out.println("FourTableBeansList.size(): " + FourTableBeansList.size());
 
-				interactionlist = maintainservice.Selcet_interaction(interaction);
-
-		  	    	for(int a = 0; a < interactionlist.size(); a++){
-		  	    		if(interactionlist.get(a).getAgentid()!=null &&	!interactionlist.get(a).getAgentid().equals("") && !interactionlist.get(a).getAgentid().equals("null")&&
-			  						interactionlist.get(a).getIxnid()!=null&& !interactionlist.get(a).getIxnid().equals("")&& !interactionlist.get(a).getIxnid().equals("null")){	
-
-		  	    		
-		  	    				String name = "";
-		  	    		
-		  	    				rpt_activitylog.setInteractionid(interactionlist.get(a).getIxnid());
-		  	    				List<Rpt_Activitylog> rpt_activityloglist = maintainservice.Selcet_activitylog(rpt_activitylog);
-		  	    	
-		  	    					for(int g = 0; g < rpt_activityloglist.size(); g++){
-			  	 
-		  	    						activitydata.setDbid(Integer.valueOf(rpt_activityloglist.get(g).getActivitydataid()));
-		  	    						List<Activitydata> activitydatalist = maintainservice.IXN_activitydata(activitydata);
-		  	    							if(activitydatalist.size()>0){
-		  	    									name+=activitydatalist.get(0).getCodename()+",";
-		  	    							}else{
-		  	    									name+=rpt_activityloglist.get(g).getActivitydataid()+"[無此代碼],";
-		  	    							}
-			  	    		
-		  	    					}	
-
-							  cfg_person.setDbid(Integer.valueOf(interactionlist.get(a).getAgentid()));
-					    	  List<CFG_person> cfg_personlist = maintainservice.query_Person_DBID(cfg_person);
-
-									JSONObject testobj = new JSONObject();
-									if(cfg_personlist.get(0).getUser_name()!=""&&cfg_personlist.get(0).getUser_name()!=null){
-										testobj.put("Agentname", cfg_personlist.get(0).getUser_name());
-									}else{
-										testobj.put("Agentname", "");
-									}
-
-									if(interactionlist.get(a).getThecomment()!=null&&interactionlist.get(a).getThecomment()!=""){
-										testobj.put("Thecomment", interactionlist.get(a).getThecomment());
-									}else{
-										testobj.put("Thecomment", "");
-									}
-									
-									if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-										testobj.put("Startdate", interactionlist.get(a).getStartdate().substring(0, 19));
-									}else{
-										testobj.put("Startdate", "");
-									}
-									
-									if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-										testobj.put("Enddate", interactionlist.get(a).getEnddate().substring(0, 19));
-									}else{
-										testobj.put("Enddate", "");
-									}
-									if(name.length()>0){
-										testobj.put("Codename",name.substring(0, name.length()-1));
-									}else{
-										testobj.put("Codename",name);
-									}
-									testobj.put("ixnid", interactionlist.get(a).getIxnid());
-									if(interactionlist.get(a).getEntitytypeid().equals("2")){
-										testobj.put("src", "chat");
-									}else{
-										testobj.put("src", "");
-									}
-									testArray.put(testobj);				    		
-		  	    		}
-			  	    	oo++;
-		  	    	}
 			}
+			fourtablebeanslist_data.setData(FourTableBeansALLList);
+			Gson gson = new Gson();
+			jsonfourtablebeanslist_data = gson.toJson(fourtablebeanslist_data, FourTableBeansList_data.class);
+			
+			System.out.println("jsonfourtablebeanslist_data: " + jsonfourtablebeanslist_data);	
 			
 		}else if(inputcontactdata!=null && !inputcontactdata.isEmpty() && contactidlist.size()==0){
+			
+			List<FourTableBeans> FourTableBeansList =new ArrayList <FourTableBeans>();
+
+	    	fourtablebeanslist_data.setData(FourTableBeansList);
+			Gson gson = new Gson();
+			jsonfourtablebeanslist_data = gson.toJson(fourtablebeanslist_data, FourTableBeansList_data.class);
+			System.out.println("jsonfourtablebeanslist_data: " + jsonfourtablebeanslist_data);
+			
 			System.out.println("======= inputcontactdata有輸入 但是沒有匹配成功 =======");
 		}else{
 			System.out.println("======= else =======");
+
+
 			
-//			System.out.println("S DAY: "+startdate);
-//			System.out.println("E DAY: "+enddate);
-	    	interactionlist = maintainservice.Selcet_interaction(interaction);
-	    	InteractionList_data InteractionList_data = new InteractionList_data();
-	    	InteractionList_data.setData(interactionlist);
-			
-//			Type type = new TypeToken<List<Interaction>>() {}.getType();
+			List<FourTableBeans> FourTableBeansList = maintainservice.Selcet_FourTableBeans(fourtablebeans);
+			/** 更新src值 **/
+			for (FourTableBeans fourTableBeans: FourTableBeansList){
+				if("2".equals(fourTableBeans.getSrc())){
+					fourTableBeans.setSrc("chat");
+				}
+			}
+			System.out.println("FourTableBeansList.size(): " + FourTableBeansList.size());
+
+//GSON
+	    	fourtablebeanslist_data.setData(FourTableBeansList);
 			Gson gson = new Gson();
-			jsonInteractionList_data = gson.toJson(InteractionList_data, InteractionList_data.getClass());
-			System.out.println("jsonInteractionList_data: " + jsonInteractionList_data);
+
 			
-	    	
-	    	HashMap<String,String> activitydataidname = new HashMap<String,String>();
-	    	activitydata.setDbid(0);
-				List<Activitydata> activitydatalist = maintainservice.IXN_activitydata(activitydata);
-			for(int i = 0;i<activitydatalist.size();i++){
-				activitydataidname.put(String.valueOf(activitydatalist.get(i).getDbid()), activitydatalist.get(i).getCodename());
-			}
-	    	HashMap<String,String> personname = new HashMap<String,String>();
-			cfg_person.setDbid(0);
-				List<CFG_person> cfg_personlist = maintainservice.query_Person_DBID(cfg_person);
-			for(int i = 0;i<cfg_personlist.size();i++){
-				personname.put(String.valueOf(cfg_personlist.get(i).getDbid()), cfg_personlist.get(i).getUser_name());
-			}
-
-
-  	    	for(int a = 0 ; a < interactionlist.size() ; a++){
-  	    		
-  	    			if(interactionlist.get(a).getAgentid()!=null && !interactionlist.get(a).getAgentid().equals("") &&
-  	  		  			!interactionlist.get(a).getAgentid().equals("null")&&
-  	  		  				interactionlist.get(a).getIxnid()!=null&& !interactionlist.get(a).getIxnid().equals("")&&
-  	  		  					!interactionlist.get(a).getIxnid().equals("null")){
-  	    				oo++;
-  	  	    			rpt_activitylog.setInteractionid(interactionlist.get(a).getIxnid());
-  	  	    			List<Rpt_Activitylog> rpt_activityloglist = maintainservice.Selcet_activitylog(rpt_activitylog);
-  						String name = "";
-  	  	    					for(int g = 0; g < rpt_activityloglist.size(); g++){
-  	  	    						
-  	  	    							if(rpt_activityloglist.size()>0){
-  	  	    								name+=activitydataidname.get(rpt_activityloglist.get(g).getActivitydataid())+",";
-  	  	    							}else{
-  	  	    								name+=rpt_activityloglist.get(g).getActivitydataid()+"[無此代碼],";
-  	  	    							}
-  	  	    					}
-//  	  	    					
-
-//組成
-//  	  	    					JSONObject testobj = new JSONObject();
-//  	  	  							if(interactionlist.get(a).getAgentid()!=""&&interactionlist.get(a).getAgentid()!=null){
-//  	  	  								testobj.put("Agentname", cfg_personlist.get(0).getUser_name());
-//  	  	  							}else{
-//  	  	  								testobj.put("Agentname", "");
-//  	  	  							}
-//
-//  	  	  							if(interactionlist.get(a).getThecomment()!=null&&interactionlist.get(a).getThecomment()!=""){
-//  	  	  								testobj.put("Thecomment", interactionlist.get(a).getThecomment());
-//  	  	  							}else{
-//  	  	  								testobj.put("Thecomment", "");
-//  	  	  							}
-//  	  	  							
-//  	  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-//  	  	  								testobj.put("Startdate", interactionlist.get(a).getStartdate().substring(0, 19));
-//  	  	  							}else{
-//  	  	  								testobj.put("Startdate", "");
-//  	  	  							}
-//  	  	  							
-//  	  	  							if(interactionlist.get(a).getStartdate()!=""&&interactionlist.get(a).getStartdate()!=null){
-//  	  	  								testobj.put("Enddate", interactionlist.get(a).getEnddate().substring(0, 19));
-//  	  	  							}else{
-//  	  	  								testobj.put("Enddate", "");
-//  	  	  							}
-//  	  	  							if(name.length()>0){
-//  	  	  								testobj.put("Codename",name.substring(0, name.length()-1));
-//  	  	  							}else{
-//  	  	  								testobj.put("Codename",name);
-//  	  	  							}
-//  	  	  							testobj.put("ixnid", interactionlist.get(a).getIxnid());
-//  	  	  							if(interactionlist.get(a).getEntitytypeid().equals("2")){
-//  	  	  								testobj.put("src", "chat");
-//  	  	  							}else{
-//  	  	  								testobj.put("src", "");
-//  	  	  							}
-//  	  	  							testArray.put(testobj);
-  	    			}
-  	    	}
+			jsonfourtablebeanslist_data = gson.toJson(fourtablebeanslist_data, FourTableBeansList_data.class);
+			System.out.println("jsonfourtablebeanslist_data: " + jsonfourtablebeanslist_data);
 
 		}
-		System.out.println("oo count:  "+oo);
-//		Gson gson = new Gson();
-//		jsonObject.add("data", gson.toJsonTree(jsonFromInteractionList));
-			
-//			jsonObject.put("data", jsonFromInteractionList);  	  
-		return Response.status(200).entity(jsonInteractionList_data)
+
+		return Response.status(200).entity(jsonfourtablebeanslist_data)
 				.header("Access-Control-Allow-Origin", "*")
 			    .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
 			    .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();

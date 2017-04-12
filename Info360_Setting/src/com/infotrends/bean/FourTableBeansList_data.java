@@ -2,7 +2,7 @@ package com.infotrends.bean;
 
 import java.util.List;
 
-public class InteractionList_data {
+public class FourTableBeansList_data {
 	List<FourTableBeans> data;
 
 	public List<FourTableBeans> getData() {
