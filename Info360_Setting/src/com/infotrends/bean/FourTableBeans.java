@@ -15,7 +15,7 @@ public class FourTableBeans {
 
 	private String src;
 
-	private String thecomment;
+	private String Thecomment;
 	
 //person
 	private String Agentname;
@@ -36,6 +36,14 @@ public class FourTableBeans {
 
 
 	
+	public String getThecomment() {
+		return Thecomment;
+	}
+
+	public void setThecomment(String thecomment) {
+		Thecomment = thecomment;
+	}
+
 	public String getStartdate() {
 		return Startdate;
 	}
@@ -75,14 +83,6 @@ public class FourTableBeans {
 
 	public void setSrc(String src) {
 		this.src = src;
-	}
-
-	public String getThecomment() {
-		return thecomment;
-	}
-
-	public void setThecomment(String thecomment) {
-		this.thecomment = thecomment;
 	}
 
 	public String getIxnid() {
