@@ -40,8 +40,9 @@
  
 <select id="Selcet_FourTableBeans" parameterType="com.infotrends.bean.FourTableBeans"  resultMap="FourTableBeansResult">
 SELECT
- a1.Name,a1.IxnID,a1.StartDate,a1.EndDate,a1.EntityTypeID,a1.TheComment,
- ISNULL(b1.CodeName, '') AS CodeName
+ a1.Name,a1.IxnID,a1.StartDate,a1.EndDate,a1.EntityTypeID,
+ ISNULL(b1.CodeName, '') AS CodeName,
+ ISNULL(a1.TheComment, '') AS TheComment
 FROM (SELECT
  a.*,
  b.USER_NAME AS Name
