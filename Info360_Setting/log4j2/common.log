@@ -261,3 +261,48 @@
 ### The error may involve contactdata.Query_All_Contactdata
 ### The error occurred while executing a query
 ### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+[17/04/11 23:20:58][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/11 23:23:44][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/11 23:25:50][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/11 23:26:38][ERROR][com.infotrends.service.MaintainService-77   ] - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+### The error may exist in com/infotrends/config/sqlxml/FourTableBeans.xml
+### The error may involve FourTableBeans.Selcet_FourTableBeans
+### The error occurred while executing a query
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+[17/04/11 23:29:55][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/11 23:32:33][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/11 23:35:13][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/11 23:35:28][ERROR][com.infotrends.dao.ContactDataDao  -48   ] - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+### The error may exist in com/infotrends/config/sqlxml/contactdata.xml
+### The error may involve contactdata.Query_All_Contactdata
+### The error occurred while executing a query
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+[17/04/11 23:41:24][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/11 23:52:28][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/11 23:56:22][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/11 23:56:37][ERROR][com.infotrends.dao.ContactDataDao  -48   ] - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+### The error may exist in com/infotrends/config/sqlxml/contactdata.xml
+### The error may involve contactdata.Query_All_Contactdata
+### The error occurred while executing a query
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+[17/04/12 00:14:36][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/12 00:14:51][ERROR][com.infotrends.dao.ContactDataDao  -48   ] - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+### The error may exist in com/infotrends/config/sqlxml/contactdata.xml
+### The error may involve contactdata.Query_All_Contactdata
+### The error occurred while executing a query
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+[17/04/12 00:20:51][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/12 00:21:06][ERROR][com.infotrends.dao.ContactDataDao  -48   ] - 
+### Error querying database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+### The error may exist in com/infotrends/config/sqlxml/contactdata.xml
+### The error may involve contactdata.Query_All_Contactdata
+### The error occurred while executing a query
+### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+[17/04/12 00:23:49][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/12 00:25:55][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/12 00:27:01][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.
+[17/04/12 00:28:34][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.

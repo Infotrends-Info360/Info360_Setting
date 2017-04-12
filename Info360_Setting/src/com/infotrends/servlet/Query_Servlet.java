@@ -76,6 +76,9 @@ public class Query_Servlet {
 		MaintainService maintainservice = new MaintainService();
 		
 		FourTableBeans fourtablebeans = new FourTableBeans();
+		
+    	FourTableBeansList_data fourtablebeanslist_data = new FourTableBeansList_data();
+
 		fourtablebeans.setStartdate(startdate);
 		fourtablebeans.setEnddate(enddate);
 //inputcontactdata 有輸入
@@ -107,13 +110,15 @@ public class Query_Servlet {
 							int count=0;
 							//System.out.println("=================");
 							for(int i = 0; i<inputjsonObjkeys.length;i++){
-							
 									if(inputjsonObj.has(inputjsonObjkeys[i])&&datajsonObj.has(datajsonObjkeys[i])){
-									
 										if(!inputjsonObj.get(inputjsonObjkeys[i]).toString().trim().equals("")&&
 											inputjsonObj.get(inputjsonObjkeys[i]).toString().trim()!=null){
-										
+											
 											int	x = datajsonObj.get(inputjsonObjkeys[i]).toString().trim().indexOf(inputjsonObj.get(inputjsonObjkeys[i]).toString().trim());
+											System.out.println("input: "+inputjsonObj.get(inputjsonObjkeys[i]).toString().trim());
+											System.out.println("data: "+datajsonObj.get(inputjsonObjkeys[i]).toString().trim());
+
+											System.out.println("OUT: "+x);
 												if(x>=0){
 													count++;
 												}
@@ -121,8 +126,7 @@ public class Query_Servlet {
 									}
 							} 
 							if(count>0){
-//    							System.out.println("x count  :  "+count);
-//    							System.out.println("Contactkey:  "+Contactkey);
+
 								contactidlist.add(Contactkey);
 							}
 					}
@@ -138,37 +142,45 @@ public class Query_Servlet {
 			fourtablebeans.setContactid(contactid);
 		}
 		int oo = 0;
-		
 		if(contactidlist.size()>0){
+			List<FourTableBeans> FourTableBeansALLList= new ArrayList<FourTableBeans>();
+
+			List<FourTableBeans> FourTableBeansList= new ArrayList<FourTableBeans>();
+
 			System.out.println("======= IF =======");
 			System.out.println("======= IF ======="+contactidlist);
 
 			for(int i = 0; i<contactidlist.size();i++){
-
-				List<FourTableBeans> FourTableBeansList = maintainservice.Selcet_FourTableBeans(fourtablebeans);
+				fourtablebeans.setContactid(contactidlist.get(i));
+		
+				FourTableBeansList = maintainservice.Selcet_FourTableBeans(fourtablebeans);
+				
 				/** 更新src值 **/
 				for (FourTableBeans fourTableBeans: FourTableBeansList){
 					if("2".equals(fourTableBeans.getSrc())){
 						fourTableBeans.setSrc("chat");
 					}
 				}
+				FourTableBeansALLList.addAll(FourTableBeansList);	
+					
 				System.out.println("FourTableBeansList.size(): " + FourTableBeansList.size());
-				
 
-//		    	interactionlist = maintainservice.Selcet_interaction(interaction);
-		    	
-	//GSON
-		    	FourTableBeansList_data fourtablebeanslist_data = new FourTableBeansList_data();
-		    	fourtablebeanslist_data.setData(FourTableBeansList);
-				Gson gson = new Gson();
-
-				
-				jsonfourtablebeanslist_data = gson.toJson(fourtablebeanslist_data, FourTableBeansList_data.class);
-				System.out.println("jsonfourtablebeanslist_data: " + jsonfourtablebeanslist_data);
-				
 			}
+			fourtablebeanslist_data.setData(FourTableBeansALLList);
+			Gson gson = new Gson();
+			jsonfourtablebeanslist_data = gson.toJson(fourtablebeanslist_data, FourTableBeansList_data.class);
+			
+			System.out.println("jsonfourtablebeanslist_data: " + jsonfourtablebeanslist_data);	
 			
 		}else if(inputcontactdata!=null && !inputcontactdata.isEmpty() && contactidlist.size()==0){
+			
+			List<FourTableBeans> FourTableBeansList =new ArrayList <FourTableBeans>();
+
+	    	fourtablebeanslist_data.setData(FourTableBeansList);
+			Gson gson = new Gson();
+			jsonfourtablebeanslist_data = gson.toJson(fourtablebeanslist_data, FourTableBeansList_data.class);
+			System.out.println("jsonfourtablebeanslist_data: " + jsonfourtablebeanslist_data);
+			
 			System.out.println("======= inputcontactdata有輸入 但是沒有匹配成功 =======");
 		}else{
 			System.out.println("======= else =======");
@@ -185,7 +197,6 @@ public class Query_Servlet {
 			System.out.println("FourTableBeansList.size(): " + FourTableBeansList.size());
 
 //GSON
-	    	FourTableBeansList_data fourtablebeanslist_data = new FourTableBeansList_data();
 	    	fourtablebeanslist_data.setData(FourTableBeansList);
 			Gson gson = new Gson();
 

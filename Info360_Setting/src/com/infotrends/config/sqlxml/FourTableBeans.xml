@@ -49,11 +49,11 @@ FROM tblInteraction a,
   tblCfg_Person b WITH (NOLOCK)
 WHERE 
 <if test="startdate!=&quot;&quot;&amp;&amp;startdate!=null">
-<![CDATA[ a.StartDate >=  #{Startdate}  ]]> 
+ 		<![CDATA[ Convert(DateTime,a.StartDate) >=Convert(DateTime,#{Startdate})]]>
 </if>
 <if test="enddate!=&quot;&quot;&amp;&amp;enddate!=null">
-<![CDATA[AND Convert(DateTime,a.ENDDATE) <= Convert(DateTime,DATEADD(day,1,#{Enddate}))  ]]>
- 
+		<![CDATA[AND Convert(DateTime,a.ENDDATE) <= Convert(DateTime,DATEADD(day,1,#{Enddate}))  ]]>
+
 </if>
 <if test="agentid!=&quot;&quot; &amp;&amp;agentid!=null">
    <![CDATA[ AND a.AGENTID = #{agentid}   ]]>  
