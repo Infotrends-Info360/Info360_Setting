@@ -19,17 +19,13 @@ public class FourTableBeans {
 	
 //person
 	private String Agentname;
-	
-	private    int person_dbid;
-	
+		
 //activitylog
 	private String activitylog_interactionid;
 	
 	private String activitylog_activitydataid;
 		
 //activitydata
-	private int activitydata_dbid;
-
 	private String Codename;
 	
 	
@@ -101,14 +97,6 @@ public class FourTableBeans {
 		Agentname = agentname;
 	}
 
-	public int getPerson_dbid() {
-		return person_dbid;
-	}
-
-	public void setPerson_dbid(int person_dbid) {
-		this.person_dbid = person_dbid;
-	}
-
 	public String getActivitylog_interactionid() {
 		return activitylog_interactionid;
 	}
@@ -123,15 +111,6 @@ public class FourTableBeans {
 
 	public void setActivitylog_activitydataid(String activitylog_activitydataid) {
 		this.activitylog_activitydataid = activitylog_activitydataid;
-	}
-
-
-	public int getActivitydata_dbid() {
-		return activitydata_dbid;
-	}
-
-	public void setActivitydata_dbid(int activitydata_dbid) {
-		this.activitydata_dbid = activitydata_dbid;
 	}
 
 	public String getCodename() {
