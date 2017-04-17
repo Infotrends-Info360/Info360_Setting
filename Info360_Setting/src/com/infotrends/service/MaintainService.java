@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import util.Util;
-
 import com.infotrends.bean.Activitydata;
 import com.infotrends.bean.Activitygroups;
 import com.infotrends.bean.Activitymenu;
@@ -61,6 +59,7 @@ import com.infotrends.dao.CFG_personDao;
 import com.infotrends.dao.CFG_roleDao;
 import com.infotrends.dao.CFG_role_memberDao;
 import com.infotrends.util.IsError;
+import com.infotrends.util.Util;
 
 /**
  * 維護相關業務功能

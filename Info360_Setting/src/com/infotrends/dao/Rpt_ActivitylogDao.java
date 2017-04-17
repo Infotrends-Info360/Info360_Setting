@@ -6,13 +6,12 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import util.Util;
-
 import com.infotrends.bean.Interaction;
 import com.infotrends.bean.Rpt_Activitylog;
 import com.infotrends.bean.Rpt_AgentStatus;
 import com.infotrends.db.DBAccess;
 import com.infotrends.util.IsError;
+import com.infotrends.util.Util;
 
 
 public class Rpt_ActivitylogDao {

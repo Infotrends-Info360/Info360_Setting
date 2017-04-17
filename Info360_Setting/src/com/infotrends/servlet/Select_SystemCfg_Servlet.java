@@ -16,8 +16,6 @@ import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import util.Util;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.infotrends.bean.Activitygroups;
@@ -25,6 +23,7 @@ import com.infotrends.bean.Activitymenu;
 import com.infotrends.bean.SystemCfg;
 import com.infotrends.dao.SystemCfgDao;
 import com.infotrends.service.MaintainService;
+import com.infotrends.util.Util;
 
 
 

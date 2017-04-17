@@ -6,14 +6,13 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import util.Util;
-
 import com.infotrends.bean.CaseComments;
 import com.infotrends.bean.Cfg_CaseStatus;
 import com.infotrends.bean.CommonLink;
 import com.infotrends.bean.Interaction;
 import com.infotrends.db.DBAccess;
 import com.infotrends.util.IsError;
+import com.infotrends.util.Util;
 
 /**
  * 和Message表相關的數據庫操作
