@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import util.Util;
+import com.infotrends.util.Util;
 
 /**
  * 訪問數據庫類
