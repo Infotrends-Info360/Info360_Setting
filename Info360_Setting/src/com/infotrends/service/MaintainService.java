@@ -68,6 +68,24 @@ import com.infotrends.util.Util;
  */
 public class MaintainService {
 	
+	/**
+	 * Authority_PersonInfo
+	 * @param cfg_person
+	 */
+
+	public List<CFG_person> Authority_PersonInfo(CFG_person cfg_person) {
+		
+			List<CFG_person> cfg_personlist = new ArrayList<CFG_person>();
+			try {
+				CFG_personDao cfg_personDao = new CFG_personDao();
+				cfg_personlist = cfg_personDao.Authority_PersonInfo(cfg_person);
+			} catch (Exception e) {
+				IsError.GET_EXCEPTION = e.getMessage();
+			}
+			return cfg_personlist;
+	}
+	
+	
 	public List<CFG_function> ALL_function_state(CFG_function cfg_function) {
 		
 		List<CFG_function> cfg_functionlist = new ArrayList<CFG_function>();

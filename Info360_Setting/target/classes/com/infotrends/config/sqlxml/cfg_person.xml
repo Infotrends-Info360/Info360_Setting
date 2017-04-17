@@ -47,6 +47,10 @@
   <select id="Login_PersonInfo" parameterType="com.infotrends.bean.CFG_person"  resultMap="cfg_personResult">
     select DBID,ACCOUNT,FIRSTNAME,LASTNAME,USER_NAME,EMAILADDRESS,EMPLOYEE_ID,STATE,DN,CREATEDATETIME,PASSWORD,PASS_ERROR_COUNT,CH_PASS_ON_LOGIN,MAX_COUNT from tblCfg_Person where account=#{account}
   </select>
+    <select id="Authority_PersonInfo" parameterType="com.infotrends.bean.CFG_person"  resultMap="cfg_personResult">
+    select DBID,ACCOUNT,FIRSTNAME,LASTNAME,USER_NAME,EMAILADDRESS,EMPLOYEE_ID,STATE,DN,CREATEDATETIME,PASSWORD,PASS_ERROR_COUNT,CH_PASS_ON_LOGIN,MAX_COUNT from tblCfg_Person where dbid=#{dbid}
+  </select>
+  
   <select id="Ppermission" parameterType="com.infotrends.bean.CFG_person"  resultMap="cfg_personResult">
     select DBID,ACCOUNT,FIRSTNAME,LASTNAME,USER_NAME,EMAILADDRESS,EMPLOYEE_ID,STATE,DN,CREATEDATETIME,PASSWORD,MAX_COUNT from tblCfg_Person where dbid=#{dbid}
   </select>
