@@ -288,7 +288,9 @@ public class searchUserdataServlet {
 		
 //		URL url = new URL(
 //				"http://192.168.10.7/infoacd/infoCenterWebService.asmx/GetCustomerLevel");
-		 URL url = new URL("http://192.168.10.40:80/infoacd/infoCenterWebService.asmx/GetCustomerLevel");
+		URL url = new URL("http://192.168.10.40:80/infoacd/infoCenterWebService.asmx/GetCustomerLevel");
+		// 上版使用
+//		URL url = new URL("http://localhost:80/infoacd/infoCenterWebService.asmx/GetCustomerLevel");
 		// // 當192.168.10.7掛點時,使用此server
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setDoOutput(true);
@@ -398,7 +400,7 @@ public class searchUserdataServlet {
 //		UTIL.GETCONSOLELOGGER().DEBUG("HOSTURL(SERVICENAMECACHE): " + HOSTURL);
 //		URL URL = New URL( hostURL + "/ServiceNameCache/RESTful/datacache?"+ GetData);
 		URL url = new URL(
-				"http://ws.crm.com.tw:8080/ServiceNameCache/RESTful/datacache?"
+				"http://localhost:8080/ServiceNameCache/RESTful/datacache?"
 						+ GetData);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setDoOutput(true);

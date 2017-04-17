@@ -24,7 +24,7 @@ import com.infotrends.bean.FourTableBeans;
 import com.infotrends.dao.FourTableBeansDao;
 import com.infotrends.service.MaintainService;
 import com.infotrends.util.*;
-@Path("/Query_Group_STATE")
+@Path("/Query_Group_STATE_old")
 public class QQuery_group_STATE_Servlet {
 	
 	@POST

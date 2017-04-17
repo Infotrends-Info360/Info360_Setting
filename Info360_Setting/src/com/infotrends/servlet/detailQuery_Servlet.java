@@ -77,6 +77,7 @@ public class detailQuery_Servlet {
 
   	    	String name = "";
   	    	System.out.println("Ixn: "+interactionlist.get(0).getIxnid());
+  	    	
   	    	rpt_activitylog.setInteractionid(interactionlist.get(0).getIxnid());
   	    	List<Rpt_Activitylog> rpt_activityloglist = maintainservice.Selcet_activitylog(rpt_activitylog);
   	    	
@@ -242,12 +243,12 @@ public class detailQuery_Servlet {
 		String GetData = "typeid=" + searchtype + "&method=get" + "&key=all";
 
 		// Connect to URL
-		String hostURL = Util.getHostURLStr("ServiceNameCache");
-		Util.getConsoleLogger().debug("hostURL(ServiceNameCache): " + hostURL);
-		URL url = new URL( hostURL + "/ServiceNameCache/RESTful/datacache?"+ GetData);
-//		URL url = new URL(
-//				"http://ws.crm.com.tw:8080/ServiceNameCache/RESTful/datacache?"
-//						+ GetData);
+//		String hostURL = Util.getHostURLStr("ServiceNameCache");
+//		Util.getConsoleLogger().debug("hostURL(ServiceNameCache): " + hostURL);
+//		URL url = new URL( hostURL + "/ServiceNameCache/RESTful/datacache?"+ GetData);
+		URL url = new URL(
+				"http://localhost:8080/ServiceNameCache/RESTful/datacache?"
+						+ GetData);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setDoOutput(true);
 		connection.setRequestMethod("GET");

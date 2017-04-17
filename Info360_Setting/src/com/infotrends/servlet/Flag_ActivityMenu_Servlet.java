@@ -45,8 +45,6 @@ public class Flag_ActivityMenu_Servlet {
 		JSONObject jsonObject = new JSONObject();
 		Activitymenu activitymenu = new Activitymenu();
 		
-		deleteflag.trim();
-		
 		activitymenu.setDeleteflag(deleteflag);
 
 		MaintainService maintainservice = new MaintainService();	

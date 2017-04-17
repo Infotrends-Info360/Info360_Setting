@@ -40,6 +40,9 @@
     <result column="MAX_COUNT" jdbcType="INTEGER" property="max_count"/>
   </resultMap>
   
+
+  
+  
  
   <select id="Login_PersonInfo" parameterType="com.infotrends.bean.CFG_person"  resultMap="cfg_personResult">
     select DBID,ACCOUNT,FIRSTNAME,LASTNAME,USER_NAME,EMAILADDRESS,EMPLOYEE_ID,STATE,DN,CREATEDATETIME,PASSWORD,PASS_ERROR_COUNT,CH_PASS_ON_LOGIN,MAX_COUNT from tblCfg_Person where account=#{account}
@@ -69,11 +72,12 @@
     <if test="state == 1">
      	where state =1
     </if>
-     <if test="state == 0">
+    <if test="state == 0">
      	where state =0 or state =2
     </if>
   </select>
-
+  
+  
  <insert id="Insert_PersonInfo" parameterType="com.infotrends.bean.CFG_person">
   	insert into tblcfg_person 
   	(ACCOUNT,FIRSTNAME,LASTNAME,USER_NAME,EMAILADDRESS,EMPLOYEE_ID,STATE,PASSWORD,DN,CH_PASS_ON_LOGIN,CREATEDATETIME,MAX_COUNT) 
