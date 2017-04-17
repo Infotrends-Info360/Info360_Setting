@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.infotrends.bean.CFG_function;
 import com.infotrends.bean.CFG_permission;
 import com.infotrends.bean.CFG_person;
-import com.infotrends.db.DBAccess;
+import com.infotrends.db.DBAccess_old;
 import com.infotrends.util.IsError;
 
 /**
@@ -23,7 +23,7 @@ public class CFG_functionDao {
 	 * @param CFG_function
 	 */
 	public List<CFG_function> select_function_state(CFG_function cfg_function){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_function> cfg_functionList = new ArrayList<CFG_function>();
 		SqlSession sqlSession = null;
 
@@ -51,7 +51,7 @@ public class CFG_functionDao {
 	 * @param "Select_BE_FunctionPermission"
 	 */
 	public List<CFG_function> Select_BE_FunctionPermission(CFG_function cfg_function){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_function> cfg_functionList = new ArrayList<CFG_function>();
 		SqlSession sqlSession = null;
 
@@ -79,7 +79,7 @@ public class CFG_functionDao {
 	 * @param CFG_function
 	 */
 	public List<CFG_function> select_function_dbid(CFG_function cfg_function){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_function> cfg_functionList = new ArrayList<CFG_function>();
 		SqlSession sqlSession = null;
 
@@ -108,7 +108,7 @@ public class CFG_functionDao {
 	public int Insert_Function(
 			CFG_function   cfg_function)
 			{
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_functionInt = 0;
 		SqlSession sqlSession = null;
 
@@ -137,7 +137,7 @@ public class CFG_functionDao {
 	 */
 	public int Update_FunctionInfo(
 			CFG_function   cfg_function	){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_functionInt = 0;
 		SqlSession sqlSession = null;
 
@@ -163,7 +163,7 @@ public class CFG_functionDao {
 	 * @param CFG_function
 	 */
 	public int Delete_FunctionInfo(CFG_function   cfg_function){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_functionInt = 0;
 		SqlSession sqlSession = null;
 

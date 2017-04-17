@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.infotrends.bean.CFG_person;
-import com.infotrends.db.DBAccess;
+import com.infotrends.db.DBAccess_old;
 import com.infotrends.util.IsError;
 
 /**
@@ -22,7 +22,7 @@ public class CFG_personDao {
 	 */
 	public int Logic_Delete(
 			CFG_person   cfg_person	){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_personInt = 0;
 		SqlSession sqlSession = null;
 
@@ -49,7 +49,7 @@ public class CFG_personDao {
 	 */
 	public int login_ErrorCount(
 			CFG_person   cfg_person	){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_personInt = 0;
 		SqlSession sqlSession = null;
 
@@ -76,7 +76,7 @@ public class CFG_personDao {
 	 * @param CFG_person
 	 */
 	public List<CFG_person> Login_PersonInfo(CFG_person cfg_person){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_person> cfg_personList = new ArrayList<CFG_person>();
 		SqlSession sqlSession = null;
 		try {
@@ -98,7 +98,7 @@ public class CFG_personDao {
 	
 	
 	public List<CFG_person> Ppermission(CFG_person cfg_person){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_person> cfg_personList = new ArrayList<CFG_person>();
 		SqlSession sqlSession = null;
 		try {
@@ -125,7 +125,7 @@ public class CFG_personDao {
 	 * @param CFG_person
 	 */
 	public List<CFG_person> query_Person_Account(CFG_person   cfg_person){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_person> cfg_personList = new ArrayList<CFG_person>();
 		SqlSession sqlSession = null;
 		
@@ -155,7 +155,7 @@ public class CFG_personDao {
 	 * @param CFG_person
 	 */
 	public List<CFG_person> query_Person_DBID(CFG_person   cfg_person){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_person> cfg_personList = new ArrayList<CFG_person>();
 		SqlSession sqlSession = null;
 		
@@ -183,7 +183,7 @@ public class CFG_personDao {
 	 * @param CFG_person
 	 */
 	public List<CFG_person> Query_PersonInfo_STATE(CFG_person   cfg_person){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_person> cfg_personList = new ArrayList<CFG_person>();
 		SqlSession sqlSession = null;
 		try {
@@ -210,7 +210,7 @@ public class CFG_personDao {
 	public int Insert_PersonInfo(
 			CFG_person   cfg_person)
 			{
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_personInt = 0;
 		SqlSession sqlSession = null;
 
@@ -240,7 +240,7 @@ public class CFG_personDao {
 	 */
 	public int update_PersonInfo(
 			CFG_person   cfg_person	){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_personInt = 0;
 		SqlSession sqlSession = null;
 
@@ -266,7 +266,7 @@ public class CFG_personDao {
 	 * @param CFG_person
 	 */
 	public int delete(CFG_person   cfg_person){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_personInt = 0;
 		SqlSession sqlSession = null;
 

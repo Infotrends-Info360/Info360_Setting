@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.infotrends.bean.CFG_role;
 import com.infotrends.bean.CFG_role_member;
-import com.infotrends.db.DBAccess;
+import com.infotrends.db.DBAccess_old;
 import com.infotrends.util.IsError;
 
 /**
@@ -22,7 +22,7 @@ public class CFG_roleDao {
 	 * @param Select_role
 	 */
 	public List<CFG_role> Select_role(CFG_role cfg_role){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_role> cfg_roleList = new ArrayList<CFG_role>();
 		SqlSession sqlSession = null;
 		try {
@@ -47,7 +47,7 @@ public class CFG_roleDao {
 	 * @param Select_role_dbid
 	 */
 	public List<CFG_role> Select_role_dbid(CFG_role cfg_role){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_role> cfg_roleList = new ArrayList<CFG_role>();
 		SqlSession sqlSession = null;
 		try {
@@ -75,7 +75,7 @@ public class CFG_roleDao {
 	public int Insert_Role_Info(
 			CFG_role   cfg_role)
 			{
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_role_Int = 0;
 		SqlSession sqlSession = null;
 
@@ -103,7 +103,7 @@ public class CFG_roleDao {
 	 */
 	public int Update_Role_Info(
 			CFG_role   cfg_role){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_role_Int = 0;
 		SqlSession sqlSession = null;
 
@@ -129,7 +129,7 @@ public class CFG_roleDao {
 	 * @param cfg_role
 	 */
 	public int Delete_Role_Info(CFG_role   cfg_role){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_roleInt = 0;
 		SqlSession sqlSession = null;
 

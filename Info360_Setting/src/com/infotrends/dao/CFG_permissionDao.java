@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.infotrends.bean.CFG_permission;
 
-import com.infotrends.db.DBAccess;
+import com.infotrends.db.DBAccess_old;
 import com.infotrends.util.IsError;
 
 /**
@@ -22,7 +22,7 @@ public class CFG_permissionDao {
 	 * @param "Select_permission_roleFunction"
 	 */
 	public List<CFG_permission> Select_permission_roleFunction(CFG_permission cfg_permission){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_permission> cfg_permissionList = new ArrayList<CFG_permission>();
 		SqlSession sqlSession = null;
 		try {
@@ -49,7 +49,7 @@ public class CFG_permissionDao {
 	 * @param Select_permission_dbid
 	 */
 	public List<CFG_permission> Select_permission_roledbid(CFG_permission cfg_permission){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_permission> cfg_permissionList = new ArrayList<CFG_permission>();
 		SqlSession sqlSession = null;
 		try {
@@ -76,7 +76,7 @@ public class CFG_permissionDao {
 	public int Insert_Permission_Info(
 			CFG_permission   cfg_permission)
 			{
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_permissionInt = 0;
 		SqlSession sqlSession = null;
 
@@ -104,7 +104,7 @@ public class CFG_permissionDao {
 	 */
 	public int Update_Permission_Info(
 			CFG_permission   cfg_permission){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_permissionInt = 0;
 		SqlSession sqlSession = null;
 
@@ -130,7 +130,7 @@ public class CFG_permissionDao {
 	 * @param CFG_Permission
 	 */
 	public int Delete_Permission_Info(CFG_permission   cfg_permission){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_permissionInt = 0;
 		SqlSession sqlSession = null;
 

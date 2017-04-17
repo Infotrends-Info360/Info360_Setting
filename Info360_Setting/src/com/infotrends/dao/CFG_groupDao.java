@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.infotrends.bean.CFG_group;
 import com.infotrends.bean.CFG_person;
-import com.infotrends.db.DBAccess;
+import com.infotrends.db.DBAccess_old;
 import com.infotrends.util.IsError;
 
 /**
@@ -23,7 +23,7 @@ public class CFG_groupDao {
 	 */
 	public int Logic_Delete(
 			CFG_group   cfg_group	){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_groupInt = 0;
 		SqlSession sqlSession = null;
 
@@ -50,7 +50,7 @@ public class CFG_groupDao {
 	 * @param CFG_group
 	 */
 	public List<CFG_group> Query_Group_state(CFG_group   cfg_group){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_group> cfg_groupList = new ArrayList<CFG_group>();
 		SqlSession sqlSession = null;
 		
@@ -77,7 +77,7 @@ public class CFG_groupDao {
 	 * @param CFG_group
 	 */
 	public List<CFG_group> query_Group(CFG_group   cfg_group){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_group> cfg_groupList = new ArrayList<CFG_group>();
 		SqlSession sqlSession = null;
 		
@@ -105,7 +105,7 @@ public class CFG_groupDao {
 	 * @param CFG_group
 	 */
 	public List<CFG_group> query_Group_name(CFG_group   cfg_group){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		List<CFG_group> cfg_groupList = new ArrayList<CFG_group>();
 		SqlSession sqlSession = null;
 		
@@ -135,7 +135,7 @@ public class CFG_groupDao {
 	public int insert_GroupInfo(
 			CFG_group   cfg_group)
 			{
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_personInt = 0;
 		SqlSession sqlSession = null;
 
@@ -163,7 +163,7 @@ public class CFG_groupDao {
 	 */
 	public int update_GroupInfo(
 			CFG_group   cfg_group	){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_groupInt = 0;
 		SqlSession sqlSession = null;
 
@@ -189,7 +189,7 @@ public class CFG_groupDao {
 	 * @param CFG_person
 	 */
 	public int delete(CFG_group   cfg_group){
-		DBAccess dbAccess = new DBAccess();
+		DBAccess_old dbAccess = new DBAccess_old();
 		int cfg_groupInt = 0;
 		SqlSession sqlSession = null;
 
