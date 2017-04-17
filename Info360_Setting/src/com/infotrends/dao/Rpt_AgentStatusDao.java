@@ -4,11 +4,10 @@ import java.io.IOException;
 
 import org.apache.ibatis.session.SqlSession;
 
-import util.Util;
-
 import com.infotrends.bean.Rpt_AgentStatus;
 import com.infotrends.db.DBAccess;
 import com.infotrends.util.IsError;
+import com.infotrends.util.Util;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 

@@ -16,11 +16,10 @@ import javax.ws.rs.core.Response;
 
 import org.json.JSONObject;
 
-import util.Util;
-
 import com.infotrends.bean.Interaction;
 import com.infotrends.service.MaintainService;
 import com.infotrends.util.IsError;
+import com.infotrends.util.Util;
 import com.infotrends.util.Variable;
 
 /**

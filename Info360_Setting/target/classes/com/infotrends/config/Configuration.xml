@@ -68,12 +68,18 @@
     <mapper resource="com/infotrends/config/sqlxml/cfg_servicename_mapping.xml"/>  
   
     <mapper resource="com/infotrends/config/sqlxml/cfg_person.xml"/>
+    <mapper resource="com/infotrends/config/sqlxml/PersonTableBeans.xml"/>
+    
     <mapper resource="com/infotrends/config/sqlxml/cfg_group.xml"/>
+    <mapper resource="com/infotrends/config/sqlxml/GroupTableBeans.xml"/>
+    
     <mapper resource="com/infotrends/config/sqlxml/cfg_group_person.xml"/>
     <mapper resource="com/infotrends/config/sqlxml/cfg_function.xml"/>
+    <mapper resource="com/infotrends/config/sqlxml/Allfunction.xml"/>
     <mapper resource="com/infotrends/config/sqlxml/cfg_permission.xml"/>
     <mapper resource="com/infotrends/config/sqlxml/cfg_role_member.xml"/>
     <mapper resource="com/infotrends/config/sqlxml/cfg_role.xml"/>
+
   </mappers>
 
 </configuration>

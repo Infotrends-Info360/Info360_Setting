@@ -12,27 +12,49 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
- 
+
+  
+  	<!-- 	System configuration -->
+  	<listener>
+		<listener-class>com.infotrends.filter.SystemListener</listener-class>
+	</listener> 
+	
+	<context-param>
+		<param-name>infoacd_URL_ALL</param-name>
+		<param-value>http://192.168.10.40:80/infoacd/infoCenterWebService.asmx/GetCustomerLevel</param-value>
+	</context-param>
+			
+	<context-param>
+		<param-name>ServiceNameCache_URL_ALL</param-name>
+		<param-value>http://ws.crm.com.tw:8080/ServiceNameCache/RESTful/datacache?</param-value>
+	</context-param>
+
+
+
 	<servlet>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
-  		<param-name>com.sun.jersey.config.property.packages</param-name>
-   		<param-value>com.infotrends.servlet</param-value>
-  		</init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>com.infotrends.servlet</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/RESTful/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
-  	<servlet-name>indexServlet</servlet-name>
-  	<servlet-class>com.infotrends.servlet.indexServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>indexServlet</servlet-name>
-  	<url-pattern>/index.do</url-pattern>
-  </servlet-mapping>
+		<servlet-name>indexServlet</servlet-name>
+		<servlet-class>com.infotrends.servlet.indexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>indexServlet</servlet-name>
+		<url-pattern>/index.do</url-pattern>
+	</servlet-mapping>
+
+
+
+
 </web-app>

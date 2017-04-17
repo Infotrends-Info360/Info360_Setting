@@ -9,14 +9,13 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.json.JSONArray;
 
-import util.Util;
-
 import com.infotrends.bean.Activitymenu;
 import com.infotrends.bean.ContactData;
 import com.infotrends.bean.Interaction;
 import com.infotrends.bean.ServiceEntry;
 import com.infotrends.db.DBAccess;
 import com.infotrends.util.IsError;
+import com.infotrends.util.Util;
 
 /**
  * 和Message表相關的數據庫操作

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2009-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="GroupTableBeans">
+  <resultMap type="com.infotrends.bean.GroupTableBeans" id="GroupTableBeansResult">
+  
+      <result column="DBID" 						jdbcType="VARCHAR" property="dbid"/>
+      <result column="NAME" 		 				jdbcType="VARCHAR" property="name"/>
+      <result column="STATE" 	    				jdbcType="VARCHAR" property="state"/>
+      
+      <result column="HAVE_FUNCTION_DBID" 			jdbcType="VARCHAR" property="have_function_dbid"/>
+      <result column="HAVE_FUNCTION"  	 			jdbcType="VARCHAR" property="have_function"/>
+      <result column="NOT_FUNCTION_DBID" 			jdbcType="VARCHAR" property="not_function_dbid"/>
+      <result column="NOT_FUNCTION"     			jdbcType="VARCHAR" property="not_function"/>
+      
+      <result column="HAVE_PERSON_DBID"     		jdbcType="VARCHAR" property="have_person_dbid"/>
+      <result column="HAVE_PERSON_USERNAME"     	jdbcType="VARCHAR" property="have_person_username"/>
+      <result column="NOT_HAVE_PERSON_DBID" 		jdbcType="VARCHAR" property="not_have_person_dbid"/>
+      <result column="NOT_HAVE_PERSON_USERNAME" 	jdbcType="VARCHAR" property="not_have_person_username"/>
+      
+      <result column="PERSON_DBID" 		jdbcType="VARCHAR" property="person_dbid"/>
+      <result column="PERSON_USERNAME" 	jdbcType="VARCHAR" property="person_username"/>
+      <result column="FUNCTION_DBID" 	jdbcType="VARCHAR" property="function_dbid"/>
+      <result column="FUNCTION_NAME" 	jdbcType="VARCHAR" property="function_name"/>
+
+      
+  </resultMap>
+ 
+  <select id="Query_GroupTableBeans_STATE" parameterType="com.infotrends.bean.GroupTableBeans"  resultMap="GroupTableBeansResult">
+SELECT distinct e.Group_DBID as DBID,e.NAME,e.STATE , left(e.HAVEPERSON,len(e.HAVEPERSON)-1)AS HAVE_PERSON_DBID ,left(f.HAVEPERSONNAME,len(f.HAVEPERSONNAME)-1)AS HAVE_PERSON_USERNAME ,f11.HAVE_FUNCTION_DBID,f11.HAVE_FUNCTION
+	FROM
+		(
+		SELECT distinct DBID AS Group_DBID, STATE,NAME,ROLE_DBID,
+					(
+					 SELECT  cast(c2_2.PERSON_DBID AS NVARCHAR ) + ','
+					 FROM	(
+								SELECT c.PERSON_DBID,d.DBID ,m.ROLE_DBID ,d.STATE ,d.NAME
+								FROM tblCfg_Group_Person c, tblCfg_Group d ,tblCfg_Person b ,tblCfg_Role_Member m
+								WHERE  c.GROUP_DBID =d.dbid and d.STATE='0' and b.STATE='0'and c.PERSON_DBID =b.DBID and m.Group_DBID=d.DBID
+							) c2_2
+					WHERE c2_2.DBID = c2_1.DBID and c2_2.ROLE_DBID = c2_1.ROLE_DBID and c2_2.STATE = c2_1.STATE and c2_2.NAME = c2_1.NAME 
+					FOR XML PATH('')
+					) as HAVEPERSON
+				FROM (
+							SELECT c.PERSON_DBID,d.DBID ,m.ROLE_DBID,d.STATE ,d.NAME
+							FROM tblCfg_Group_Person c, tblCfg_Group d ,tblCfg_Person b ,tblCfg_Role_Member m
+							WHERE  c.GROUP_DBID =d.dbid and d.STATE='0' and b.STATE='0'and c.PERSON_DBID =b.DBID and m.Group_DBID=d.DBID
+						) c2_1
+		) e,
+		(
+		SELECT distinct DBID AS Group_DBID, 
+					(
+					 SELECT  cast(c2_2.USER_NAME AS NVARCHAR ) + ',' 
+					 FROM	(
+								SELECT c.PERSON_DBID,d.DBID ,b.USER_NAME
+								FROM tblCfg_Group_Person c, tblCfg_Group d ,tblCfg_Person b
+								WHERE  c.GROUP_DBID =d.dbid and d.STATE='0' and b.STATE='0'and c.PERSON_DBID =b.DBID
+							) c2_2
+					WHERE c2_2.DBID = c2_1.DBID
+					FOR XML PATH('')
+					) as HAVEPERSONNAME
+				FROM (
+						SELECT c.PERSON_DBID,d.DBID ,b.USER_NAME
+						FROM tblCfg_Group_Person c, tblCfg_Group d ,tblCfg_Person b
+						WHERE  c.GROUP_DBID =d.dbid and d.STATE='0' and b.STATE='0'and c.PERSON_DBID =b.DBID
+						) c2_1
+		)f
+		,
+(SELECT distinct a.Role_DBID ,left(a.HAVEFUNCTION,len(a.HAVEFUNCTION)-1)AS HAVE_FUNCTION_DBID , left(b.HAVEFUNCTIONNAME,len(b.HAVEFUNCTIONNAME)-1)AS HAVE_FUNCTION 
+	FROM
+		(
+		SELECT distinct Role_DBID AS Role_DBID, 
+					(
+					 SELECT  cast(REPLACE(c2_3.function_dbid,' ','') AS NVARCHAR ) + ','
+					 FROM	(
+								SELECT c.FUNCTION_DBID , c.Role_DBID
+								FROM  tblCfg_Permission c, tblCfg_Function d
+								WHERE    c.FUNCTION_DBID=d.DBID and d.STATE='0'
+							) c2_3
+					WHERE c2_2.Role_DBID=c2_3.Role_DBID
+					FOR XML PATH('')
+					) as HAVEFUNCTION
+				FROM (
+						SELECT c.FUNCTION_DBID , c.Role_DBID
+								FROM  tblCfg_Permission c, tblCfg_Function d
+								WHERE    c.FUNCTION_DBID=d.DBID and d.STATE='0'
+						) c2_2
+						) a,
+		(SELECT distinct Role_DBID AS Role_DBID, 
+					(
+					 SELECT  cast(c2_3.NAME AS NVARCHAR ) + ','
+					 FROM	(
+								SELECT d.NAME , c.Role_DBID
+								FROM  tblCfg_Permission c, tblCfg_Function d
+								WHERE    c.FUNCTION_DBID=d.DBID and d.STATE='0'
+							) c2_3
+					WHERE c2_2.Role_DBID=c2_3.Role_DBID
+					FOR XML PATH('')
+					) as HAVEFUNCTIONNAME
+				FROM (
+						SELECT d.NAME , c.Role_DBID
+						FROM  tblCfg_Permission c, tblCfg_Function d
+						WHERE    c.FUNCTION_DBID=d.DBID and d.STATE='0'
+						) c2_2
+						) b
+	where a.Role_DBID=b.Role_DBID )f11
+	where f11.Role_DBID=e.ROLE_DBID and e.Group_DBID=f.Group_DBID
+	
+	select a.DBID AS PERSON_DBID ,a.USER_NAME AS PERSON_USERNAME
+	from tblCfg_Person a
+	where a.STATE='0'
+
+	
+	select b.DBID AS FUNCTION_DBID ,B.NAME AS FUNCTION_NAME
+	from tblCfg_Function b
+	where b.STATE='0'
+  </select>
+  
+   
+</mapper>

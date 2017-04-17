@@ -6,11 +6,10 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import util.Util;
-
 import com.infotrends.bean.Cfg_AgentStatus;
 import com.infotrends.db.DBAccess;
 import com.infotrends.util.IsError;
+import com.infotrends.util.Util;
 
 
 public class Cfg_AgentStatusDao {

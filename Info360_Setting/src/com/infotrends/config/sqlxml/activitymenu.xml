@@ -21,7 +21,10 @@
 <select id="Select_activitymenu" parameterType="com.infotrends.bean.Activitymenu"  resultMap="activitymenuResult">
  Select DBID,MENUNAME,DELETEFLAG,DELETEDATETIME,CREATEDATETIME,SORT from tblCfg_ActivityMenu
  <if test="dbid!=0">
- 	where dbid=#{dbid} 
+ 	where dbid=#{dbid} and DELETEFLAG = 0 
+ </if>
+ <if test="dbid==0">
+ where DELETEFLAG = 0 
  </if>
  ORDER BY SORT
 </select>

@@ -1,4 +1,4 @@
-package util;
+package com.infotrends.util;
  
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -21,6 +21,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class Util {
+
+	public static String getInfoacd_URL_ALL() {
+		return Attr.infoacd_URL_ALL;
+	}
+	public static void setInfoacd_URL_ALL(String infoacd_URL_ALL) {
+		Attr.infoacd_URL_ALL = infoacd_URL_ALL;
+	}
+	public static String getServiceNameCache_URL_ALL() {
+		return Attr.ServiceNameCache_URL_ALL;
+	}
+	public static void setServiceNameCache_URL_ALL(String serviceNameCache_URL_ALL) {
+		Attr.ServiceNameCache_URL_ALL = serviceNameCache_URL_ALL;
+	}
 	public static String getSdfDateFormat(){
 		return Attr.sdfDateFormat;
 	}
@@ -129,6 +142,9 @@ public class Util {
 		private static final Logger statusFileLogger = LogManager.getLogger("util.statusFileLogger");
 		private static final Logger pressureTestFileLogger = LogManager.getLogger("util.pressureTestFileLogger");
 
+		private static String infoacd_URL_ALL;
+		private static String ServiceNameCache_URL_ALL;
+		
 	}
 
 }

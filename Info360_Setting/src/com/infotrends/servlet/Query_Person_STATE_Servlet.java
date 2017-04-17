@@ -19,7 +19,7 @@ import com.infotrends.bean.CFG_group_person;
 import com.infotrends.bean.CFG_person;
 import com.infotrends.service.MaintainService;
 import com.infotrends.util.*;
-@Path("/Query_Person_STATE")
+@Path("/Query_Person_STATE_old")
 public class Query_Person_STATE_Servlet {
 	/**
 	 * 使用POST方法
@@ -72,6 +72,12 @@ public class Query_Person_STATE_Servlet {
 		        jsonObject.put("person_group", PersonGroupArray);
 		        jsonObject.put("group", GroupJsonArray);
 	        }
+	        
+	        
+	        
+	        
+	        
+	        
 	        
 	        if(state == 1){
 	        	//撈取cfg_group_person關聯

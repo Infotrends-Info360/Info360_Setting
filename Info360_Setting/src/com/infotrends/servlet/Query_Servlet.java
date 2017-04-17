@@ -25,8 +25,6 @@ import javax.ws.rs.core.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import util.Util;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -40,6 +38,7 @@ import com.infotrends.bean.InteractionList_data;
 import com.infotrends.bean.Rpt_Activitylog;
 import com.infotrends.dao.FourTableBeansDao;
 import com.infotrends.service.MaintainService;
+import com.infotrends.util.Util;
 
 
 /**
@@ -211,47 +210,5 @@ public class Query_Servlet {
 			    .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
 			    .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
 	}
-
-	public JSONObject GetServiceNameCache(String searchtype) throws Exception {
-		StringBuilder responseSB = null;
-		// Encode the query
-		String GetData = "typeid=" + searchtype + "&method=get" + "&key=all";
-
-		// Connect to URL
-		String hostURL = Util.getHostURLStr("ServiceNameCache");
-		Util.getConsoleLogger().debug("hostURL(ServiceNameCache): " + hostURL);
-		URL url = new URL( hostURL + "/ServiceNameCache/RESTful/datacache?"+ GetData);
-//		URL url = new URL(
-//				"http://ws.crm.com.tw:8080/ServiceNameCache/RESTful/datacache?"
-//						+ GetData);
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setDoOutput(true);
-		connection.setRequestMethod("GET");
-		// connection.setRequestProperty("Content-Type",
-		// "application/x-www-form-urlencoded");
-		// connection.setRequestProperty("Content-Length",
-		// String.valueOf(postData.length()));
-
-		// Write data
-		// OutputStream os = connection.getOutputStream();
-		// os.write(postData.getBytes());
-
-		// Read response
-		responseSB = new StringBuilder();
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				connection.getInputStream(), "UTF-8"));
-
-		String line;
-		while ((line = br.readLine()) != null)
-			responseSB.append(line.trim());
-
-		// Close streams
-		br.close();
-		// os.close();
-
-		// Util.getConsoleLogger().debug("responseSB: "+responseSB.toString().trim());
-		JSONObject ServiceNameCachejsonObj = new JSONObject(
-				responseSB.toString());
-		return ServiceNameCachejsonObj;
-	}
+	
 }

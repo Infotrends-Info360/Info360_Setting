@@ -33,8 +33,7 @@ import org.xml.sax.InputSource;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import util.Util;
+import com.infotrends.util.Util;
 
 /**
  * searchUserdata RESTful
@@ -288,7 +287,10 @@ public class searchUserdataServlet {
 		
 //		URL url = new URL(
 //				"http://192.168.10.7/infoacd/infoCenterWebService.asmx/GetCustomerLevel");
-		 URL url = new URL("http://192.168.10.40:80/infoacd/infoCenterWebService.asmx/GetCustomerLevel");
+
+//		URL url = new URL("http://192.168.10.40:80/infoacd/infoCenterWebService.asmx/GetCustomerLevel");
+		// 暫時版本
+		URL url = new URL(Util.getInfoacd_URL_ALL());
 		// // 當192.168.10.7掛點時,使用此server
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setDoOutput(true);
@@ -388,7 +390,7 @@ public class searchUserdataServlet {
 		return jsonarray;
 	}
 
-	public JSONObject GetServiceNameCache(String searchtype) throws Exception {
+	public static JSONObject GetServiceNameCache(String searchtype) throws Exception {
 		StringBuilder responseSB = null;
 		// Encode the query
 		String GetData = "typeid=" + searchtype + "&method=get" + "&key=all";
@@ -397,8 +399,13 @@ public class searchUserdataServlet {
 //		STRING HOSTURL = UTIL.GETHOSTURLSTR("SERVICENAMECACHE");
 //		UTIL.GETCONSOLELOGGER().DEBUG("HOSTURL(SERVICENAMECACHE): " + HOSTURL);
 //		URL URL = New URL( hostURL + "/ServiceNameCache/RESTful/datacache?"+ GetData);
+//		URL url = new URL(
+//				"http://ws.crm.com.tw:8080/ServiceNameCache/RESTful/datacache?"
+//						+ GetData);
+		// 暫時版本
 		URL url = new URL(
-				"http://ws.crm.com.tw:8080/ServiceNameCache/RESTful/datacache?"
+
+				Util.getServiceNameCache_URL_ALL()
 						+ GetData);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setDoOutput(true);

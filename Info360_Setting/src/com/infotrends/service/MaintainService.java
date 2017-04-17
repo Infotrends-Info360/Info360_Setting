@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import util.Util;
-
 import com.infotrends.bean.Activitydata;
 import com.infotrends.bean.Activitygroups;
 import com.infotrends.bean.Activitymenu;
@@ -19,11 +17,14 @@ import com.infotrends.bean.Cfg_ServiceName_Setting;
 import com.infotrends.bean.CommonLink;
 import com.infotrends.bean.ContactData;
 import com.infotrends.bean.FourTableBeans;
+import com.infotrends.bean.GroupTableBeans;
 import com.infotrends.bean.Interaction;
+import com.infotrends.bean.PersonTableBeans;
 import com.infotrends.bean.Rpt_Activitylog;
 import com.infotrends.bean.Rpt_AgentStatus;
 import com.infotrends.bean.ServiceEntry;
 import com.infotrends.bean.SystemCfg;
+import com.infotrends.dao.ALL_functionDao;
 import com.infotrends.dao.ActivitydataDao;
 import com.infotrends.dao.ActivitygroupsDao;
 import com.infotrends.dao.ActivitymenuDao;
@@ -36,7 +37,9 @@ import com.infotrends.dao.Cfg_ServiceName_SettingDao;
 import com.infotrends.dao.CommonlinkDao;
 import com.infotrends.dao.ContactDataDao;
 import com.infotrends.dao.FourTableBeansDao;
+import com.infotrends.dao.GroupTableBeansDao;
 import com.infotrends.dao.InteractionDao;
+import com.infotrends.dao.PersonTableBeansDao;
 import com.infotrends.dao.Rpt_ActivitylogDao;
 import com.infotrends.dao.Rpt_AgentStatusDao;
 import com.infotrends.dao.ServiceEntryDao;
@@ -56,6 +59,7 @@ import com.infotrends.dao.CFG_personDao;
 import com.infotrends.dao.CFG_roleDao;
 import com.infotrends.dao.CFG_role_memberDao;
 import com.infotrends.util.IsError;
+import com.infotrends.util.Util;
 
 /**
  * 維護相關業務功能
@@ -63,6 +67,51 @@ import com.infotrends.util.IsError;
  * @author Lin
  */
 public class MaintainService {
+	
+	public List<CFG_function> ALL_function_state(CFG_function cfg_function) {
+		
+		List<CFG_function> cfg_functionlist = new ArrayList<CFG_function>();
+		try {
+			ALL_functionDao ALL_functionDao = new ALL_functionDao();
+			cfg_functionlist = ALL_functionDao.ALL_function_state(cfg_function);
+		} catch (Exception e) {
+			IsError.GET_EXCEPTION = e.getMessage();
+		}
+		return cfg_functionlist;
+}
+	
+	
+	public List<GroupTableBeans> Query_GroupTableBeans_STATE(GroupTableBeans grouptablebeans) {
+
+		List<GroupTableBeans> grouptablebeanslist = new ArrayList<GroupTableBeans>();
+		try {
+			GroupTableBeansDao grouptablebeansdao = new GroupTableBeansDao();
+			grouptablebeanslist = grouptablebeansdao.Query_GroupTableBeans_STATE(grouptablebeans);
+		} catch (Exception e) {
+			IsError.GET_EXCEPTION = e.getMessage();
+			e.printStackTrace();
+			Util.getFileLogger().error(e.getMessage());
+		}
+		return grouptablebeanslist;
+
+	}
+	
+	
+	
+	public List<PersonTableBeans> Query_PersonTableBeans_STATE(PersonTableBeans persontablebeans) {
+
+		List<PersonTableBeans> persontablebeanslist = new ArrayList<PersonTableBeans>();
+		try {
+			PersonTableBeansDao persontablebeansdao = new PersonTableBeansDao();
+			persontablebeanslist = persontablebeansdao.Query_PersonTableBeans_STATE(persontablebeans);
+		} catch (Exception e) {
+			IsError.GET_EXCEPTION = e.getMessage();
+			e.printStackTrace();
+			Util.getFileLogger().error(e.getMessage());
+		}
+		return persontablebeanslist;
+
+	}
 	
 	
 	public List<FourTableBeans> Selcet_FourTableBeans(FourTableBeans fourtablebeans) {
