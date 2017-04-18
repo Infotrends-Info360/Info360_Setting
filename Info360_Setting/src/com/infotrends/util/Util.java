@@ -34,6 +34,24 @@ public class Util {
 	public static void setServiceNameCache_URL_ALL(String serviceNameCache_URL_ALL) {
 		Attr.ServiceNameCache_URL_ALL = serviceNameCache_URL_ALL;
 	}
+	public static String getinfo360_DB_URL() {
+		return Attr.info360_DB_URL;
+	}
+	public static void setinfo360_DB_URL(String info360_DB_URL) {
+		Attr.info360_DB_URL = info360_DB_URL;
+	}
+	public static String getinfo360_DB_USER() {
+		return Attr.info360_DB_USER;
+	}
+	public static void setinfo360_DB_USER(String info360_DB_USER) {
+		Attr.info360_DB_USER = info360_DB_USER;
+	}
+	public static String getinfo360_DB_PASS() {
+		return Attr.info360_DB_PASS;
+	}
+	public static void setinfo360_DB_PASS(String info360_DB_PASS) {
+		Attr.info360_DB_PASS = info360_DB_PASS;
+	}
 	public static String getSdfDateFormat(){
 		return Attr.sdfDateFormat;
 	}
@@ -144,6 +162,10 @@ public class Util {
 
 		private static String infoacd_URL_ALL;
 		private static String ServiceNameCache_URL_ALL;
+		
+		private static String info360_DB_URL;
+		private static String info360_DB_USER;
+		private static String info360_DB_PASS;
 		
 	}
 
