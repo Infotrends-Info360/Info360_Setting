@@ -20,6 +20,7 @@ import java.util.List;
 
 
 
+
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -180,10 +181,9 @@ public class AuthorityServlet {
 //	    	BEJsonArray.put(BEJsonObject);
 //	   
 //	    jsonObject.put("RoleFunction", BEJsonArray);
- 	
+
 	     
 	    int i = Integer.parseInt(cfg_permissionlist.get(a).getFunction_dbid().trim());
-	    
 	    
 		//cfg_function
 			CFG_function cfg_function= new CFG_function();
@@ -192,15 +192,65 @@ public class AuthorityServlet {
 			List<CFG_function> cfg_functionlist = maintainService.select_function_dbid(cfg_function);
 
 			JSONObject FunctionJsonObject = new JSONObject();
-				FunctionJsonObject.put("Dbid", cfg_functionlist.get(0).getDbid());
-				FunctionJsonObject.put("Arraynumber", cfg_functionlist.get(0).getArraynumber());
-				FunctionJsonObject.put("Catalogid", cfg_functionlist.get(0).getCatalogid());
-				FunctionJsonObject.put("Code", cfg_functionlist.get(0).getCode());
-				FunctionJsonObject.put("Name", cfg_functionlist.get(0).getName());
-				FunctionJsonObject.put("Permimg", cfg_functionlist.get(0).getPermimg());
-				FunctionJsonObject.put("Programpath", cfg_functionlist.get(0).getProgrampath());
-				FunctionJsonObject.put("State", cfg_functionlist.get(0).getState());
-			        	
+				FunctionJsonObject.put("id", cfg_functionlist.get(0).getDbid());
+//				FunctionJsonObject.put("Arraynumber", cfg_functionlist.get(0).getArraynumber());
+//				FunctionJsonObject.put("Catalogid", cfg_functionlist.get(0).getCatalogid());
+//				FunctionJsonObject.put("Code", cfg_functionlist.get(0).getCode());
+				FunctionJsonObject.put("text", cfg_functionlist.get(0).getName());
+//				FunctionJsonObject.put("Permimg", cfg_functionlist.get(0).getPermimg());
+				FunctionJsonObject.put("href", cfg_functionlist.get(0).getProgrampath());
+//				FunctionJsonObject.put("State", cfg_functionlist.get(0).getState());
+				
+				if(cfg_functionlist.get(0).getParentid()==0){
+					FunctionJsonObject.put("parent", "#");
+					FunctionJsonObject.put("type", "root" );
+					
+				}else{
+					FunctionJsonObject.put("parent", cfg_functionlist.get(0).getParentid());
+					FunctionJsonObject.put("type", "default" );
+
+				}
+
+				
+				
+//				
+//			 	=========================================================
+//			 	 		
+//			 	 		for(int a = 0; a < commonlinklist.size(); a++){
+//
+//			 		    	TreeJsonObject.put("id", commonlinklist.get(a).getNodeid());
+//			 		    	TreeJsonObject.put("text", commonlinklist.get(a).getNodetext());
+//			 		    	TreeJsonObject.put("parent", commonlinklist.get(a).getParnetid());
+//			 		    	TreeJsonObject.put("createuser", commonlinklist.get(a).getCreateuserid());
+//			 		    	
+//			 		    	hrefJsonObject.put("href", commonlinklist.get(a).getNodeurl());
+//			 		    	
+//			 		    	String Pid =  Integer.toString(commonlinklist.get(a).getParnetid());
+//			 		    	String ppp = commonlinklist.get(a).getNodeurl();
+//			 		    	
+//			 		        if(Pid.equals("0")){
+//			 		    		String b = "#";
+//			 		    		Pid = b;
+//			 		    		TreeJsonObject.put("type", "root" );
+//
+//			 		    	}else{
+//			 		    		if(commonlinklist.get(a).getNodeurl()!=""&&commonlinklist.get(a).getNodeurl()!=null&&commonlinklist.get(a).getNodeurl().length()>1){
+//			 				    	TreeJsonObject.put("type", "file" );
+//			 				    
+//			 			        	}else{
+//			 			        	TreeJsonObject.put("type", "default" );
+//			 			  
+//			 			        	}
+//			 		    	}
+//
+//			 		    	TreeJsonObject.put("parent", Pid);
+//			 		    	TreeJsonArray.put(TreeJsonObject);
+//			 	  	}
+//
+//			 	 		======================
+				
+				
+				
 			FunctionArray.put(FunctionJsonObject);
 			jsonObject.put("Function", FunctionArray);
 			

@@ -512,3 +512,4 @@
 ### The error may involve activitymenu.Flag_activitymenu
 ### The error occurred while executing a query
 ### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 連接到主機 192.168.10.42 (連接埠 1433) 的 TCP/IP 連接已經失敗。錯誤: "connect timed out。確認連接屬性。確認 SQL Server 執行個體是否在主機上執行並接受在通訊埠的 TCP/IP 連接。確認防火牆未封鎖通訊埠的 TCP 連接。"。
+[17/04/18 10:31:46][ INFO][com.infotrends.db.DBAccess         -42   ] - SqlSessionFactoryBuilder created.

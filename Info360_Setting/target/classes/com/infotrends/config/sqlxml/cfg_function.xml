@@ -14,6 +14,8 @@
     		<result column="CATALOGID" 		jdbcType="INTEGER" property="catalogid"/>
     		<result column="ARRAYNUMBER" 	jdbcType="INTEGER" property="arraynumber"/>
     		<result column="PERMIMG" 		jdbcType="VARCHAR" property="permimg"/>
+    		<result column="PARENTID" 		jdbcType="VARCHAR" property="parentid"/>
+    		
     		
     		<collection property="cfg_BE_FunctionList" 	ofType="com.infotrends.bean.CFG_permission">
     			<id     column="DBID" 				  jdbcType="INTEGER" property="dbid"/>
@@ -25,7 +27,7 @@
     		
     	</resultMap>
 <select id="select_function_dbid" parameterType="com.infotrends.bean.CFG_function"  resultMap="cfg_functionResult">
-    select DBID,CODE,NAME,PROGRAMPATH,STATE,CATALOGID,ARRAYNUMBER,PERMIMG from tblCfg_Function where dbid =#{dbid}
+    select DBID,CODE,NAME,PROGRAMPATH,STATE,CATALOGID,ARRAYNUMBER,PERMIMG,PARENTID from tblCfg_Function where dbid =#{dbid}
 </select>
 
 <select id="select_function_state" parameterType="com.infotrends.bean.CFG_function"  resultMap="cfg_functionResult">
