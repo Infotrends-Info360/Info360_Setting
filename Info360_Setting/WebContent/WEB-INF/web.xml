@@ -28,6 +28,21 @@
 		<param-name>ServiceNameCache_URL_ALL</param-name>
 		<param-value>http://ws.crm.com.tw:8080/ServiceNameCache/RESTful/datacache?</param-value>
 	</context-param>
+	
+	<context-param>
+		<param-name>info360_DB_URL</param-name>
+		<param-value>jdbc:jtds:sqlserver://192.168.10.42:1433/HongLin</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>info360_DB_USER</param-name>
+		<param-value>sa</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>info360_DB_PASS</param-name>
+		<param-value>password</param-value>
+	</context-param>
 
 
 

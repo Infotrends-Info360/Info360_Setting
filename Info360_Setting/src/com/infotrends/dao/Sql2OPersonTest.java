@@ -15,6 +15,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.infotrends.bean.CFG_person;
+import com.infotrends.util.Util;
 
 public class Sql2OPersonTest {
 	
@@ -26,9 +27,10 @@ public class Sql2OPersonTest {
 	public List<CFG_person> query_Person_Json(CFG_person cfg_person){
 		List<CFG_person> cfg_personList = new ArrayList<CFG_person>();
 		
-		String DB_URL = "jdbc:sqlserver://192.168.10.42:1433;database=HongLin";
-		String USER = "sa";
-		String PASS = "password";
+//		String DB_URL = "jdbc:sqlserver://192.168.10.42:1433;database=HongLin";
+		String DB_URL = Util.getinfo360_DB_URL();
+		String USER = Util.getinfo360_DB_USER();
+		String PASS = Util.getinfo360_DB_PASS();
 		
 		Sql2o sql2o = new Sql2o(DB_URL, USER, PASS);
 
@@ -53,9 +55,10 @@ public class Sql2OPersonTest {
 	public JsonArray query_Person_Gson(CFG_person cfg_person){
 		List<CFG_person> cfg_personList = new ArrayList<CFG_person>();
 		
-		String DB_URL = "jdbc:sqlserver://192.168.10.42:1433;database=HongLin";
-		String USER = "sa";
-		String PASS = "password";
+//		String DB_URL = "jdbc:sqlserver://192.168.10.42:1433;database=HongLin";
+		String DB_URL = Util.getinfo360_DB_URL();
+		String USER = Util.getinfo360_DB_USER();
+		String PASS = Util.getinfo360_DB_PASS();
 		
 		Sql2o sql2o = new Sql2o(DB_URL, USER, PASS);
 
