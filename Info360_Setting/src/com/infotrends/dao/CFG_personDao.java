@@ -16,6 +16,32 @@ import com.infotrends.util.IsError;
  */
 public class CFG_personDao {
 	
+	
+	/**
+	 * Authority_PersonInfo
+	 * @param CFG_person
+	 */
+	public List<CFG_person> Authority_PersonInfo(CFG_person cfg_person){
+		DBAccess_old dbAccess = new DBAccess_old();
+		List<CFG_person> cfg_personList = new ArrayList<CFG_person>();
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = dbAccess.getSqlSession();
+			//通過sqlSession執行SQL語句
+			cfg_personList = sqlSession.selectList("cfg_person.Authority_PersonInfo", cfg_person);
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			IsError.GET_EXCEPTION = e.getMessage();
+		} finally {
+			if(sqlSession != null){
+			   sqlSession.close();
+			}
+		}
+		return cfg_personList;
+	}
+	
 	/**
 	 * Logic_Delete
 	 * @param CFG_person

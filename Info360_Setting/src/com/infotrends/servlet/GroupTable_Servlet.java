@@ -49,7 +49,8 @@ public class GroupTable_Servlet {
 		 String AllNothave_personusername="";
 		 List<String> all_Personkeys = new ArrayList<String>();
 		 HashMap<String,String> AllPersonMap = new HashMap<String,String>(); 
-
+//全部Person
+		 cfg_person.setState(0);
 		 List<CFG_person> cfg_personlist = maintainservice.Query_PersonInfo_STATE(cfg_person);
 		 for(int i=0 ; i<cfg_personlist.size();i++){
 			 AllPersonMap.put(String.valueOf(cfg_personlist.get(i).getDbid()), cfg_personlist.get(i).getUser_name());
@@ -62,23 +63,23 @@ public class GroupTable_Servlet {
 		    String AllNohave_functiondbid="";
 			String AllNothave_functionname="";
 			List<String> all_Functionkeys = new ArrayList<String>();
-			HashMap<String,String> AllFunctionMap = new HashMap<String,String>(); 
-			
-		 List<CFG_function> cfg_functionlist = maintainservice.select_function_state(cfg_function);
-		 for(int i=0 ; i<cfg_functionlist.size();i++){
-			 AllFunctionMap.put(String.valueOf(cfg_functionlist.get(i).getDbid()), cfg_functionlist.get(i).getName());
-			 all_Functionkeys.add(String.valueOf(cfg_functionlist.get(i).getDbid()));
-			 AllNohave_functiondbid +=cfg_functionlist.get(i).getDbid() +",";
-			 AllNothave_functionname+=cfg_functionlist.get(i).getName()+",";
+			HashMap<String,String> AllFunctionMap = new HashMap<String,String>();
+//全部Function
+			cfg_function.setState(0);
+			List<CFG_function> FunctionBeansList = maintainservice.ALL_function_state(cfg_function);	
+//		 List<CFG_function> cfg_functionlist = maintainservice.select_function_state(cfg_function);
+		 for(int i=0 ; i<FunctionBeansList.size();i++){
+			 AllFunctionMap.put(String.valueOf(FunctionBeansList.get(i).getDbid()), FunctionBeansList.get(i).getName());
+			 all_Functionkeys.add(String.valueOf(FunctionBeansList.get(i).getDbid()));
+			 AllNohave_functiondbid +=FunctionBeansList.get(i).getDbid() +",";
+			 AllNothave_functionname+=FunctionBeansList.get(i).getName()+",";
 		 }
 		 
 		 
 
 		 grouptablebeans.setState(state);
-
-
+		 
 			List<GroupTableBeans> GroupTableBeansList = maintainservice.Query_GroupTableBeans_STATE(grouptablebeans);
-//			List<PersonTableBeans> PersonTableBeansListModified = new ArrayList<>();
 
 			for (GroupTableBeans grouptablebeans2: GroupTableBeansList){
 				HashMap<String,String> HavePersonMap = new HashMap<String,String>(); 
@@ -164,19 +165,17 @@ public class GroupTable_Servlet {
 
 			}
 			
-			cfg_person.setState(0);	
-			List<CFG_person> PersonBeansList = maintainservice.Query_PersonInfo_STATE(cfg_person);
+//			cfg_person.setState(0);	
+//			List<CFG_person> PersonBeansList = maintainservice.Query_PersonInfo_STATE(cfg_person);
 //			System.out.println("person: "+PersonBeansList.size());
-			cfg_function.setState(0);
-			List<CFG_function> FunctionBeansList = maintainservice.ALL_function_state(cfg_function);
+//			cfg_function.setState(0);
+//			List<CFG_function> FunctionBeansList = maintainservice.ALL_function_state(cfg_function);
 //			System.out.println(FunctionBeansList.size());
 			
-			
 			grouptablebeanslist_data.setGroup(GroupTableBeansList);
-			grouptablebeanslist_data.setALLperson(PersonBeansList);
+			grouptablebeanslist_data.setALLperson(cfg_personlist);
 			grouptablebeanslist_data.setALLfunction(FunctionBeansList);
 
-			
 			Gson gson = new Gson();
 
 			jsongrouptablebeanslist_data = gson.toJson(grouptablebeanslist_data, GroupTableBeansList_data.class);

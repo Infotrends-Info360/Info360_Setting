@@ -12,7 +12,15 @@ public class CFG_function {
 	private int catalogid;
 	private int arraynumber;
 	private String permimg;
+	private int parentid;
 	
+	
+	public int getParentid() {
+		return parentid;
+	}
+	public void setParentid(int parentid) {
+		this.parentid = parentid;
+	}
 	private List<String> cfg_BE_FunctionList = new ArrayList<String>();
 	
 	public List<String> getCfg_BE_FunctionList() {

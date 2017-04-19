@@ -5,7 +5,6 @@ import java.util.List;
 public class GroupTableBeansList_data {
 
 	List<GroupTableBeans> group;
-	
 	List<CFG_person> ALLperson;
 	List<CFG_function> ALLfunction;
 
