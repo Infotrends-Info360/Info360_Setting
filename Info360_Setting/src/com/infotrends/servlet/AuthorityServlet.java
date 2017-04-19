@@ -206,7 +206,7 @@ public class AuthorityServlet {
 					FunctionJsonObject.put("type", "root" );
 					
 				}else{
-					FunctionJsonObject.put("parent", cfg_functionlist.get(0).getParentid());
+					FunctionJsonObject.put("parent", String.valueOf(cfg_functionlist.get(0).getParentid()));
 					FunctionJsonObject.put("type", "default" );
 
 				}
