@@ -34,14 +34,15 @@ public class MaintainSql2O {
 	 * @param cfg_person
 	 */
 
-	public JsonArray query_Person_Gson(CFG_person cfg_person) {
-		JsonArray cfg_personJsonArray = null;
+	public void query_Person_Gson(CFG_person cfg_person) {
+//		JsonArray cfg_personJsonArray = null;
 		try {
 			Sql2OPersonTest Sql2OPersonTest = new Sql2OPersonTest();
-			cfg_personJsonArray = Sql2OPersonTest.query_Person_Gson(cfg_person);
+//			cfg_personJsonArray = Sql2OPersonTest.query_Person_Gson(cfg_person);
+			Sql2OPersonTest.query_Person_Gson(cfg_person);
 		} catch (Exception e) {
 			IsError.GET_EXCEPTION = e.getMessage();
 		}
-		return cfg_personJsonArray;
+//		return cfg_personJsonArray;
 	}
 }

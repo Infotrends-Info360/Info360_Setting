@@ -52,7 +52,7 @@ public class Sql2OPersonTest {
 	 * DBID Query
 	 * @param CFG_person
 	 */
-	public JsonArray query_Person_Gson(CFG_person cfg_person){
+	public void query_Person_Gson(CFG_person cfg_person){
 		List<CFG_person> cfg_personList = new ArrayList<CFG_person>();
 		
 //		String DB_URL = "jdbc:sqlserver://192.168.10.42:1433;database=HongLin";
@@ -72,13 +72,18 @@ public class Sql2OPersonTest {
 //			        .addParameter("category", "foo")
 			        .executeAndFetch(CFG_person.class);
 		}
+		System.out.println("cfg_personList: "+cfg_personList);
 		
 		Gson gson = new Gson();
 		
-		JsonElement element = gson.toJsonTree(cfg_personList, new TypeToken<List<CFG_person>>() {}.getType());
+		//CFG_person.class
+		CFG_person cfg_person2 = gson.fromJson(cfg_personList.toString(), CFG_person.class);
+		cfg_person2.getAccount();
 		
-		JsonArray jsonArray = element.getAsJsonArray();
-		
-		return jsonArray;
+//		JsonElement element = gson.toJsonTree(cfg_personList, new TypeToken<List<CFG_person>>() {}.getType());
+//		
+//		JsonArray jsonArray = element.getAsJsonArray();
+//		
+//		return jsonArray;
 	}
 }
