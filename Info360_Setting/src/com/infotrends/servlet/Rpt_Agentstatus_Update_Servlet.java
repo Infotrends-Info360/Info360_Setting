@@ -22,6 +22,7 @@ import com.infotrends.bean.Cfg_AgentReason;
 import com.infotrends.bean.CommonLink;
 import com.infotrends.bean.Rpt_AgentStatus;
 import com.infotrends.service.MaintainService;
+import com.infotrends.util.Util;
 
 
 /**
@@ -41,13 +42,19 @@ public class Rpt_Agentstatus_Update_Servlet {
 	@Produces("application/json")
 	public Response PostFromPath(
 			//@FormParam("duration") 	String duration,
-			@FormParam("dbid") int dbid
+			@FormParam("dbid") int dbid,
+			@FormParam("action") String action
 			) throws IOException {
+		
+		Util.getFileLogger().info("Update_rpt_agentstatus - PostFromPath() start ");
+		Util.getFileLogger().info("Update_rpt_agentstatus - PostFromPath() dbid: " + dbid);
+		Util.getFileLogger().info("Update_rpt_agentstatus - PostFromPath() action: " + action);
 		
 		JSONObject jsonObject = new JSONObject();
 		Rpt_AgentStatus agentstatus = new Rpt_AgentStatus();
 		
 		agentstatus.setDbid(dbid);
+		agentstatus.setAction(action);
 		//agentstatus.setDuration(duration);
 		
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.sss");

@@ -15,6 +15,7 @@
     <result column="STARTDATETIME" 		jdbcType="VARCHAR" property="startdatetime"/>
     <result column="ENDDATETIME"     	jdbcType="VARCHAR" property="enddatetime"/>
  	<result column="DURATION"     	jdbcType="VARCHAR" property="duration"/>
+ 	<result column="ACTION"     	jdbcType="INTEGER" property="action"/>
    
     
 </resultMap>
@@ -33,9 +34,11 @@ where STATUS_DBID = #{status_dbid} AND PERSON_DBID = #{person_dbid} AND convert(
 </select>
 
 <update id="Update_agentstatus" parameterType="com.infotrends.bean.Rpt_AgentStatus">
-update  tblRpt_AgentStatus  set ENDDATETIME=#{enddatetime},DURATION=
-(SELECT DATEDIFF(second, STARTDATETIME, #{enddatetime}))
-    						where DBID=#{dbid}
+update  tblRpt_AgentStatus  
+set ENDDATETIME=#{enddatetime},
+	DURATION=(SELECT DATEDIFF(second, STARTDATETIME, #{enddatetime})),
+	ACTION= #{action}
+where DBID=#{dbid}
 </update>
  
 <select id="Insert_agentstatus" parameterType="com.infotrends.bean.Rpt_AgentStatus" resultType="integer">

@@ -15,6 +15,8 @@ public class Rpt_AgentStatus {
 	private String enddatetime;
 	
 	private String duration;
+	
+	private String action;
 
 	public int getDbid() {
 		return dbid;
@@ -71,4 +73,16 @@ public class Rpt_AgentStatus {
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+	
+	
+	
+	
 }
