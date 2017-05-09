@@ -56,7 +56,7 @@
 insert into tblCfg_ActivityData 
 (ACTIVITYGROUPSID,CODENAME,COLOR,SORT,TITLEFLAG,TITLEGROUP,DELETEFLAG,CREATEDATETIME) 
 values
-(#{activitygroupsid},#{codename},#{color},(Select top 1 SORT from tblCfg_ActivityData order by sort desc)+1 ,#{titleflag},#{titlegroup},#{deleteflag},#{createdatetime})
+(#{activitygroupsid},#{codename},#{color},(Select top 1 SORT from tblCfg_ActivityData order by sort+0 desc)+1 ,#{titleflag},#{titlegroup},#{deleteflag},#{createdatetime})
 </insert>
 
 <update id="Update_activitydata" parameterType="com.infotrends.bean.Activitydata">
